@@ -25,7 +25,7 @@ public class ServerController {
         connection = factory.newConnection();
         channel = connection.createChannel();
 
-        channel.queueDeclare(queueName, false, false,  false, null);
+        channel.queueDeclare(queueName, false, false, false, null);
     }
 
     void run() throws IOException, TimeoutException {
@@ -39,7 +39,17 @@ public class ServerController {
                 registerPlayer(player);
             }
         }
+        putPlayersNamesToQueues();
         closeConnection();
+    }
+
+    private void putPlayersNamesToQueues() throws IOException {
+        String firstPlayerQueueName = players.getFirstPlayer().getQueueName();
+        String secondPlayerQueueName = players.getSecondPlayer().getQueueName();
+
+        channel.basicPublish("", firstPlayerQueueName, null, players.getSecondPlayer().getName().getBytes());
+        channel.basicPublish("", secondPlayerQueueName, null, players.getFirstPlayer().getName().getBytes());
+
     }
 
     private void closeConnection() throws IOException, TimeoutException {
@@ -48,12 +58,17 @@ public class ServerController {
     }
 
     private void registerPlayer(Player player) {
-//        System.out.println(player.toString());
         try {
+            player.setQueueName(player.getName() + player.getIP());
+            generateQueueForPlayer(player);
             players.addPlayer(player);
-        } catch (TooManyPlayersException e) {
+        } catch (IOException | TooManyPlayersException e) {
             e.printStackTrace();
         }
         players.printPlayers();
+    }
+
+    private void generateQueueForPlayer(Player player) throws IOException {
+        channel.queueDeclare(player.getQueueName(), false, false, false, null);
     }
 }
