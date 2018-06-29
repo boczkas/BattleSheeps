@@ -3,15 +3,16 @@ package pl.jakubowskiprzemyslaw.tajgertim.queues;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
-
+@Component
 public class MQConnection {
 
-  private static Connection connection;
+  private Connection connection;
 
-  public static Channel openConnection() throws IOException, TimeoutException {
+  public Channel openConnection() throws IOException, TimeoutException {
 
     ConnectionFactory factory = new ConnectionFactory();
     factory.setUsername("admin");
@@ -22,7 +23,7 @@ public class MQConnection {
     return connection.createChannel();
   }
 
-  public static void closeConnection(Channel channel) throws IOException, TimeoutException {
+  public void closeConnection(Channel channel) throws IOException, TimeoutException {
     channel.close();
     if(connection.isOpen()) {
       connection.close();

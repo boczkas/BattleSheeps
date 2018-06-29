@@ -2,6 +2,7 @@ package pl.jakubowskiprzemyslaw.tajgertim.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.Channel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,10 +20,11 @@ public class PlayerController {
 
   private Channel channel;
   private String queueName = "players";
-
+  @Autowired
+  private MQConnection mqConnection;
 
   private void openConnection() throws IOException, TimeoutException {
-    channel = MQConnection.openConnection();
+    channel = mqConnection.openConnection();
     channel.queueDeclare(queueName, false, false, false, null);
   }
 
@@ -45,7 +47,7 @@ public class PlayerController {
     player.setIP(request.getRemoteAddr());
     sendMessage(player);
     request.getSession().setAttribute("player", player);
-    MQConnection.closeConnection(channel);
+    mqConnection.closeConnection(channel);
     return "result";
   }
 

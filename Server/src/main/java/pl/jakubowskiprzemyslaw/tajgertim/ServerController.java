@@ -7,6 +7,7 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.GetResponse;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 public class ServerController {
@@ -28,7 +29,7 @@ public class ServerController {
         channel.queueDeclare(queueName, false, false, false, null);
     }
 
-    void run() throws IOException, TimeoutException {
+    void run() throws IOException, TimeoutException, InterruptedException {
         ObjectMapper mapper = new ObjectMapper();
         GetResponse response;
         while (!players.arePresent()) {
@@ -43,16 +44,12 @@ public class ServerController {
         closeConnection();
     }
 
-    private void putPlayersNamesToQueues() throws IOException {
+    private void putPlayersNamesToQueues() throws IOException, InterruptedException {
         String firstPlayerQueueName = players.getFirstPlayer().getQueueName();
         String secondPlayerQueueName = players.getSecondPlayer().getQueueName();
 
         channel.basicPublish("", firstPlayerQueueName, null, ("Opponent's name: " + players.getSecondPlayer().getName() + ". Your move.").getBytes());
         channel.basicPublish("", secondPlayerQueueName, null, ("Opponent's name: " + players.getFirstPlayer().getName()+ ". Not your move").getBytes());
-
-        channel.basicPublish("", firstPlayerQueueName, null, ("Opponent's name: " + players.getSecondPlayer().getName() + ". Not your move").getBytes());
-        channel.basicPublish("", secondPlayerQueueName, null, ("Opponent's name: " + players.getFirstPlayer().getName()+ ". Your move").getBytes());
-
     }
 
     private void closeConnection() throws IOException, TimeoutException {

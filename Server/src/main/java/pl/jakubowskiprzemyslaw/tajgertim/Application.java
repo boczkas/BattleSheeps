@@ -6,7 +6,7 @@ import java.util.concurrent.TimeoutException;
 
 public class Application {
 
-    public static void main(String[] args) throws IOException, TimeoutException {
+    public static void main(String[] args) throws IOException, TimeoutException, InterruptedException {
         ServerController serverController = new ServerController();
         serverController.run();
     }

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Handling Form Submission</title>
+    <title>BattleSheep game</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
@@ -19,14 +19,13 @@
 </script>
 
 <script type="text/javascript">
-    setInterval(refreshName, 5000);
+    setInterval(refreshName, 500);
 </script>
 
 <body>
 	<h1>Result</h1>
     <p th:text="'Name: ' + ${player.name}" />
     <p th:text="'IP: ' + ${player.IP}" />
-    <a href="/player">Submit another message</a>
 
     <div id="opponent"></div>
 
