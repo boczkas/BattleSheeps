@@ -1,4 +1,4 @@
-package pl.jakubowskiprzemyslaw.tajgertim;
+package pl.jakubowskiprzemyslaw.tajgertim.models;
 
 public class Player {
     String name;

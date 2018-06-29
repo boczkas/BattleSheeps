@@ -47,8 +47,11 @@ public class ServerController {
         String firstPlayerQueueName = players.getFirstPlayer().getQueueName();
         String secondPlayerQueueName = players.getSecondPlayer().getQueueName();
 
-        channel.basicPublish("", firstPlayerQueueName, null, players.getSecondPlayer().getName().getBytes());
-        channel.basicPublish("", secondPlayerQueueName, null, players.getFirstPlayer().getName().getBytes());
+        channel.basicPublish("", firstPlayerQueueName, null, ("Opponent's name: " + players.getSecondPlayer().getName() + ". Your move.").getBytes());
+        channel.basicPublish("", secondPlayerQueueName, null, ("Opponent's name: " + players.getFirstPlayer().getName()+ ". Not your move").getBytes());
+
+        channel.basicPublish("", firstPlayerQueueName, null, ("Opponent's name: " + players.getSecondPlayer().getName() + ". Not your move").getBytes());
+        channel.basicPublish("", secondPlayerQueueName, null, ("Opponent's name: " + players.getFirstPlayer().getName()+ ". Your move").getBytes());
 
     }
 
