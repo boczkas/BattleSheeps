@@ -20,7 +20,7 @@ public class ServerController {
     ServerController() throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setUsername("admin");
-        factory.setPassword("admin");
+        factory.setPassword("Admin1234@!");
         factory.setHost("10.30.1.140");
 
         connection = factory.newConnection();
@@ -29,7 +29,7 @@ public class ServerController {
         channel.queueDeclare(queueName, false, false, false, null);
     }
 
-    void run() throws IOException, TimeoutException, InterruptedException {
+    void run() throws IOException, TimeoutException {
         ObjectMapper mapper = new ObjectMapper();
         GetResponse response;
         while (!players.arePresent()) {
@@ -44,7 +44,7 @@ public class ServerController {
         closeConnection();
     }
 
-    private void putPlayersNamesToQueues() throws IOException, InterruptedException {
+    private void putPlayersNamesToQueues() throws IOException {
         String firstPlayerQueueName = players.getFirstPlayer().getQueueName();
         String secondPlayerQueueName = players.getSecondPlayer().getQueueName();
 
