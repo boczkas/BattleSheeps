@@ -24,6 +24,8 @@ public class MQConnection {
 
   public static void closeConnection(Channel channel) throws IOException, TimeoutException {
     channel.close();
-    connection.close();
+    if(connection.isOpen()) {
+      connection.close();
+    }
   }
 }

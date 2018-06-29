@@ -29,6 +29,7 @@ public class ResultController {
     }
     String name = new String(response.getBody(), "UTF-8");
 
+
     MQConnection.closeConnection(clientChannel);
 
     return name;
