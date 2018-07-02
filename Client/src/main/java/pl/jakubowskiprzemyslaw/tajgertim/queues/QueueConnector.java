@@ -24,7 +24,7 @@ public class QueueConnector {
     private void createConnection() throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setUsername("admin");
-        factory.setPassword("Admin1234@!");
+        factory.setPassword("hidden");
         factory.setHost("10.30.1.140");
 
         connection = factory.newConnection();
