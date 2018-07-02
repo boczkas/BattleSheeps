@@ -13,15 +13,13 @@ public class PlayersContainer {
   public void addPlayer(Player player) {
     String key = player.getName();
     players.put(key, player);
-
-
   }
 
-  public Player getPlayer(String playerName) {
-    return players.get(playerName);
-  }
-
-  public int getNumberOfPlayers() {
+  public int getContainerSize() {
     return players.size();
+  }
+
+  public void clearContainer() {
+    players.clear();
   }
 }
