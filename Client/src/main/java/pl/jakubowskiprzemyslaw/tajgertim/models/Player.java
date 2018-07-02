@@ -10,6 +10,7 @@ public class Player {
     public Player(String name, String IP) {
         this.name = name;
         this.IP = IP;
+
     }
 
     @Override
@@ -35,4 +36,9 @@ public class Player {
     public void setIP(String IP) {
         this.IP = IP;
     }
+
+    public String obtainQueueName() {
+        return  "PlayerOpponentQueue" + name + IP;
+    }
+
 }
