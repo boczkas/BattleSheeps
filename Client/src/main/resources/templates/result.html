@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BattleSheep game</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<script type="text/javascript"
+        src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+    function refreshName() {
+        $.ajax({
+            url: 'opponent',
+            success: function (data) {
+                $('#opponent').html(data);
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    setInterval(refreshName, 500);
+</script>
+
+<body>
+	<h1>Result</h1>
+    <p th:text="'Name: ' + ${player.name}" />
+    <p th:text="'IP: ' + ${player.IP}" />
+
+    <div id="opponent"></div>
+
+</body>
+</html>
