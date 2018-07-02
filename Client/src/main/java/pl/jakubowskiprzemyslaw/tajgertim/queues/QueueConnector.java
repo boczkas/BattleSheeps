@@ -4,16 +4,16 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.GetResponse;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
-
+@Component
 public class QueueConnector {
 
-    Connection connection;
-    Channel channel;
-    String queueName;
+    private Connection connection;
+    private Channel channel;
 
     public void connectToQueue(String queueName) throws IOException, TimeoutException {
         createConnection();
@@ -38,7 +38,6 @@ public class QueueConnector {
         boolean queueAutoDelete = false;
         boolean queueExclusive = false;
         boolean queueDurable = false;
-        this.queueName = queueName;
         channel.queueDeclare(queueName, queueDurable, queueExclusive, queueAutoDelete, null);
     }
 
@@ -55,7 +54,7 @@ public class QueueConnector {
         }
     }
 
-    public GetResponse get(String playerQueueName) throws IOException {
+    public GetResponse getResponse(String playerQueueName) throws IOException {
         return channel.basicGet(playerQueueName, true);
     }
 

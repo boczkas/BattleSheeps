@@ -1,8 +1,8 @@
 package pl.jakubowskiprzemyslaw.tajgertim.models;
 
 public class Player {
-    String name;
-    String IP;
+    private String name;
+    private String IP;
 
     public Player() {
     }
@@ -10,15 +10,6 @@ public class Player {
     public Player(String name, String IP) {
         this.name = name;
         this.IP = IP;
-
-    }
-
-    @Override
-    public String toString() {
-        return "Player{" +
-                "name='" + name + '\'' +
-                ", IP='" + IP + '\'' +
-                '}';
     }
 
     public String getName() {
@@ -39,6 +30,14 @@ public class Player {
 
     public String obtainQueueName() {
         return  "PlayerOpponentQueue" + name + IP;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", IP='" + IP + '\'' +
+                '}';
     }
 
 }

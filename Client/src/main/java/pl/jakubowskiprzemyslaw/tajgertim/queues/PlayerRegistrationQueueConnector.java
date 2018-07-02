@@ -11,7 +11,7 @@ import java.util.concurrent.TimeoutException;
 @Component
 public class PlayerRegistrationQueueConnector extends QueueConnector {
 
-    String queueName = "players";
+    private String queueName = "players";
 
     public void connectToQueue() throws IOException, TimeoutException {
         super.connectToQueue(queueName);
