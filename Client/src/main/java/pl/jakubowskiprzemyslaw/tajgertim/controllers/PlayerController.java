@@ -7,21 +7,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.jakubowskiprzemyslaw.tajgertim.models.Player;
-import pl.jakubowskiprzemyslaw.tajgertim.queues.PlayerRegistrationQueueConnector;
+import pl.jakubowskiprzemyslaw.tajgertim.services.PlayerService;
+import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
+import pl.jakubowskiprzemyslaw.tajgertim.services.SessionService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 @Controller
 public class PlayerController {
 
-    private final PlayerRegistrationQueueConnector queueConnector;
+    private final PlayerService playerService;
+    private final SessionService sessionService;
+    private final QueueService queueService;
 
     @Autowired
-    public PlayerController(PlayerRegistrationQueueConnector queueConnector) {
-        this.queueConnector = queueConnector;
+    public PlayerController(PlayerService playerService, SessionService sessionService, QueueService queueService) {
+        this.playerService = playerService;
+        this.sessionService = sessionService;
+        this.queueService = queueService;
     }
 
     @GetMapping(value = "/player")
@@ -32,25 +37,14 @@ public class PlayerController {
 
     @PostMapping(value = "/player")
     public String playerSubmit(@ModelAttribute("player") Player player, HttpServletRequest request) throws IOException, TimeoutException {
-        setPlayerIP(player, request.getRemoteAddr());
+        playerService.setPlayerIP(player, request.getRemoteAddr());
 
-        savePlayerToSession(player, request.getSession());
+        sessionService.savePlayerToSession(player, request.getSession());
 
-        sendPlayerToQueue(player);
+        queueService.sendPlayerToQueue(player);
+
         return "result";
     }
 
-    private void sendPlayerToQueue(Player player) throws IOException, TimeoutException {
-        queueConnector.connectToQueue();
-        queueConnector.sendPlayerToQueue(player);
-//        playerQueueConnector.closeConnection();   //TODO: 13.07.2018 - connection is not closed, because rzuca bledami
-    }
 
-    private void savePlayerToSession(Player player, HttpSession session) {
-        session.setAttribute("player", player);
-    }
-
-    private void setPlayerIP(Player player, String IP) {
-        player.setIP(IP);
-    }
 }

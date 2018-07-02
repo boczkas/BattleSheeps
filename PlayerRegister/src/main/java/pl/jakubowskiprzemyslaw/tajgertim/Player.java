@@ -3,7 +3,6 @@ package pl.jakubowskiprzemyslaw.tajgertim;
 public class Player {
     String name;
     String IP;
-    String queueName;
 
     public Player() {
     }
@@ -18,7 +17,6 @@ public class Player {
         return "Player{" +
                 "name='" + name + '\'' +
                 ", IP='" + IP + '\'' +
-                ", queueName='" + queueName + '\'' +
                 '}';
     }
 
@@ -38,11 +36,8 @@ public class Player {
         this.IP = IP;
     }
 
-    public String getQueueName() {
-        return queueName;
+    public String obtainQueueName() {
+        return  "PlayerOpponentQueue" + name + IP;
     }
 
-    public void setQueueName(String queueName) {
-        this.queueName = queueName;
-    }
 }

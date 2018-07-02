@@ -7,7 +7,6 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.GetResponse;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 public class ServerController {
@@ -45,8 +44,8 @@ public class ServerController {
     }
 
     private void putPlayersNamesToQueues() throws IOException {
-        String firstPlayerQueueName = players.getFirstPlayer().getQueueName();
-        String secondPlayerQueueName = players.getSecondPlayer().getQueueName();
+        String firstPlayerQueueName = players.getFirstPlayer().obtainQueueName();
+        String secondPlayerQueueName = players.getSecondPlayer().obtainQueueName();
 
         channel.basicPublish("", firstPlayerQueueName, null, ("Opponent's name: " + players.getSecondPlayer().getName() + ". Your move.").getBytes());
         channel.basicPublish("", secondPlayerQueueName, null, ("Opponent's name: " + players.getFirstPlayer().getName()+ ". Not your move").getBytes());
@@ -59,7 +58,6 @@ public class ServerController {
 
     private void registerPlayer(Player player) {
         try {
-            player.setQueueName(player.getName() + player.getIP());
             generateQueueForPlayer(player);
             players.addPlayer(player);
         } catch (IOException | TooManyPlayersException e) {
@@ -69,6 +67,6 @@ public class ServerController {
     }
 
     private void generateQueueForPlayer(Player player) throws IOException {
-        channel.queueDeclare(player.getQueueName(), false, false, false, null);
+        channel.queueDeclare(player.obtainQueueName(), false, false, false, null);
     }
 }

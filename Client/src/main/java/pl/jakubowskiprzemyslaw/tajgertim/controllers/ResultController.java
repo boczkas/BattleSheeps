@@ -24,21 +24,30 @@ public class ResultController {
     @GetMapping(value = "/opponent", produces = "text/plain")
     public @ResponseBody
     String getOpponentName(HttpServletRequest request) throws IOException, TimeoutException {
-        Player player = (Player) request.getSession().getAttribute("player");
-        String playerQueueName = player.getName() + player.getIP();
+
+        Player player = getPlayerFromSession(request);
+
+        String playerQueueName = player.obtainQueueName();
+        String opponentName = getOpponentNameFromQueue(playerQueueName);
+
+        return opponentName;
+    }
+
+    private String getOpponentNameFromQueue(String playerQueueName) throws IOException, TimeoutException {
         Optional<GetResponse> response = Optional.empty();
         messageQueueConnector.connectToQueue(playerQueueName);
+
         while (!response.isPresent()) {
             response = Optional.ofNullable(messageQueueConnector.get(playerQueueName));
-
-            if (response.isPresent()) {
-                System.out.println(new String(response.get().getBody(), "UTF-8"));
-            }
         }
-        String name = new String(response.get().getBody(), "UTF-8");
 
-//        messageQueueConnector.closeConnection(); //TODO: 13.07.2018 - connection is not closed, because rzuca bledami
+        System.out.println(new String(response.get().getBody(), "UTF-8")); // TODO: 16.07.2018 to be replaced with logger
+        //        messageQueueConnector.closeConnection(); //TODO: 13.07.2018 - connection is not closed, because rzuca bledami
 
-        return name;
+        return new String(response.get().getBody(), "UTF-8");
+    }
+
+    private Player getPlayerFromSession(HttpServletRequest request) {
+        return (Player) request.getSession().getAttribute("player");
     }
 }
