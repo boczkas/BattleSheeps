@@ -11,6 +11,7 @@
     <modules>
         <module>PlayerRegister</module>
         <module>Client</module>
+        <module>TurnResolver</module>
     </modules>
 
 
