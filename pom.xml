@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>0.1-SNAPSHOT</version>
     <modules>
-        <module>Server</module>
+        <module>PlayerRegister</module>
         <module>Client</module>
     </modules>
 
