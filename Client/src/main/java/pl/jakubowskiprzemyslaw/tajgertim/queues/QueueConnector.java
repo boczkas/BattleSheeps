@@ -42,7 +42,8 @@ public class QueueConnector {
     }
 
     void sendMessage(String queueName, String json) throws IOException {
-        channel.basicPublish("", queueName, null, json.getBytes());
+        String exchange = "";
+        channel.basicPublish(exchange, queueName, null, json.getBytes());
     }
 
     public void closeConnection() throws IOException, TimeoutException {

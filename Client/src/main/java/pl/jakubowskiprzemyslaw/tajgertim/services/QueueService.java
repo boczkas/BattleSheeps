@@ -32,7 +32,7 @@ public class QueueService {
         while (!response.isPresent()) {
             response = Optional.ofNullable(queueConnector.getResponse(playerQueueName));
         }
-        
+
         return new String(response.get().getBody(), "UTF-8");
     }
 }
