@@ -1,5 +1,6 @@
 package pl.jakubowskiprzemyslaw.tajgertim.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,12 +13,13 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 @Controller
-public class ResultController {
+public class OpponentInfoController {
 
     private final SessionService sessionService;
     private final QueueService queueService;
 
-    public ResultController(SessionService sessionService, QueueService queueService) {
+    @Autowired
+    public OpponentInfoController(SessionService sessionService, QueueService queueService) {
         this.sessionService = sessionService;
         this.queueService = queueService;
     }

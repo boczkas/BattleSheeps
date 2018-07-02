@@ -23,7 +23,6 @@ public class QueueService {
     public void sendPlayerToQueue(Player player) throws IOException, TimeoutException {
         playerQueueConnector.connectToQueue();
         playerQueueConnector.sendPlayerToQueue(player);
-//        playerQueueConnector.closeConnection();   //TODO: 13.07.2018 - connection is not closed, because rzuca bledami
     }
 
     public String getOpponentNameFromQueue(String playerQueueName) throws IOException, TimeoutException {
@@ -33,10 +32,7 @@ public class QueueService {
         while (!response.isPresent()) {
             response = Optional.ofNullable(queueConnector.getResponse(playerQueueName));
         }
-
-        System.out.println(new String(response.get().getBody(), "UTF-8")); // TODO: 16.07.2018 to be replaced with logger
-        //        queueConnector.closeConnection(); //TODO: 13.07.2018 - connection is not closed, because rzuca bledami
-
+        
         return new String(response.get().getBody(), "UTF-8");
     }
 }
