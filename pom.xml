@@ -10,8 +10,7 @@
     <version>0.1-SNAPSHOT</version>
     <modules>
         <module>PlayerRegister</module>
-        <module>REST</module>
-        <module>Client</module>
+        <module>Client-REST</module>
         <module>TurnResolver</module>
     </modules>
 

@@ -2,7 +2,6 @@ package pl.jakubowskiprzemyslaw.REST.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import pl.jakubowskiprzemyslaw.REST.models.Game;
 
 @Controller
 public class MainController {

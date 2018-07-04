@@ -22,4 +22,12 @@ public class Player implements Serializable { //TODO: 4.07.2018 - add more game 
   public void setPlayerIP(String playerIP) {
     this.playerIP = playerIP;
   }
+
+  @Override
+  public String toString() {
+    return "Player{" +
+            "playerName='" + playerName + '\'' +
+            ", playerIP='" + playerIP + '\'' +
+            '}';
+  }
 }

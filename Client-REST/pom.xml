@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>pl.jakubowskiprzemyslaw</groupId>
-    <artifactId>REST</artifactId>
+    <artifactId>Client-REST</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>REST</name>
+    <name>Client-REST</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>
