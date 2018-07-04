@@ -7,36 +7,34 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.jakubowskiprzemyslaw.REST.models.GameConfiguration;
-import pl.jakubowskiprzemyslaw.REST.queue.QueueSender;
+import pl.jakubowskiprzemyslaw.REST.models.Game;
+import pl.jakubowskiprzemyslaw.REST.services.QueueService;
+import pl.jakubowskiprzemyslaw.REST.services.SessionService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
-public class GameConfigController {
-
-  private final QueueSender sender;
+public class GameConfigController extends RESTController {
 
   @Value("${queue.gameConfig}")
   private String gameConfigQueueName;
 
   @Autowired
-  public GameConfigController(QueueSender sender) {
-    this.sender = sender;
+  public GameConfigController(QueueService queueService, SessionService sessionService) {
+    super(queueService, sessionService);
   }
 
   @GetMapping(value = "/gameconfig", produces = "text/html")
   public String getGameConfig(Model model) {
-    model.addAttribute("configuration", new GameConfiguration());
+    model.addAttribute("configuration", new Game());
     return "gameconfig";
   }
 
   @PostMapping(value = "/gameconfig", produces = "text/html")
-  public String sendGameConfig(@ModelAttribute("configuration") GameConfiguration configuration, HttpServletRequest request) {
-    configuration.setIp(request.getRemoteAddr());
-    request.getSession().setAttribute("configuration", configuration);
-    sender.sendMessageToQueue(gameConfigQueueName, configuration);
-    return "playerconfig";
+  public String sendGameConfig(@Valid @ModelAttribute("configuration") Game configuration, HttpServletRequest request) {
+    addObjectToSession(request, configuration);
+    sendMessageToQueue(gameConfigQueueName, configuration);
+    return "redirect:/playerconfig";
   }
-
 }

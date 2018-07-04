@@ -1,4 +1,4 @@
-package pl.jakubowskiprzemyslaw.REST.queue;
+package pl.jakubowskiprzemyslaw.REST.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class QueueSender {
+public class QueueService {
 
   private final RabbitTemplate template;
-  private static Logger logger = LoggerFactory.getLogger(QueueSender.class);
+  private static Logger logger = LoggerFactory.getLogger(QueueService.class);
 
   @Autowired
-  public QueueSender(RabbitTemplate template) {
+  public QueueService(RabbitTemplate template) {
     this.template = template;
   }
 

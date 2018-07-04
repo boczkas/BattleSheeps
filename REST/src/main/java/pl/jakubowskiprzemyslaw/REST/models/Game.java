@@ -1,14 +1,10 @@
 package pl.jakubowskiprzemyslaw.REST.models;
 
-import org.springframework.stereotype.Component;
-
 import java.io.Serializable;
 
-@Component
-public class GameConfiguration implements Serializable {
+public class Game implements Serializable { //TODO: 4.07.2018 - add more game configuration parameters according to requirements
 
   private String gameName;
-  private String ip;
 
   public String getGameName() {
     return gameName;
@@ -18,19 +14,10 @@ public class GameConfiguration implements Serializable {
     this.gameName = gameName;
   }
 
-  public String getIp() {
-    return ip;
-  }
-
-  public void setIp(String ip) {
-    this.ip = ip;
-  }
-
   @Override
   public String toString() {
     return "GameConfiguration{" +
             "gameName='" + gameName + '\'' +
-            ", ip='" + ip + '\'' +
             '}';
   }
 }
