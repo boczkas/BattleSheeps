@@ -26,11 +26,7 @@ public class PlayerConfigController extends RESTController {
   }
 
   @GetMapping(value = "/playerconfig", produces = "text/html")
-  public String getGameConfig(Model model, HttpServletRequest request) {
-
-    if(!isObjectInSession(request, "Game"))
-      return "redirect:/gameconfig";
-
+  public String getGameConfig(Model model) {
     model.addAttribute("player", new Player());
     return "playerconfig";
   }

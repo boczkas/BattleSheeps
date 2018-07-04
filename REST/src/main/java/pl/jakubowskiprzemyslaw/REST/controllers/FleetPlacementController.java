@@ -19,9 +19,6 @@ public class FleetPlacementController extends RESTController {
 
   @GetMapping(value = "/fleetplacement")
   public String getFleetPlacement(Model model, HttpServletRequest request) {
-    if(!isObjectInSession(request, "Game"))
-      return "redirect:/gameconfig";
-
     if(!isObjectInSession(request, "Player"))
       return "redirect:/playerconfig";
 

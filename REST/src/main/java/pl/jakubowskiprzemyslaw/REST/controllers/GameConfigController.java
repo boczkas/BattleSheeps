@@ -2,11 +2,14 @@ package pl.jakubowskiprzemyslaw.REST.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.messaging.simp.user.SimpUserRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.socket.WebSocketSession;
 import pl.jakubowskiprzemyslaw.REST.models.Game;
 import pl.jakubowskiprzemyslaw.REST.services.QueueService;
 import pl.jakubowskiprzemyslaw.REST.services.SessionService;
