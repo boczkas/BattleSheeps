@@ -32,17 +32,13 @@ public class PlayerController {
     @GetMapping(value = "/player")
     public String getPlayerForm(Model model) {
         model.addAttribute("player", new Player());
-        return "player";
+        return "playerconfig";
     }
 
     @PostMapping(value = "/player")
     public String playerSubmit(@ModelAttribute("player") Player player, HttpServletRequest request) throws IOException, TimeoutException {
         playerService.setPlayerIP(player, request.getRemoteAddr());
-
         sessionService.savePlayerToSession(player, request.getSession());
-
-        queueService.sendPlayerToQueue(player);
-
         return "result";
     }
 

@@ -1,6 +1,7 @@
 package pl.jakubowskiprzemyslaw.tajgertim.services;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.jakubowskiprzemyslaw.tajgertim.jobs.PlayerJob;
@@ -14,15 +15,16 @@ public class PlayerQueueReceiver {
   private final PlayerJob job;
 
   @Autowired
-  public PlayerQueueReceiver(PlayersContainer container, PlayerJob job) {
+  public PlayerQueueReceiver(PlayersContainer container, RabbitListenerEndpointRegistry registry) {
     this.playersContainer = container;
-    this.job = job;
+    this.job = new PlayerJob(registry);
   }
 
-  @RabbitListener(queues = "TurnPlayerQueue")
+  @RabbitListener(id = "playerReceiver", queues = "TurnPlayerQueue")
   public void receive(Player player) {
     playersContainer.addPlayer(player);
     job.makeTurn(playersContainer);
+    System.out.println(player);
   }
 
 }

@@ -1,8 +1,8 @@
 package pl.jakubowskiprzemyslaw.tajgertim.models;
 
 public class Player {
-    String name;
-    String IP;
+    private String name;
+    private String IP;
 
     public Player() {
     }
