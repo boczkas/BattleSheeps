@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.jakubowskiprzemyslaw.REST.models.GameConfigration;
-import pl.jakubowskiprzemyslaw.REST.services.QueueService;
-import pl.jakubowskiprzemyslaw.REST.services.SessionService;
+import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
+import pl.jakubowskiprzemyslaw.tajgertim.services.SessionService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;

@@ -1,4 +1,4 @@
-package pl.jakubowskiprzemyslaw.REST.services;
+package pl.jakubowskiprzemyslaw.tajgertim.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

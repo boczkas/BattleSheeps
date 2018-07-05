@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>0.1-SNAPSHOT</version>
     <modules>
-        <module>Client</module>
+        <module>QueueAndSessionService</module>
         <module>REST</module>
     </modules>
 
@@ -27,5 +27,18 @@
             <version>1.7.25</version>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>all</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>QueueAndSessionService</module>
+                <module>REST</module>
+            </modules>
+        </profile>
+    </profiles>
 
 </project>

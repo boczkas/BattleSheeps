@@ -1,7 +1,7 @@
 package pl.jakubowskiprzemyslaw.REST.controllers;
 
-import pl.jakubowskiprzemyslaw.REST.services.QueueService;
-import pl.jakubowskiprzemyslaw.REST.services.SessionService;
+import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
+import pl.jakubowskiprzemyslaw.tajgertim.services.SessionService;
 
 import javax.servlet.http.HttpServletRequest;
 
