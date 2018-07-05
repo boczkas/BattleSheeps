@@ -9,7 +9,7 @@ import java.util.Optional;
 @Service
 public class SessionService {
 
-  public void addObjectToSession(HttpServletRequest request, Object object) {
+  public void addObjectToSessionRequest(HttpServletRequest request, Object object) {
     HttpSession session = request.getSession();
     session.setAttribute(object.getClass().getSimpleName(), object);
   }

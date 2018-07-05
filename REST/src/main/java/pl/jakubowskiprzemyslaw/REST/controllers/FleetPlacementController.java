@@ -10,7 +10,7 @@ import pl.jakubowskiprzemyslaw.REST.services.SessionService;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class FleetPlacementController extends RESTController {
+public class FleetPlacementController extends BaseController {
 
   @Autowired
   public FleetPlacementController(QueueService queueService, SessionService sessionService) {
@@ -19,8 +19,9 @@ public class FleetPlacementController extends RESTController {
 
   @GetMapping(value = "/fleetplacement")
   public String getFleetPlacement(Model model, HttpServletRequest request) {
-    if(!isObjectInSession(request, "Player"))
+    if(!isObjectInSession(request, "Player")) {
       return "redirect:/playerconfig";
+    }
 
     return "fleetplacement";
   }

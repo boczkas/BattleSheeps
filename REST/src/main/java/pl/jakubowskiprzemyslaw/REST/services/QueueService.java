@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class QueueService {
 
   private final RabbitTemplate template;
-  private static Logger logger = LoggerFactory.getLogger(QueueService.class);
+  private static final Logger logger = LoggerFactory.getLogger(QueueService.class);
 
   @Autowired
   public QueueService(RabbitTemplate template) {
@@ -19,8 +19,8 @@ public class QueueService {
   }
 
   @RabbitHandler
-  public void sendMessageToQueue(String queueName, Object message) {
-    logger.info("Sending message: " + message + " to queue: " + queueName);
-    template.convertAndSend(queueName, message);
+  public void sendObjectToQueue(String queueName, Object object) {
+    logger.info("Sending message: " + object + " to queue: " + queueName);
+    template.convertAndSend(queueName, object);
   }
 }

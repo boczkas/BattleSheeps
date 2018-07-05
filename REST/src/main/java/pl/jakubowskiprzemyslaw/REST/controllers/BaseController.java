@@ -5,22 +5,22 @@ import pl.jakubowskiprzemyslaw.REST.services.SessionService;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class RESTController {
+public class BaseController {
 
   private final QueueService queueService;
   private final SessionService sessionService;
 
-  RESTController(QueueService queueService, SessionService sessionService) {
+  BaseController(QueueService queueService, SessionService sessionService) {
     this.queueService = queueService;
     this.sessionService = sessionService;
   }
 
-  void sendMessageToQueue(String queueName, Object message) {
-    queueService.sendMessageToQueue(queueName, message);
+  void sendObjectToQueue(String queueName, Object object) {
+    queueService.sendObjectToQueue(queueName, object);
   }
 
-  void addObjectToSession(HttpServletRequest request, Object object) {
-    sessionService.addObjectToSession(request, object);
+  void addObjectToSessionRequest(HttpServletRequest request, Object object) {
+    sessionService.addObjectToSessionRequest(request, object);
   }
 
   boolean isObjectInSession(HttpServletRequest request, String objectName) {

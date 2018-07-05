@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.jakubowskiprzemyslaw.REST.models.Game;
 import pl.jakubowskiprzemyslaw.REST.models.Player;
 import pl.jakubowskiprzemyslaw.REST.services.QueueService;
 import pl.jakubowskiprzemyslaw.REST.services.SessionService;
@@ -15,9 +14,9 @@ import pl.jakubowskiprzemyslaw.REST.services.SessionService;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class PlayerConfigController extends RESTController {
+public class PlayerConfigController extends BaseController {
 
-  @Value("${queue.playerConfig}")
+  @Value("${queueName.playerConfig}")
   private String playerConfigQueueName;
 
   @Autowired
@@ -33,8 +32,8 @@ public class PlayerConfigController extends RESTController {
 
   @PostMapping(value = "/playerconfig", produces = "text/html")
   public String sendGameConfig(@ModelAttribute("player") Player player, HttpServletRequest request) {
-    addObjectToSession(request, player);
-    sendMessageToQueue(playerConfigQueueName, player);
+    addObjectToSessionRequest(request, player);
+    sendObjectToQueue(playerConfigQueueName, player);
     return "redirect:/fleetplacement";
   }
 }
