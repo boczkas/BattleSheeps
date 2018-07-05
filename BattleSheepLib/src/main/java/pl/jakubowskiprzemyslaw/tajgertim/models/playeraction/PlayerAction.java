@@ -1,0 +1,23 @@
+package pl.jakubowskiprzemyslaw.tajgertim.models.playeraction;
+
+import pl.jakubowskiprzemyslaw.tajgertim.models.QueueObject;
+import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
+import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.action.Action;
+
+public class PlayerAction implements QueueObject {
+    private Player player;
+    private Action action;
+
+    public PlayerAction(Player player, Action action) {
+        this.player = player;
+        this.action = action;
+    }
+
+    @Override
+    public String toString() {
+        return "PlayerAction{" +
+                "player=" + player +
+                ", action=" + action +
+                '}';
+    }
+}

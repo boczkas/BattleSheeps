@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>0.1-SNAPSHOT</version>
     <modules>
-        <module>QueueAndSessionService</module>
+        <module>BattleSheepLib</module>
         <module>REST</module>
     </modules>
 
@@ -34,7 +34,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>QueueAndSessionService</module>
+                <module>BattleSheepLib</module>
                 <module>REST</module>
             </modules>
         </profile>
