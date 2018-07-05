@@ -2,19 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <!--<parent>-->
-    <!--<groupId>org.springframework.boot</groupId>-->
-    <!--<artifactId>spring-boot-starter-parent</artifactId>-->
-    <!--<version>2.0.3.RELEASE</version>-->
-    <!--<relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
-    <!--</parent>-->
-
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>pl.jakubowskiprzemyslaw.tajgertim</groupId>
     <artifactId>QueueAndSessionService</artifactId>
     <version>1.0</version>
-    <!--<packaging>jar</packaging>-->
+    <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,7 +16,6 @@
         <spring.version>2.0.3.RELEASE</spring.version>
         <maven.assembly.version>3.1.0</maven.assembly.version>
         <tomcat.version>9.0.8</tomcat.version>
-
     </properties>
 
     <dependencies>
@@ -32,7 +24,6 @@
             <artifactId>spring-boot-starter</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
@@ -76,20 +67,6 @@
                     <target>8</target>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>spring-releases</id>
-            <url>https://repo.spring.io/libs-release</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>spring-releases</id>
-            <url>https://repo.spring.io/libs-release</url>
-        </pluginRepository>
-    </pluginRepositories>
 </project>
