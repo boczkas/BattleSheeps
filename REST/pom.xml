@@ -29,8 +29,6 @@
             <groupId>pl.jakubowskiprzemyslaw.tajgertim</groupId>
             <artifactId>QueueAndSessionService</artifactId>
             <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/../QueueAndSessionService/target/QueueAndSessionService-1.0-jar-with-dependencies.jar</systemPath>
         </dependency>
 
         <dependency>
