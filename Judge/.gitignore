@@ -1,12 +1,6 @@
-/.idea
-*.class
-*.iml
-
-
-/**/target
 /target/
 !.mvn/wrapper/maven-wrapper.jar
-*.swp
+
 ### STS ###
 .apt_generated
 .classpath
