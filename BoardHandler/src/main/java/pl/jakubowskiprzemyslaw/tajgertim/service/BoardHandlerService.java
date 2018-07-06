@@ -1,4 +1,4 @@
-package pl.jakubowskiprzemyslaw.tajgertim.configuration;
+package pl.jakubowskiprzemyslaw.tajgertim.service;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class BoardHandlerService {
     }
 
     @RabbitListener(queues = "BoardHandlerShotQueryQueueTest")
-    public void listenOnJudgePlayerShootResultQueue(PlayerShootCoordinate playerShootCoordinate) {
+    public void listenOnBoardHandlerShotQueryQueueTest(PlayerShootCoordinate playerShootCoordinate) {
         System.out.println("Received message" + playerShootCoordinate);
         queueService.sendObjectToQueue("ShotHandlerFieldStatusQueueTest",
                 new FieldStatus(

@@ -10,6 +10,10 @@ public class Shot implements Action {
         this.coordinate = coordinate;
     }
 
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+
     @Override
     public String toString() {
         return "Shot{" +

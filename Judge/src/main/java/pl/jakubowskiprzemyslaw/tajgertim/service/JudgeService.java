@@ -1,4 +1,4 @@
-package pl.jakubowskiprzemyslaw.tajgertim.configuration;
+package pl.jakubowskiprzemyslaw.tajgertim.service;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;

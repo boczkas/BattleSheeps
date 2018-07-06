@@ -14,6 +14,14 @@ public class PlayerAction implements QueueObject {
         this.action = action;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Action getAction() {
+        return action;
+    }
+
     @Override
     public String toString() {
         return "PlayerAction{" +
