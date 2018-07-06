@@ -2,13 +2,11 @@ package pl.jakubowskiprzemyslaw.tajgertim.service;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
-import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
-import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldStatus;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.PlayerAction;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.action.Move;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.action.Shot;
 import pl.jakubowskiprzemyslaw.tajgertim.models.round.NextRoundStatus;
-import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.PlayerShootCoordinate;
+import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
 @Service
@@ -25,11 +23,11 @@ public class PlayingStateMachineService {
         System.out.println("Received message" + playerAction);
 
         if(playerAction.getAction() instanceof Shot) {
-            queueService.sendObjectToQueue("ShotHandlerPlayerShotQueueTest", playerAction);
+            queueService.sendObjectToQueue(Queues._10ShotHandlerPlayerShotQueue, playerAction);
         }
 
         if(playerAction.getAction() instanceof Move) {
-            queueService.sendObjectToQueue("MoveHandlerPlayerMoveQueueTest", playerAction);
+            queueService.sendObjectToQueue(Queues._11MoveHandlerPlayerMoveQueue, playerAction);
         }
     }
 
