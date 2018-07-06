@@ -27,7 +27,7 @@
     <dependencies>
         <dependency>
             <groupId>pl.jakubowskiprzemyslaw.tajgertim</groupId>
-            <artifactId>QueueAndSessionService</artifactId>
+            <artifactId>BattleSheepLib</artifactId>
             <version>1.0</version>
         </dependency>
 
