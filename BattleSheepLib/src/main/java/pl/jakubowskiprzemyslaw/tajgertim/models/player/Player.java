@@ -2,11 +2,16 @@ package pl.jakubowskiprzemyslaw.tajgertim.models.player;
 
 import java.io.Serializable;
 
-public class Player implements Serializable {
-  private String name;
-  private String IP;
+public final class Player implements Serializable {
+  private final String name;
+  private final String IP;
 
-  @Override
+    public Player(String name, String IP) {
+        this.name = name;
+        this.IP = IP;
+    }
+
+    @Override
   public String toString() {
     return "Player{" +
             "name='" + name + '\'' +
@@ -18,16 +23,8 @@ public class Player implements Serializable {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
   public String getIP() {
     return IP;
-  }
-
-  public void setIP(String IP) {
-    this.IP = IP;
   }
 
 }

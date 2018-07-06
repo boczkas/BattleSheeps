@@ -5,8 +5,8 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.action.Action;
 
 public class PlayerAction implements QueueObject {
-    private Player player;
-    private Action action;
+    private final Player player;
+    private final Action action;
 
     public PlayerAction(Player player, Action action) {
         this.player = player;

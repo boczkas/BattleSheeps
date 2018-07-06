@@ -3,11 +3,7 @@ package pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.action;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 
 public class Shot implements Action {
-    Coordinate coordinate;
-
-    public Shot() {
-        this(new Coordinate());
-    }
+    private final Coordinate coordinate;
 
     public Shot(Coordinate coordinate) {
         this.coordinate = coordinate;

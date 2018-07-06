@@ -1,6 +1,6 @@
 package pl.jakubowskiprzemyslaw.tajgertim.models.coordinates;
 
-public enum CoordinateState {
+public enum FieldState {
     HIT_MAST,
     NOT_HIT_MAST,
     EMPTY

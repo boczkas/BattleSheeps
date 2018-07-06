@@ -9,8 +9,8 @@ public class PlayerShootCoordinate implements QueueObject {
     private Coordinate coordinate;
 
     public PlayerShootCoordinate() {
-        this.player = new Player();
-        this.coordinate = new Coordinate();
+        this.player = new Player("", "");
+        this.coordinate = new Coordinate(0,0);
     }
 
     public PlayerShootCoordinate(Player player, Coordinate coordinate) {

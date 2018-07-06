@@ -31,7 +31,7 @@ public class PlayerController {
 
     @GetMapping(value = "/player")
     public String getPlayerForm(Model model) {
-        model.addAttribute("player", new Player());
+        model.addAttribute("player", new Player("", ""));
         return "player";
     }
 
