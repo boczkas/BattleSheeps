@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.jakubowskiprzemyslaw.REST.models.Player;
+import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 import pl.jakubowskiprzemyslaw.tajgertim.services.SessionService;
 
@@ -26,7 +26,7 @@ public class PlayerConfigController extends BaseController {
 
   @GetMapping(value = "/playerconfig", produces = "text/html")
   public String getGameConfig(Model model) {
-    model.addAttribute("player", new Player());
+    model.addAttribute("player", new Player("", ""));
     return "playerconfig";
   }
 
