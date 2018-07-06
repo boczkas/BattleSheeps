@@ -7,9 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.jakubowskiprzemyslaw.REST.models.GameConfigration;
-import pl.jakubowskiprzemyslaw.REST.services.QueueService;
-import pl.jakubowskiprzemyslaw.REST.services.SessionService;
+import pl.jakubowskiprzemyslaw.REST.models.GameConfiguration;
+import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
+import pl.jakubowskiprzemyslaw.tajgertim.services.SessionService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -27,12 +27,12 @@ public class GameConfigController extends BaseController {
 
   @GetMapping(value = "/gameconfig", produces = "text/html")
   public String getGameConfig(Model model) {
-    model.addAttribute("configuration", new GameConfigration());
+    model.addAttribute("configuration", new GameConfiguration());
     return "gameconfig";
   }
 
   @PostMapping(value = "/gameconfig", produces = "text/html")
-  public String sendGameConfig(@Valid @ModelAttribute("configuration") GameConfigration configuration, HttpServletRequest request) {
+  public String sendGameConfig(@Valid @ModelAttribute("configuration") GameConfiguration configuration, HttpServletRequest request) {
     addObjectToSessionRequest(request, configuration);
     sendObjectToQueue(gameConfigQueueName, configuration);
     return "redirect:/playerconfig";
