@@ -5,6 +5,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 
 public class PlayerShootCoordinate implements QueueObject {
+    private static final long serialVersionUID = 6941519339539583564L;
     private Player player;
     private Coordinate coordinate;
 
@@ -16,6 +17,14 @@ public class PlayerShootCoordinate implements QueueObject {
     public PlayerShootCoordinate(Player player, Coordinate coordinate) {
         this.player = player;
         this.coordinate = coordinate;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Coordinate getCoordinate() {
+        return coordinate;
     }
 
     @Override

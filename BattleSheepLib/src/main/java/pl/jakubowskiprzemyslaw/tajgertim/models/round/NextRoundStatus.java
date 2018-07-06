@@ -9,6 +9,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.QueueObject;
  */
 
 public class NextRoundStatus implements QueueObject {
+    private static final long serialVersionUID = -2030492077082436469L;
     RoundStatus roundStatus;
 
     public NextRoundStatus() {

@@ -5,6 +5,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.action.Action;
 
 public class PlayerAction implements QueueObject {
+    private static final long serialVersionUID = 7276281482073190313L;
     private final Player player;
     private final Action action;
 

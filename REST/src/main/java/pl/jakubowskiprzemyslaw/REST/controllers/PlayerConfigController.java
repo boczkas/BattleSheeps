@@ -33,9 +33,15 @@ public class PlayerConfigController extends BaseController {
 
   @PostMapping(value = "/playerconfig", produces = "text/html")
   public String sendGameConfig(@ModelAttribute("player") Player player, HttpServletRequest request) {
+    String IP = getPlayerIP(request);
+    player.setIP(IP);
     addObjectToSessionRequest(request, player);
     PlayerConfiguration playerConfiguration = new PlayerConfiguration(player);
     sendObjectToQueue(playerConfigQueueName, playerConfiguration);
     return "redirect:/fleetplacement";
+  }
+
+  private String getPlayerIP(HttpServletRequest request) {
+    return request.getRemoteAddr();
   }
 }

@@ -11,6 +11,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
  */
 
 public class FieldStatus implements QueueObject {
+    private static final long serialVersionUID = -8040984426644355070L;
     private Coordinate coordinate;
     private FieldState fieldState;
     private Player player;
