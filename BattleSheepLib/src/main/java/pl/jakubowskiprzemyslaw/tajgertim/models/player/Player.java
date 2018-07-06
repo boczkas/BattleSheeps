@@ -3,9 +3,10 @@ package pl.jakubowskiprzemyslaw.tajgertim.models.player;
 import java.io.Serializable;
 
 public final class Player implements Serializable {
+
     private static final long serialVersionUID = 7538406378948395353L;
     private final String name;
-    private final String IP;
+    private String IP;
 
     public Player(String name, String IP) {
         this.name = name;
@@ -28,4 +29,7 @@ public final class Player implements Serializable {
         return IP;
     }
 
+  public void setIP(String IP) {
+    this.IP = IP;
+  }
 }
