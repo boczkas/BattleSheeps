@@ -1,5 +1,6 @@
 package pl.jakubowskiprzemyslaw.REST.controllers;
 
+import pl.jakubowskiprzemyslaw.tajgertim.models.QueueObject;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 import pl.jakubowskiprzemyslaw.tajgertim.services.SessionService;
 
@@ -15,8 +16,8 @@ public class BaseController {
     this.sessionService = sessionService;
   }
 
-  void sendObjectToQueue(String queueName, Object object) {
-    queueService.sendObjectToQueue(queueName, object);
+  void sendObjectToQueue(String queueName, QueueObject queueObject) {
+    queueService.sendObjectToQueue(queueName, queueObject);
   }
 
   void addObjectToSessionRequest(HttpServletRequest request, Object object) {

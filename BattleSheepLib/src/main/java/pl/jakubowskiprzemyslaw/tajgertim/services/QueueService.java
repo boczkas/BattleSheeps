@@ -6,6 +6,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.jakubowskiprzemyslaw.tajgertim.models.QueueObject;
 
 @Service
 public class QueueService {
@@ -19,8 +20,13 @@ public class QueueService {
   }
 
   @RabbitHandler
-  public void sendObjectToQueue(String queueName, Object object) {
-    logger.info("Sending message: " + object + " to queue: " + queueName);
-    template.convertAndSend(queueName, object);
+  public void sendObjectToQueue(String queueName, QueueObject queueObject) {
+    logger.info("Sending message: " + queueObject + " to queue: " + queueName);
+    template.convertAndSend(queueName, queueObject);
+  }
+
+  @RabbitHandler
+  public QueueObject receiveQueueObjectFromQueue(String queueName){
+    return (QueueObject) template.receiveAndConvert(queueName);
   }
 }
