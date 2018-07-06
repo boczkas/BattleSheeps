@@ -5,20 +5,21 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 
 public class PlayerConfiguration implements QueueObject {
 
-  private final Player player;
+    private static final long serialVersionUID = -4278188021540795077L;
+    private final Player player;
 
-  public PlayerConfiguration(Player player) {
-    this.player = player;
-  }
+    public PlayerConfiguration(Player player) {
+        this.player = player;
+    }
 
-  public Player getPlayer() {
-    return player;
-  }
+    public Player getPlayer() {
+        return player;
+    }
 
-  @Override
-  public String toString() {
-    return "PlayerConfiguration{" +
-            "player=" + player +
-            '}';
-  }
+    @Override
+    public String toString() {
+        return "PlayerConfiguration{" +
+                "player=" + player +
+                '}';
+    }
 }
