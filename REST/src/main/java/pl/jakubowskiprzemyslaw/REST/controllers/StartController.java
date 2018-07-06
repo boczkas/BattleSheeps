@@ -19,7 +19,7 @@ public class StartController {
       return "redirect:/playerconfig";
     }
     else {
-      return "redirect:/noplaces";
+      return "noplaces";
     }
   }
 }

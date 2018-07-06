@@ -1,0 +1,12 @@
+.board > div > div {
+    border: 1px solid black;
+}
+
+.cell {
+    size: auto;
+    fill: blue;
+}
+
+h1 {
+    color: brown;
+}
