@@ -1,10 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" >
     <title>BattleSheep - fleet placement</title>
+
+    <link type="text/css" rel="stylesheet" href="/css/fleetStyle.css">
+    <!--<script>-->
+    <!--window.onload = function () {-->
+    <!--var myBoard = document.getElementById("myBoard");-->
+    <!--var opponentBoard = document.getElementById("opponentBoard");-->
+
+    <!--setDivsForBoard(myBoard, false);-->
+    <!--setDivsForBoard(opponentBoard, true);-->
+
+    <!--};-->
+
+    <!--function setDivsForBoard(board, clickable) {-->
+    <!--for(var i = 0; i < 10; i++) {-->
+    <!--var row = document.createElement('DIV');-->
+    <!--row.setAttribute("class", "row");-->
+    <!--board.appendChild(row);-->
+
+    <!--for(var j = 0; j < 10; j++) {-->
+    <!--var cell = document.createElement('DIV');-->
+    <!--cell.setAttribute("class", "cell col-xs-1 col-xs-push-1");-->
+    <!--cell.setAttribute("id", "cell" + i + j);-->
+    <!--cell.setAttribute("value", "[" + i + "," + j + "]");-->
+    <!--if(clickable) {-->
+    <!--cell.onclick = clickMe;-->
+    <!--}-->
+    <!--cell.innerText = "X";-->
+    <!--row.appendChild(cell);-->
+    <!--}-->
+    <!--}-->
+    <!--}-->
+
+    <!--function clickMe() {-->
+    <!--alert(this.getAttribute("value"));-->
+    <!--}-->
+
+
+    <!--</script>-->
+
+    <style>
+
+    </style>
+
 </head>
 <body>
-<h1>Here will be a ship placement, but in this moment I don't know how to develop this feature</h1>
+<h1>Best shooting frontend ever!</h1>
+
+
+<div class="c">
+    <div id="myBoard" class="board col-sm-6">
+
+    </div>
+
+    <div id="opponentBoard" class="board col-sm-6">
+
+    </div>
+
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"/>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/board.js"></script>
 </body>
 </html>
