@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
@@ -14,6 +15,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 import pl.jakubowskiprzemyslaw.tajgertim.services.SessionService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 
 @Controller
@@ -32,15 +34,23 @@ public class PlayingController extends BaseController {
 
   @PostMapping(value = "/playing", produces = "text/plain")
   public String makeShoot(String coordinates, HttpServletRequest request) {
+    sendCoordinatesToQueue(coordinates, request);
 
-    Object player = request.getSession().getAttribute("Player");
+    return "playing";
+  }
+
+  private void sendCoordinatesToQueue(String coordinates, HttpServletRequest request) {
+    HttpSession session = request.getSession();
+
+    Class<Player> playerClass = Player.class;
+    String className = playerClass.getSimpleName();
+
+    Object player = session.getAttribute(className);
     Coordinate coordinate = returnCoordinates(coordinates);
     Action action = new Shot(coordinate);
 
     PlayerAction playerAction = new PlayerAction((Player) player, action);
     sendObjectToQueue("PlayingStateMachinePlayerActionQueueTest", playerAction);
-
-    return "playing";
   }
 
   private Coordinate returnCoordinates(@NotNull String coordinates) {

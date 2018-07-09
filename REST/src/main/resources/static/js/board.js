@@ -31,8 +31,18 @@ function clickMe() {
     var coords = this.getAttribute("value");
 
     $.ajax({
-        type : "POST",
-        url :"playing",
-        data : {coordinates: coords}
+        type: "POST",
+        url: "playing",
+        data: {coordinates: coords}
+    });
+
+}
+
+function refreshBoard(board) {
+    $.ajax({
+        url: 'getlist',
+        success: function (data) {
+            $(board).html(data);
+        }
     });
 }
