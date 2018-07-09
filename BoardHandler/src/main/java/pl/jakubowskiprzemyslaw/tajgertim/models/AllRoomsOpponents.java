@@ -6,13 +6,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AllRoomsOpponents {
-    List<Opponents> allRoomsOpponents;
+    private List<Opponents> allRoomsOpponents;
 
     public AllRoomsOpponents() {
         this.allRoomsOpponents = new ArrayList<>();
     }
 
-    public void addOpponents(Player player, Player opponent){
-        allRoomsOpponents.add(new Opponents(player, opponent));
+    public void addOpponents(Player player, Player opponent) {
+        Opponents opponents = new Opponents(player, opponent);
+        allRoomsOpponents.add(opponents);
+    }
+
+    @Override
+    public String toString() {
+        return "AllRoomsOpponents{" +
+                "allRoomsOpponents=" + allRoomsOpponents +
+                '}';
+    }
+
+    public Player getOpponent(Player player) throws NoSuchPlayerException {
+        for(Opponents opponents : allRoomsOpponents){
+            if(opponents.contains(player)) {
+                return opponents.getOpponent(player);
+            }
+        }
+        throw new NoSuchPlayerException(player);
     }
 }

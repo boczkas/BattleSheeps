@@ -1,6 +1,7 @@
 package pl.jakubowskiprzemyslaw.tajgertim.models.board;
 
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
+import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,10 +31,34 @@ public class Ship implements Serializable {
         return new ArrayList<>(mastList);
     }
 
+    public FieldState getMastState(Coordinate coordinate) throws NoMastAtPositionException {
+        if (getMast(coordinate).getMastState().equals(MastState.HIT)) {
+            return FieldState.HIT_MAST;
+        }
+        if (getMast(coordinate).getMastState().equals(MastState.NOT_HIT)) {
+            return FieldState.NOT_HIT_MAST;
+        }
+        return FieldState.EMPTY;
+    }
+
+    private Mast getMast(Coordinate coordinate) throws NoMastAtPositionException {
+        for (Mast mast: mastList) {
+            if (mast.getCoordinate().equals(coordinate)) {
+                return mast;
+            }
+        }
+        throw new NoMastAtPositionException(coordinate);
+    }
+
     @Override
     public String toString() {
         return "Ship{" +
                 "mastList=" + mastList +
                 '}';
+    }
+
+    public void markMastAsHit(Coordinate coordinate) throws NoMastAtPositionException {
+        Mast mast = getMast(coordinate);
+        mast.markAsHit();
     }
 }
