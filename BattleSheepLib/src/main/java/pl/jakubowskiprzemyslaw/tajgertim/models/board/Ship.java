@@ -26,6 +26,10 @@ public class Ship implements Serializable {
         return mastList.contains(new Mast(coordinate));
     }
 
+    public List<Mast> getMastList() {
+        return new ArrayList<>(mastList);
+    }
+
     @Override
     public String toString() {
         return "Ship{" +

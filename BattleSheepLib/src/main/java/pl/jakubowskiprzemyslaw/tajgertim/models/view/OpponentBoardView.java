@@ -26,6 +26,10 @@ public class OpponentBoardView implements Serializable {
         return fieldView.getOrDefault(coordinate, FieldStateView.UNKNOWN);
     }
 
+    public Map<Coordinate, FieldStateView> getFieldView() {
+        return new HashMap<>(fieldView);
+    }
+
     @Override
     public String toString() {
         return "OpponentBoardView{" +

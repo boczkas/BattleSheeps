@@ -12,6 +12,10 @@ public class PlayerBoardView implements Serializable {
         this.board = board;
     }
 
+    public Board getBoard() {
+        return board;
+    }
+
     @Override
     public String toString() {
         return "PlayerBoardView{" +
