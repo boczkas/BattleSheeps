@@ -10,8 +10,11 @@
     <version>0.1-SNAPSHOT</version>
     <modules>
         <module>BattleSheepLib</module>
-        <module>REST</module>
+        <module>BoardHandler</module>
         <module>Judge</module>
+        <module>PlayingStateMachine</module>
+        <module>ShotHandler</module>
+        <module>REST</module>
     </modules>
 
     <dependencies>
