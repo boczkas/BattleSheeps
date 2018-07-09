@@ -23,6 +23,10 @@ public class BoardsView implements QueueObject {
         return opponentBoard;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     @Override
     public String toString() {
         return "BoardsView{" +

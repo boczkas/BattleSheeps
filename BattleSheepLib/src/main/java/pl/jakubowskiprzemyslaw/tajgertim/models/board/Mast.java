@@ -15,6 +15,14 @@ public class Mast implements Serializable {
         this.mastState = MastState.NOT_HIT;
     }
 
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+
+    public MastState getMastState() {
+        return mastState;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

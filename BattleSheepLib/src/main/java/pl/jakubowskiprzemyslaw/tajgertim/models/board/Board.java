@@ -31,6 +31,10 @@ public class Board implements Serializable {
         throw new NoShipAtCoordinateException(coordinate);
     }
 
+    public List<Ship> getShipList() {
+        return new ArrayList<>(shipList);
+    }
+
     @Override
     public String toString() {
         return "Board{" +
