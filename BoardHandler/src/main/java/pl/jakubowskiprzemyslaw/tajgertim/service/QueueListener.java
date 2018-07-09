@@ -9,17 +9,20 @@ import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
 @Service
-public class BoardHandlerService {
+public class QueueListener {
 
     private final QueueService queueService;
 
-    public BoardHandlerService(QueueService queueService) {
+    public QueueListener(QueueService queueService) {
         this.queueService = queueService;
     }
 
     @RabbitListener(queues = "BoardHandlerShotQueryQueueTest")
     public void listenOnBoardHandlerShotQueryQueueTest(PlayerShootCoordinate playerShootCoordinate) {
         System.out.println("Received message" + playerShootCoordinate);
+
+
+
         queueService.sendObjectToQueue(Queues._17ShotHandlerFieldStatusQueue,
                 new FieldStatus(
                         playerShootCoordinate.getCoordinate(),
