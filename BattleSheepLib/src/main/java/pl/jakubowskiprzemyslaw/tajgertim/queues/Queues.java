@@ -26,10 +26,6 @@ public enum Queues {
         this.name = name;
     }
 
-    public final String string() {
-        return name;
-    }
-
     @Override
     public String toString() {
         return name;
