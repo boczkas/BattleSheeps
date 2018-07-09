@@ -18,16 +18,12 @@ public enum Queues {
     _15JudgePlayerShootResultQueue("JudgePlayerShootResultQueueTest"),
     _16JudgePlayerMoveResult("JudgePlayerMoveResultQueue"),
     _17ShotHandlerFieldStatusQueue("ShotHandlerFieldStatusQueueTest"),
-    _18PlayerStateMachineBoardStatusQueue("PlayerStateMachineBoardStatusQueueTest");
+    _18PlayingBoardsViewQueue("PlayingBoardsViewQueueTest");
 
     private final String name;
 
     Queues(final String name) {
         this.name = name;
-    }
-
-    public final String string() {
-        return name;
     }
 
     @Override
