@@ -26,6 +26,10 @@ public class FieldStatus implements QueueObject {
         return player;
     }
 
+    public FieldState getFieldState() {
+        return fieldState;
+    }
+
     @Override
     public String toString() {
         return "FieldStatus{" +
