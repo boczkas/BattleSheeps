@@ -12,23 +12,40 @@ import java.util.Map;
 
 public class PlayersBoards {
 
-    private Map<Player, Board> playersBoards;
+    private Map<Player, Boards> playersBoards;
 
     public PlayersBoards() {
         this.playersBoards = new HashMap<>();
     }
 
-    public void addBoardForPlayer(Player player, Board board) {
-        playersBoards.put(player, board);
+    public void addBoardsForPlayer(Player player, Boards boards) {
+        playersBoards.put(player, boards);
     }
 
     public FieldState getFieldStatus(Player player, Coordinate coordinate) throws NoMastAtPositionException {
-        Board board = playersBoards.get(player);
+        Board board = playersBoards.get(player).getBoard();
         return board.getCoordinateStatus(coordinate);
     }
 
-    public void markHitAtBoard(Player player, Coordinate coordinate) throws NoShipAtCoordinateException, NoMastAtPositionException {
-        Board board = playersBoards.get(player);
-        board.markHit(coordinate);
+    public void markHitAtShip(Player player, Coordinate coordinate) throws NoShipAtCoordinateException, NoMastAtPositionException {
+        Boards playerBoards = playersBoards.get(player);
+        playerBoards.markHitOnShip(coordinate);
+    }
+
+    public void markHitAtBoard(Player player, Coordinate shotCoordinate) {
+        Boards playerBoards = playersBoards.get(player);
+        playerBoards.markHitOnBoard(shotCoordinate);
+    }
+
+    public void markMissAtBoard(Player player, Coordinate shotCoordinate) {
+        Boards playerBoards = playersBoards.get(player);
+        playerBoards.markMissOnBoard(shotCoordinate);
+    }
+
+    @Override
+    public String toString() {
+        return "PlayersBoards{" +
+                "playersBoards=" + playersBoards +
+                '}';
     }
 }

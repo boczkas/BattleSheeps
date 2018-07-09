@@ -1,18 +1,14 @@
 package pl.jakubowskiprzemyslaw.tajgertim.service;
 
 import org.springframework.stereotype.Service;
-import pl.jakubowskiprzemyslaw.tajgertim.models.AllRoomsOpponents;
-import pl.jakubowskiprzemyslaw.tajgertim.models.NoSuchPlayerException;
-import pl.jakubowskiprzemyslaw.tajgertim.models.PlayersBoards;
+import pl.jakubowskiprzemyslaw.tajgertim.models.*;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.*;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class BoardHandler {
@@ -35,7 +31,7 @@ public class BoardHandler {
         shipList.add(new Ship(mastList));
 
         Player staszek = new Player("Staszek", "69");
-        playersBoards.addBoardForPlayer(staszek, new Board(shipList));
+        playersBoards.addBoardsForPlayer(staszek, new Boards(new Board(shipList), new PlayerShots()));
 
         shipList = new ArrayList<>();
         mastList = new ArrayList<>();
@@ -45,7 +41,7 @@ public class BoardHandler {
         shipList.add(new Ship(mastList));
 
         Player jozek = new Player("Jozek", "1337");
-        playersBoards.addBoardForPlayer(jozek, new Board(shipList));
+        playersBoards.addBoardsForPlayer(jozek, new Boards(new Board(shipList), new PlayerShots()));
 
         allRoomsOpponents.addOpponents(staszek, jozek);
     }
@@ -71,8 +67,13 @@ public class BoardHandler {
         return getPlayerFieldStatus(playerOpponent, coordinate);
     }
 
-    void markHitAtOpponentBoard(Player player, Coordinate shotCoordinate) throws NoSuchPlayerException, NoShipAtCoordinateException, NoMastAtPositionException {
+    void markHit(Player player, Coordinate shotCoordinate) throws NoSuchPlayerException, NoShipAtCoordinateException, NoMastAtPositionException {
         Player opponent = getOpponent(player);
-        playersBoards.markHitAtBoard(opponent, shotCoordinate);
+        playersBoards.markHitAtShip(opponent, shotCoordinate);
+        playersBoards.markHitAtBoard(player, shotCoordinate);
+    }
+
+    void markMiss(Player player, Coordinate shotCoordinate) {
+        playersBoards.markMissAtBoard(player, shotCoordinate);
     }
 }
