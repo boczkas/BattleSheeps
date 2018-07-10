@@ -4,6 +4,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.QueueObject;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.Ship;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
+import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.ShootResult;
 
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class BoardsView implements QueueObject {
         return playerBoardView.getShipList();
     }
 
-    public Map<Coordinate, FieldStateView> getFieldView() {
+    public Map<Coordinate, ShootResult> getFieldView() {
         return opponentBoard.getFieldView();
     }
 
