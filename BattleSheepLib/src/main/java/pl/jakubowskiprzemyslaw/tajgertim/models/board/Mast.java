@@ -23,6 +23,10 @@ public class Mast implements Serializable {
         return mastState;
     }
 
+    public void markAsHit() {
+        mastState = MastState.HIT;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
