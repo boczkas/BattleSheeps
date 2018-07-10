@@ -17,12 +17,9 @@ function setDivsForBoard(board, clickable, myBoard) {
             var cell = document.createElement('DIV');
             cell.setAttribute("class", "cell col-xs-1 col-xs-push-1");
 
-            if (myBoard) {
-                cell.setAttribute("id", "cell" + j + i);
-            }
-            else {
-                cell.setAttribute("id", "opp_cell" + j + i);
-            }
+            var attribute = (i.toString()).concat(j.toString());
+
+            setAttribute(cell, attribute, myBoard);
 
             cell.setAttribute("value", j + "," + i);
 
@@ -36,13 +33,22 @@ function setDivsForBoard(board, clickable, myBoard) {
     }
 }
 
+function setAttribute(cell, attribute, myBoard) {
+    if (myBoard) {
+        cell.setAttribute("id", "cell" + attribute);
+    }
+    else {
+        cell.setAttribute("id", "opp_cell" + attribute);
+    }
+}
+
 function clickMe() {
-    var coords = this.getAttribute("value");
+    var coordinates = this.getAttribute("value");
 
     $.ajax({
         type: "POST",
         url: "playing",
-        data: {coordinates: coords}
+        data: {coordinates: coordinates}
     });
 }
 
@@ -56,30 +62,16 @@ function refreshBoard(url) {
         type: 'POST',
         url: url,
         success: function (data) {
-            var ships = data;
-
-            if (Object.keys(data).length !== 0) {
-
-                if (url === "getmyboard")
-                    clearBoard(myBoard);
-
-                for (var key in ships) {
-                    if (key !== 0) {
-                        var elementById = document.getElementById(key);
-                        if (elementById !== null)
-                            elementById.innerText = ships[key];
-                    }
-                }
-
+            if (jQuery.isEmptyObject(data) !== true) {
+                setElementValues(data);
             }
         }
     });
 }
 
-function clearBoard() {
-    var cells = myBoard.getElementsByClassName("cell");
-
-    for (var i = 0; i < cells.length; i++) {
-        cells[i].innerText = "_";
+function setElementValues(container) {
+    for (var key in container) {
+        var elementById = document.getElementById(key);
+        elementById.innerText = container[key];
     }
 }
