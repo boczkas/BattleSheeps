@@ -6,6 +6,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.board.NoShipAtCoordinateExceptio
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
+import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.ShootResult;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,5 +48,15 @@ public class PlayersBoards {
         return "PlayersBoards{" +
                 "playersBoards=" + playersBoards +
                 '}';
+    }
+
+    public Board getBoard(Player player) {
+        Boards boards = playersBoards.get(player);
+        return boards.getBoard();
+    }
+
+    public Map<Coordinate, ShootResult> getPlayerShotsMap(Player player) {
+        Boards boards = playersBoards.get(player);
+        return boards.getPlayerShotsMap();
     }
 }

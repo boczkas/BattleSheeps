@@ -6,9 +6,11 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.board.*;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
+import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.ShootResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BoardHandler {
@@ -46,14 +48,6 @@ public class BoardHandler {
         allRoomsOpponents.addOpponents(staszek, jozek);
     }
 
-    @Override
-    public String toString() {
-        return "BoardHandler{" +
-                "playersBoards=" + playersBoards +
-                ", allRoomsOpponents=" + allRoomsOpponents +
-                '}';
-    }
-
     private Player getOpponent(Player player) throws NoSuchPlayerException {
         return allRoomsOpponents.getOpponent(player);
     }
@@ -76,4 +70,22 @@ public class BoardHandler {
     void markMiss(Player player, Coordinate shotCoordinate) {
         playersBoards.markMissAtBoard(player, shotCoordinate);
     }
+
+    Board getPlayerBoard(Player player) {
+        return playersBoards.getBoard(player);
+    }
+
+
+    public Map<Coordinate,ShootResult> getPlayerShotsMap(Player player) {
+        return playersBoards.getPlayerShotsMap(player);
+    }
+
+    @Override
+    public String toString() {
+        return "BoardHandler{" +
+                "playersBoards=" + playersBoards +
+                ", allRoomsOpponents=" + allRoomsOpponents +
+                '}';
+    }
+
 }

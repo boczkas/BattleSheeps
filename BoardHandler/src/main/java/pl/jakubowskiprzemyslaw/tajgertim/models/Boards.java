@@ -6,6 +6,8 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.board.NoShipAtCoordinateExceptio
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.ShootResult;
 
+import java.util.Map;
+
 public class Boards {
     private Board board;
     private PlayerShots playerShots;
@@ -37,5 +39,9 @@ public class Boards {
 
     public void markHitOnBoard(Coordinate shotCoordinate) {
         playerShots.add(shotCoordinate, ShootResult.HIT);
+    }
+
+    public Map<Coordinate,ShootResult> getPlayerShotsMap() {
+        return playerShots.getCoordinateShootResultMap();
     }
 }

@@ -10,6 +10,9 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldStatus;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.PlayerShootCoordinate;
+import pl.jakubowskiprzemyslaw.tajgertim.models.view.BoardsView;
+import pl.jakubowskiprzemyslaw.tajgertim.models.view.OpponentBoardView;
+import pl.jakubowskiprzemyslaw.tajgertim.models.view.PlayerBoardView;
 import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
@@ -50,5 +53,10 @@ public class QueueListener {
                         player
                 )
         );
+        queueService.sendObjectToQueue(Queues._18PlayingBoardsViewQueue,
+                new BoardsView(player,
+                        new PlayerBoardView(boardHandler.getPlayerBoard(player)),
+                        new OpponentBoardView(boardHandler.getPlayerShotsMap(player)))
+                );
     }
 }
