@@ -17,7 +17,7 @@ function setDivsForBoard(board, clickable, myBoard) {
             var cell = document.createElement('DIV');
             cell.setAttribute("class", "cell col-xs-1 col-xs-push-1");
 
-            var attribute = (i.toString()).concat(j.toString());
+            var attribute = (j.toString()).concat(i.toString());
 
             setAttribute(cell, attribute, myBoard);
 
