@@ -1,12 +1,12 @@
-window.onload = function load() {
+var myBoard = document.getElementById("myBoard");
+var opponentBoard = document.getElementById("opponentBoard");
 
-    var myBoard = document.getElementById("myBoard");
-    var opponentBoard = document.getElementById("opponentBoard");
-    setDivsForBoard(myBoard, false);
-    setDivsForBoard(opponentBoard, true);
+window.onload = function load() {
+    setDivsForBoard(myBoard, false, true);
+    setDivsForBoard(opponentBoard, true, false);
 };
 
-function setDivsForBoard(board, clickable) {
+function setDivsForBoard(board, clickable, myBoard) {
 
     for (var i = 0; i < 10; i++) {
         var row = document.createElement('DIV');
@@ -16,23 +16,62 @@ function setDivsForBoard(board, clickable) {
         for (var j = 0; j < 10; j++) {
             var cell = document.createElement('DIV');
             cell.setAttribute("class", "cell col-xs-1 col-xs-push-1");
-            cell.setAttribute("id", "cell" + i + j);
-            cell.setAttribute("value", i + "," + j);
+
+            var attribute = (i.toString()).concat(j.toString());
+
+            setAttribute(cell, attribute, myBoard);
+
+            cell.setAttribute("value", j + "," + i);
+
             if (clickable) {
                 cell.onclick = clickMe;
             }
-            cell.innerText = "X";
+
+            cell.innerText = "_";
             row.appendChild(cell);
         }
     }
 }
 
+function setAttribute(cell, attribute, myBoard) {
+    if (myBoard) {
+        cell.setAttribute("id", "cell" + attribute);
+    }
+    else {
+        cell.setAttribute("id", "opp_cell" + attribute);
+    }
+}
+
 function clickMe() {
-    var coords = this.getAttribute("value");
+    var coordinates = this.getAttribute("value");
 
     $.ajax({
-        type : "POST",
-        url :"playing",
-        data : {coordinates: coords}
+        type: "POST",
+        url: "playing",
+        data: {coordinates: coordinates}
     });
+}
+
+function refresh() {
+    refreshBoard("getmyboard");
+    refreshBoard("getopponentboard");
+}
+
+function refreshBoard(url) {
+    $.ajax({
+        type: 'POST',
+        url: url,
+        success: function (data) {
+            if (jQuery.isEmptyObject(data) !== true) {
+                setElementValues(data);
+            }
+        }
+    });
+}
+
+function setElementValues(container) {
+    for (var key in container) {
+        var elementById = document.getElementById(key);
+        elementById.innerText = container[key];
+    }
 }
