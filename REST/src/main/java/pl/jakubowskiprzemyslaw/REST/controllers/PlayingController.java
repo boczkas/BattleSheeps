@@ -20,7 +20,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 
 @Controller
-@SessionAttributes("player")
 public class PlayingController extends BaseController {
 
   private String queueName = Queues._9PlayingStateMachinePlayerActionQueue.toString();
@@ -42,7 +41,8 @@ public class PlayingController extends BaseController {
 
   private void sendCoordinatesToQueue(String coordinates, HttpServletRequest request) {
     HttpSession session = request.getSession();
-    String className = getClassName();
+    String className = getPlayerClassSimpleName();
+
 
     Object player = session.getAttribute(className);
     Coordinate coordinate = returnCoordinates(coordinates);
@@ -58,9 +58,9 @@ public class PlayingController extends BaseController {
     int y = Integer.valueOf(split[1]);
     return new Coordinate(x, y);
   }
-
-  private String getClassName() {
-    Class<Player> playerClass = Player.class;
+  
+  private String getPlayerClassSimpleName() {
+    Class playerClass = Player.class;
     return playerClass.getSimpleName();
   }
 }

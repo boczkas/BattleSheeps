@@ -1,5 +1,7 @@
 package pl.jakubowskiprzemyslaw.REST.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,74 +31,58 @@ public class BoardsHandlerController {
 
   @PostMapping(value = "/getmyboard")
   public @ResponseBody
-  String getMyBoard() {
+  ObjectNode getMyBoard() {
+    ObjectMapper mapper = new ObjectMapper();
     Optional<BoardsView> view = handler.getView();
 
     if (view.isPresent()) {
 
-      StringBuilder builder = new StringBuilder(" { ");
-
+      ObjectNode node = mapper.createObjectNode();
 
       BoardsView boardsView = view.get();
-      PlayerBoardView playerBoardView = boardsView.getPlayerBoardView();
-      Board board = playerBoardView.getBoard();
-      List<Ship> shipList = board.getShipList();
+      List<Ship> shipList = boardsView.getShipList();
       shipList.forEach(ship -> {
                 List<Mast> mastList = ship.getMastList();
 
                 AtomicInteger x = new AtomicInteger();
                 AtomicInteger y = new AtomicInteger();
 
-
                 mastList.forEach(mast -> {
                   x.set(mast.getCoordinate().getX());
                   y.set(mast.getCoordinate().getY());
-
-                  builder.append("\"cell").append(x.get()).append(y.get()).append("\" : \"X\", ");
+                  node.put("cell" + x + y, "X");
 
                   }
                 );
-
               }
       );
-
-      String tmp= builder.toString().trim().substring(0, builder.toString().length() - 3);
-
-      tmp += " }";
-      return tmp;
+      return node;
     }
-
-    return "{}";
+    return mapper.createObjectNode();
   }
 
   @PostMapping(value = "/getopponentboard")
   public @ResponseBody
-  String getOpponentBoard() {
+  ObjectNode getOpponentBoard() {
     Optional<BoardsView> view = handler.getView();
+    ObjectMapper mapper = new ObjectMapper();
 
     if (view.isPresent()) {
-
-      StringBuilder builder = new StringBuilder(" { ");
-
+      ObjectNode node = mapper.createObjectNode();
 
       BoardsView boardsView = view.get();
-      OpponentBoardView opponentBoardView = boardsView.getOpponentBoard();
-      Map<Coordinate, ShootResult> board = opponentBoardView.getFieldView();
+      Map<Coordinate, ShootResult> board = boardsView.getFieldView();
 
       for (Map.Entry<Coordinate, ShootResult> field: board.entrySet()) {
-        builder.append("\"opp_cell").append(field.getKey().getX()).append(field.getKey().getY()).append("\" : \"").append(field.getValue().name()).append("\"");
-        builder.append(", ");
+
+        node.put("opp_cell" + field.getKey().getX() + field.getKey().getY(), field.getValue().name());
+
       }
 
-      String tmp= builder.toString().trim().substring(0, builder.toString().length() - 3);
-
-      tmp += " }";
-
       handler.clear();
-
-      return tmp;
+      return node;
     }
 
-    return "{}";
+    return mapper.createObjectNode();
   }
 }
