@@ -1,8 +1,10 @@
 package pl.jakubowskiprzemyslaw.tajgertim.models.view;
 
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.Board;
+import pl.jakubowskiprzemyslaw.tajgertim.models.board.Ship;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class PlayerBoardView implements Serializable {
     private static final long serialVersionUID = 8516776033343687527L;
@@ -21,5 +23,9 @@ public class PlayerBoardView implements Serializable {
         return "PlayerBoardView{" +
                 "board=" + board +
                 '}';
+    }
+
+    public List<Ship> getShipList() {
+        return board.getShipList();
     }
 }
