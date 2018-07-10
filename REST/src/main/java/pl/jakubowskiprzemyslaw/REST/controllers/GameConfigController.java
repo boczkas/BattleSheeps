@@ -1,7 +1,6 @@
 package pl.jakubowskiprzemyslaw.REST.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,25 +15,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
-public class GameConfigController extends BaseController {
+public class GameConfigController {
 
-  private String gameConfigQueueName = Queues._2GameConfigurationRegistrationQueue.toString();
+    private final SessionService sessionService;
+    private final QueueService queueService;
 
-  @Autowired
-  public GameConfigController(QueueService queueService, SessionService sessionService) {
-    super(queueService, sessionService);
-  }
+    @Autowired
+    public GameConfigController(SessionService sessionService, QueueService queueService) {
+        this.sessionService = sessionService;
+        this.queueService = queueService;
+    }
 
-  @GetMapping(value = "/gameconfig", produces = "text/html")
-  public String getGameConfig(Model model) {
-    model.addAttribute("configuration", new GameConfiguration());
-    return "gameconfig";
-  }
+    @GetMapping(value = "/gameconfig", produces = "text/html")
+    public String getGameConfig(Model model) {
+        model.addAttribute("configuration", new GameConfiguration());
+        return "gameconfig";
+    }
 
-  @PostMapping(value = "/gameconfig", produces = "text/html")
-  public String sendGameConfig(@Valid @ModelAttribute("configuration") GameConfiguration configuration, HttpServletRequest request) {
-    addObjectToSessionRequest(request, configuration);
-    sendObjectToQueue(gameConfigQueueName, configuration);
-    return "redirect:/playerconfig";
-  }
+    @PostMapping(value = "/gameconfig", produces = "text/html")
+    public String sendGameConfig(@Valid @ModelAttribute("configuration") GameConfiguration configuration, HttpServletRequest request) {
+        sessionService.addObjectToSessionRequest(request, configuration);
+        queueService.sendObjectToQueue(Queues._2GameConfigurationRegistrationQueue, configuration);
+        return "redirect:/playerconfig";
+    }
 }

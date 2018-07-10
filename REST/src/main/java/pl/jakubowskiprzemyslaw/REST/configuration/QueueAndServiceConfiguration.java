@@ -10,20 +10,20 @@ import pl.jakubowskiprzemyslaw.tajgertim.services.SessionService;
 @Configuration
 public class QueueAndServiceConfiguration {
 
-  private final RabbitTemplate template;
+    private final RabbitTemplate template;
 
-  @Autowired
-  public QueueAndServiceConfiguration(RabbitTemplate template) {
-    this.template = template;
-  }
+    @Autowired
+    public QueueAndServiceConfiguration(RabbitTemplate template) {
+        this.template = template;
+    }
 
-  @Bean
-  public QueueService getQueueService() {
-    return new QueueService(template);
-  }
+    @Bean
+    public QueueService getQueueService() {
+        return new QueueService(template);
+    }
 
-  @Bean
-  public SessionService getSessionService() {
-    return new SessionService();
-  }
+    @Bean
+    public SessionService getSessionService() {
+        return new SessionService();
+    }
 }

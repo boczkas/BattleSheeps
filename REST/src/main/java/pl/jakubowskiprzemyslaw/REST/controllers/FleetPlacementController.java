@@ -10,19 +10,21 @@ import pl.jakubowskiprzemyslaw.tajgertim.services.SessionService;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class FleetPlacementController extends BaseController {
+public class FleetPlacementController{
 
-  @Autowired
-  public FleetPlacementController(QueueService queueService, SessionService sessionService) {
-    super(queueService, sessionService);
-  }
+    private final SessionService sessionService;
 
-  @GetMapping(value = "/fleetplacement")
-  public String getFleetPlacement(Model model, HttpServletRequest request) {
-    if(!isObjectInSession(request, "Player")) {
-      return "redirect:/playerconfig";
+    @Autowired
+    public FleetPlacementController(SessionService sessionService) {
+        this.sessionService = sessionService;
     }
 
-    return "fleetplacement";
-  }
+    @GetMapping(value = "/fleetplacement")
+    public String getFleetPlacement(HttpServletRequest request) {
+        if (!sessionService.isObjectInSession(request, "Player")) {
+            return "redirect:/playerconfig";
+        }
+
+        return "fleetplacement";
+    }
 }

@@ -15,32 +15,36 @@ import pl.jakubowskiprzemyslaw.tajgertim.services.SessionService;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class PlayerConfigController extends BaseController {
+public class PlayerConfigController {
 
-  private String playerConfigQueueName = Queues._1PlayerRegistrationQueue.toString();
+    private final SessionService sessionService;
+    private final QueueService queueService;
 
-  @Autowired
-  public PlayerConfigController(QueueService queueService, SessionService sessionService) {
-    super(queueService, sessionService);
-  }
+    private String playerConfigQueueName = Queues._1PlayerRegistrationQueue.toString();
 
-  @GetMapping(value = "/playerconfig", produces = "text/html")
-  public String getGameConfig(Model model) {
-    model.addAttribute("player", new Player("", ""));
-    return "playerconfig";
-  }
+    @Autowired
+    public PlayerConfigController(QueueService queueService, SessionService sessionService) {
+        this.queueService = queueService;
+        this.sessionService = sessionService;
+    }
 
-  @PostMapping(value = "/playerconfig", produces = "text/html")
-  public String sendGameConfig(@ModelAttribute("player") Player player, HttpServletRequest request) {
-    String IP = getPlayerIP(request);
-    player.setIP("69");
-    addObjectToSessionRequest(request, player);
-    PlayerConfiguration playerConfiguration = new PlayerConfiguration(player);
-    sendObjectToQueue(playerConfigQueueName, playerConfiguration);
-    return "redirect:/fleetplacement";
-  }
+    @GetMapping(value = "/playerconfig", produces = "text/html")
+    public String getGameConfig(Model model) {
+        model.addAttribute("player", new Player("", ""));
+        return "playerconfig";
+    }
 
-  private String getPlayerIP(HttpServletRequest request) {
-    return request.getRemoteAddr();
-  }
+    @PostMapping(value = "/playerconfig", produces = "text/html")
+    public String sendGameConfig(@ModelAttribute("player") Player player, HttpServletRequest request) {
+        String IP = getPlayerIP(request);
+        player.setIP("69");
+        sessionService.addObjectToSessionRequest(request, player);
+        PlayerConfiguration playerConfiguration = new PlayerConfiguration(player);
+        queueService.sendObjectToQueue(playerConfigQueueName, playerConfiguration);
+        return "redirect:/fleetplacement";
+    }
+
+    private String getPlayerIP(HttpServletRequest request) {
+        return request.getRemoteAddr();
+    }
 }

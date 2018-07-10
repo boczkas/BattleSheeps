@@ -20,47 +20,49 @@ import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 
 @Controller
-public class PlayingController extends BaseController {
+public class PlayingController {
 
-  private String queueName = Queues._9PlayingStateMachinePlayerActionQueue.toString();
+    private final QueueService queueService;
 
-  @Autowired
-  PlayingController(QueueService queueService, SessionService sessionService) {
-    super(queueService, sessionService);
-  }
+    private String queueName = Queues._9PlayingStateMachinePlayerActionQueue.toString();
 
-  @GetMapping(value = "/playing", produces = "text/html")
-  public String getPlaying() {
-    return "playing";
-  }
+    @Autowired
+    PlayingController(QueueService queueService) {
+        this.queueService = queueService;
+    }
 
-  @PostMapping(value = "/playing", produces = "text/plain")
-  public void makeShoot(String coordinates, HttpServletRequest request) {
-    sendCoordinatesToQueue(coordinates, request);
-  }
+    @GetMapping(value = "/playing", produces = "text/html")
+    public String getPlaying() {
+        return "playing";
+    }
 
-  private void sendCoordinatesToQueue(String coordinates, HttpServletRequest request) {
-    HttpSession session = request.getSession();
-    String className = getPlayerClassSimpleName();
+    @PostMapping(value = "/playing", produces = "text/plain")
+    public void makeShoot(String coordinates, HttpServletRequest request) {
+        sendCoordinatesToQueue(coordinates, request);
+    }
+
+    private void sendCoordinatesToQueue(String coordinates, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String className = getPlayerClassSimpleName();
 
 
-    Object player = session.getAttribute(className);
-    Coordinate coordinate = returnCoordinates(coordinates);
-    Action action = new Shot(coordinate);
+        Object player = session.getAttribute(className);
+        Coordinate coordinate = returnCoordinates(coordinates);
+        Action action = new Shot(coordinate);
 
-    PlayerAction playerAction = new PlayerAction((Player) player, action);
-    sendObjectToQueue(queueName, playerAction);
-  }
+        PlayerAction playerAction = new PlayerAction((Player) player, action);
+        queueService.sendObjectToQueue(queueName, playerAction);
+    }
 
-  private Coordinate returnCoordinates(@NotNull String coordinates) {
-    String[] split = coordinates.split(",");
-    int x = Integer.valueOf(split[0]);
-    int y = Integer.valueOf(split[1]);
-    return new Coordinate(x, y);
-  }
-  
-  private String getPlayerClassSimpleName() {
-    Class playerClass = Player.class;
-    return playerClass.getSimpleName();
-  }
+    private Coordinate returnCoordinates(@NotNull String coordinates) {
+        String[] split = coordinates.split(",");
+        int x = Integer.valueOf(split[0]);
+        int y = Integer.valueOf(split[1]);
+        return new Coordinate(x, y);
+    }
+
+    private String getPlayerClassSimpleName() {
+        Class playerClass = Player.class;
+        return playerClass.getSimpleName();
+    }
 }
