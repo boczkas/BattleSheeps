@@ -46,7 +46,6 @@ function clickMe() {
     });
 }
 
-
 function refresh() {
     refreshBoard("getmyboard");
     refreshBoard("getopponentboard");
@@ -73,7 +72,6 @@ function refreshBoard(url) {
                 }
 
             }
-
         }
     });
 }
@@ -81,9 +79,7 @@ function refreshBoard(url) {
 function clearBoard() {
     var cells = myBoard.getElementsByClassName("cell");
 
-    for(var i = 0; i < cells.length; i++) {
-
-            cells[i].innerText = "_";
-
+    for (var i = 0; i < cells.length; i++) {
+        cells[i].innerText = "_";
     }
 }
