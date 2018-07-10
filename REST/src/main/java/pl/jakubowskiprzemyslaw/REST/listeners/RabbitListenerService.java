@@ -20,6 +20,4 @@ public class RabbitListenerService {
   public void getBoardsView(BoardsView boardsView) {
     handler.setView(boardsView);
   }
-
-
 }

@@ -1,7 +1,6 @@
 package pl.jakubowskiprzemyslaw.REST.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +33,7 @@ public class PlayerConfigController extends BaseController {
   @PostMapping(value = "/playerconfig", produces = "text/html")
   public String sendGameConfig(@ModelAttribute("player") Player player, HttpServletRequest request) {
     String IP = getPlayerIP(request);
-    player.setIP(IP);
+    player.setIP("69");
     addObjectToSessionRequest(request, player);
     PlayerConfiguration playerConfiguration = new PlayerConfiguration(player);
     sendObjectToQueue(playerConfigQueueName, playerConfiguration);

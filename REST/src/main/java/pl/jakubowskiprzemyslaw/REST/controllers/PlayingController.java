@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.PlayerAction;
@@ -20,7 +18,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 
 @Controller
-@SessionAttributes("player")
 public class PlayingController extends BaseController {
 
   private String queueName = Queues._9PlayingStateMachinePlayerActionQueue.toString();
@@ -42,7 +39,7 @@ public class PlayingController extends BaseController {
 
   private void sendCoordinatesToQueue(String coordinates, HttpServletRequest request) {
     HttpSession session = request.getSession();
-    String className = getClassName();
+    String className = getPlayerClassSimpleName();
 
     Object player = session.getAttribute(className);
     Coordinate coordinate = returnCoordinates(coordinates);
@@ -59,8 +56,8 @@ public class PlayingController extends BaseController {
     return new Coordinate(x, y);
   }
 
-  private String getClassName() {
-    Class<Player> playerClass = Player.class;
+  private String getPlayerClassSimpleName() {
+    Class playerClass = Player.class;
     return playerClass.getSimpleName();
   }
 }
