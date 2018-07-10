@@ -7,20 +7,23 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.round.RoundStatus;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.PlayerShootResult;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.ShootResult;
 import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
+import pl.jakubowskiprzemyslaw.tajgertim.services.LoggerService;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
 @Service
-public class JudgeService {
+public class Judge {
 
     private final QueueService queueService;
+    private final LoggerService logger;
 
-    public JudgeService(QueueService queueService) {
+    public Judge(QueueService queueService, LoggerService logger) {
         this.queueService = queueService;
+        this.logger = logger;
     }
 
     @RabbitListener(queues = "JudgePlayerShootResultQueueTest")
     public void listenOnJudgePlayerShootResultQueue (PlayerShootResult playerShootResult) {
-        System.out.println("Received message" + playerShootResult);
+        logger.logInfo(Judge.class, "Received message" + playerShootResult);
 
         ShootResult shootResult = playerShootResult.getShootResult();
 

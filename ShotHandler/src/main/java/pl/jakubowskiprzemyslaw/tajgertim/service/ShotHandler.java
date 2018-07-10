@@ -12,19 +12,22 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.PlayerShootCoordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.PlayerShootResult;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.ShootResult;
 import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
+import pl.jakubowskiprzemyslaw.tajgertim.services.LoggerService;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
 @Service
-public class ShotHandlerService {
+public class ShotHandler {
     private final QueueService queueService;
+    private final LoggerService logger;
 
-    public ShotHandlerService(QueueService queueService) {
+    public ShotHandler(QueueService queueService, LoggerService logger) {
         this.queueService = queueService;
+        this.logger = logger;
     }
 
     @RabbitListener(queues = "ShotHandlerPlayerShotQueueTest")  // 10
     public void listenOnShotHandlerPlayerShotQueue(PlayerAction shotAction) {
-        System.out.println("Received message" + shotAction);
+        logger.logInfo(ShotHandler.class, "Received message " + shotAction);
         Shot shot = (Shot) shotAction.getAction();
 
         Player player = shotAction.getPlayer();
@@ -34,8 +37,7 @@ public class ShotHandlerService {
 
     @RabbitListener(queues = "ShotHandlerFieldStatusQueueTest") // 17
     public void listenOnShotHandlerFieldStatusQueue(FieldStatus fieldStatus) {
-        System.out.println("Received message" + fieldStatus);
-
+        logger.logInfo(ShotHandler.class, "Received message " + fieldStatus);
         FieldState fieldState = fieldStatus.getFieldState();
 
         Player player = fieldStatus.getPlayer();

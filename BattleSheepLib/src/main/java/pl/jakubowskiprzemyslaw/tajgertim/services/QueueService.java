@@ -14,7 +14,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 @Service
 public class QueueService {
 
-    private static final Logger logger = LoggerFactory.getLogger(QueueService.class);
+    private static final Logger logger = LoggerFactory.getLogger("BattleSheep");
     private final RabbitTemplate template;
     private RabbitAdmin rabbitAdmin;
 

@@ -14,6 +14,7 @@ import java.util.Map;
 
 @Service
 public class BoardHandler {
+
     private PlayersBoards playersBoards;
     private AllRoomsOpponents allRoomsOpponents;
 
