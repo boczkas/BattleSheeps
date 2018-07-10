@@ -41,7 +41,6 @@ public class BoardsHandlerController {
 
       BoardsView boardsView = view.get();
       List<Ship> shipList = boardsView.getShipList();
-
       shipList.forEach(ship -> {
                 List<Mast> mastList = ship.getMastList();
 

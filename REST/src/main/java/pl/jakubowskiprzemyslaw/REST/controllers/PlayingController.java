@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.PlayerAction;
@@ -41,6 +43,7 @@ public class PlayingController extends BaseController {
     HttpSession session = request.getSession();
     String className = getPlayerClassSimpleName();
 
+
     Object player = session.getAttribute(className);
     Coordinate coordinate = returnCoordinates(coordinates);
     Action action = new Shot(coordinate);
@@ -55,7 +58,7 @@ public class PlayingController extends BaseController {
     int y = Integer.valueOf(split[1]);
     return new Coordinate(x, y);
   }
-
+  
   private String getPlayerClassSimpleName() {
     Class playerClass = Player.class;
     return playerClass.getSimpleName();
