@@ -8,8 +8,8 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.board.Board;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.Mast;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.Ship;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
+import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.ShootResult;
 import pl.jakubowskiprzemyslaw.tajgertim.models.view.BoardsView;
-import pl.jakubowskiprzemyslaw.tajgertim.models.view.FieldStateView;
 import pl.jakubowskiprzemyslaw.tajgertim.models.view.OpponentBoardView;
 import pl.jakubowskiprzemyslaw.tajgertim.models.view.PlayerBoardView;
 
@@ -81,9 +81,9 @@ public class BoardsHandlerController {
 
       BoardsView boardsView = view.get();
       OpponentBoardView opponentBoardView = boardsView.getOpponentBoard();
-      Map<Coordinate, FieldStateView> board = opponentBoardView.getFieldView();
+      Map<Coordinate, ShootResult> board = opponentBoardView.getFieldView();
 
-      for (Map.Entry<Coordinate, FieldStateView> field: board.entrySet()) {
+      for (Map.Entry<Coordinate, ShootResult> field: board.entrySet()) {
         builder.append("\"opp_cell").append(field.getKey().getX()).append(field.getKey().getY()).append("\" : \"").append(field.getValue().name()).append("\"");
         builder.append(", ");
       }
