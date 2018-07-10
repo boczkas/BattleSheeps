@@ -14,22 +14,26 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.view.BoardsView;
 import pl.jakubowskiprzemyslaw.tajgertim.models.view.OpponentBoardView;
 import pl.jakubowskiprzemyslaw.tajgertim.models.view.PlayerBoardView;
 import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
+import pl.jakubowskiprzemyslaw.tajgertim.services.LoggerService;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
 @Service
-public class QueueListener {
+public class BoardHandlerQueueListener {
 
     private final QueueService queueService;
     private final BoardHandler boardHandler;
+    private final LoggerService logger;
 
-    public QueueListener(QueueService queueService, BoardHandler boardHandler) {
+    public BoardHandlerQueueListener(QueueService queueService, BoardHandler boardHandler, LoggerService logger) {
         this.queueService = queueService;
         this.boardHandler = boardHandler;
+        this.logger = logger;
     }
 
     @RabbitListener(queues = "BoardHandlerShotQueryQueueTest")  //12
     public void listenOnBoardHandlerShotQueryQueueTest(PlayerShootCoordinate playerShootCoordinate) throws NoSuchPlayerException, NoMastAtPositionException, NoShipAtCoordinateException {
-        System.out.println("Received message" + playerShootCoordinate);
+
+        logger.logInfo(BoardHandlerQueueListener.class, "Received message" + playerShootCoordinate);
 
         Player player = playerShootCoordinate.getPlayer();
         Coordinate shotCoordinate = playerShootCoordinate.getCoordinate();
@@ -43,9 +47,7 @@ public class QueueListener {
             boardHandler.markMiss(player, shotCoordinate);
         }
 
-        System.out.println("----------------------------------------------------------------");
-        System.out.println(boardHandler);
-        System.out.println("----------------------------------------------------------------");
+        logger.logInfo(BoardHandlerQueueListener.class, boardHandler.toString());
 
         queueService.sendObjectToQueue(Queues._17ShotHandlerFieldStatusQueue,
                 new FieldStatus(
@@ -54,6 +56,7 @@ public class QueueListener {
                         player
                 )
         );
+
         queueService.sendObjectToQueue(Queues._18PlayingBoardsViewQueue,
                 new BoardsView(player,
                         new PlayerBoardView(boardHandler.getPlayerBoard(player)),

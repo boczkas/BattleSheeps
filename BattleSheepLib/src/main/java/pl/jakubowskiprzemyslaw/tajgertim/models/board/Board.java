@@ -36,7 +36,6 @@ public class Board implements Serializable {
     public FieldState getCoordinateStatus(Coordinate coordinate) throws NoMastAtPositionException {
         for (Ship ship : shipList){
             if(ship.containsCoordinate(coordinate)){
-                System.out.println("status " + coordinate + "   |   " + ship.getMastState(coordinate));
                 return ship.getMastState(coordinate);
             }
         }

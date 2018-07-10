@@ -7,20 +7,24 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.action.Move;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.action.Shot;
 import pl.jakubowskiprzemyslaw.tajgertim.models.round.NextRoundStatus;
 import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
+import pl.jakubowskiprzemyslaw.tajgertim.services.LoggerService;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
 @Service
-public class PlayingStateMachineService {
+public class PlayingStateMachineQueueListener {
 
     private final QueueService queueService;
+    private final LoggerService logger;
 
-    public PlayingStateMachineService(QueueService queueService) {
+    public PlayingStateMachineQueueListener(QueueService queueService, LoggerService logger) {
         this.queueService = queueService;
+        this.logger = logger;
     }
 
     @RabbitListener(queues = "PlayingStateMachinePlayerActionQueueTest")
     public void listenOnPlayingStateMachinePlayerActionQueue(PlayerAction playerAction) {
-        System.out.println("Received message" + playerAction);
+
+        logger.logInfo(PlayingStateMachineQueueListener.class, "Received message" + playerAction);
 
         if(playerAction.getAction() instanceof Shot) {
             queueService.sendObjectToQueue(Queues._10ShotHandlerPlayerShotQueue, playerAction);
@@ -33,8 +37,6 @@ public class PlayingStateMachineService {
 
     @RabbitListener(queues = "PlayingStateMachineNextRoundStatusQueueTest")
     public void listenOnPlayingStateMachineNextRoundStatusQueueTest(NextRoundStatus nextRoundStatus) {
-        System.out.println("------------------------------------------------------------------------------------");
-        System.out.println(nextRoundStatus);
-        System.out.println("------------------------------------------------------------------------------------");
+        logger.logInfo(PlayingStateMachineQueueListener.class, nextRoundStatus.toString());
     }
 }

@@ -11,19 +11,19 @@ import pl.jakubowskiprzemyslaw.tajgertim.services.LoggerService;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
 @Service
-public class Judge {
+public class JudgeQueueListener {
 
     private final QueueService queueService;
     private final LoggerService logger;
 
-    public Judge(QueueService queueService, LoggerService logger) {
+    public JudgeQueueListener(QueueService queueService, LoggerService logger) {
         this.queueService = queueService;
         this.logger = logger;
     }
 
     @RabbitListener(queues = "JudgePlayerShootResultQueueTest")
     public void listenOnJudgePlayerShootResultQueue (PlayerShootResult playerShootResult) {
-        logger.logInfo(Judge.class, "Received message" + playerShootResult);
+        logger.logInfo(JudgeQueueListener.class, "Received message" + playerShootResult);
 
         ShootResult shootResult = playerShootResult.getShootResult();
 

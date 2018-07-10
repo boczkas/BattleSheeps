@@ -11,25 +11,27 @@ import pl.jakubowskiprzemyslaw.tajgertim.services.SessionService;
 @Configuration
 public class SpringConfiguration {
 
-  private final QueueService queueService;
-  private final RabbitTemplate rabbitTemplate;
+    private final QueueService queueService;
+    private final RabbitTemplate rabbitTemplate;
 
-  @Autowired
-  public SpringConfiguration(QueueService queueService, RabbitTemplate rabbitTemplate) {
-    this.queueService = queueService;
-    this.rabbitTemplate = rabbitTemplate;
-  }
+    @Autowired
+    public SpringConfiguration(QueueService queueService, RabbitTemplate rabbitTemplate) {
+        this.queueService = queueService;
+        this.rabbitTemplate = rabbitTemplate;
+    }
 
-  @Bean
-  public QueueService getQueueService() {
-    return new QueueService(rabbitTemplate);
-  }
+    @Bean
+    public QueueService getQueueService() {
+        return new QueueService(rabbitTemplate);
+    }
 
-  @Bean
-  public SessionService getSessionService() {
-    return new SessionService();
-  }
+    @Bean
+    public SessionService getSessionService() {
+        return new SessionService();
+    }
 
-  @Bean
-  public LoggerService getLoggerService() { return new LoggerService();}
+    @Bean
+    public LoggerService getLoggerService() {
+        return new LoggerService();
+    }
 }
