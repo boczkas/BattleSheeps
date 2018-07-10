@@ -1,7 +1,6 @@
 package pl.jakubowskiprzemyslaw.tajgertim.models.board;
 
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
-import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -18,10 +17,6 @@ public class Mast implements Serializable {
 
     public Coordinate getCoordinate() {
         return coordinate;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 
     public MastState getMastState() {
