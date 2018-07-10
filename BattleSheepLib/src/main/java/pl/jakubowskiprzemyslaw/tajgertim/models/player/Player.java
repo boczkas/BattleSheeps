@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public final class Player implements Serializable {
+
     private static final long serialVersionUID = 7538406378948395353L;
     private final String name;
     private String IP;
@@ -43,4 +44,8 @@ public final class Player implements Serializable {
 
         return Objects.hash(name, IP);
     }
+
+  public void setIP(String IP) {
+    this.IP = IP;
+  }
 }
