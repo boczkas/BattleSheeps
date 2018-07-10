@@ -13,15 +13,11 @@ public class PlayerShots {
         this.coordinateShootResultMap = new HashMap<>();
     }
 
-    public void add(Coordinate coordinate, ShootResult shootResult) {
+    void add(Coordinate coordinate, ShootResult shootResult) {
         coordinateShootResultMap.put(coordinate, shootResult);
     }
 
-    public ShootResult getCoordinateShootResult(Coordinate coordinate){
-        return coordinateShootResultMap.get(coordinate);
-    }
-
-    public Map<Coordinate, ShootResult> getCoordinateShootResultMap() {
+    Map<Coordinate, ShootResult> getCoordinateShootResultMap() {
         return new HashMap<>(coordinateShootResultMap);
     }
 

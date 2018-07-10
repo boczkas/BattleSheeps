@@ -8,40 +8,40 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.ShootResult;
 
 import java.util.Map;
 
-public class Boards {
+public class PlayerBoards {
     private Board board;
     private PlayerShots playerShots;
 
-    public Boards(Board board, PlayerShots playerShots) {
+    public PlayerBoards(Board board, PlayerShots playerShots) {
         this.board = board;
         this.playerShots = playerShots;
     }
 
-    public Board getBoard() {
-        return board;
-    }
-
-    public void markHitOnShip(Coordinate coordinate) throws NoShipAtCoordinateException, NoMastAtPositionException {
+    void markHitOnShip(Coordinate coordinate) throws NoShipAtCoordinateException, NoMastAtPositionException {
         board.markHit(coordinate);
     }
 
-    public void markMissOnBoard(Coordinate coordinate) {
+    void markMissOnBoard(Coordinate coordinate) {
         playerShots.add(coordinate, ShootResult.MISS);
+    }
+
+    void markHitOnShotsBoard(Coordinate shotCoordinate) {
+        playerShots.add(shotCoordinate, ShootResult.HIT);
+    }
+
+    Board getBoard() {
+        return board;
+    }
+
+    Map<Coordinate,ShootResult> getPlayerShotsMap() {
+        return playerShots.getCoordinateShootResultMap();
     }
 
     @Override
     public String toString() {
-        return "Boards{" +
+        return "PlayerBoards{" +
                 "board=" + board +
                 ", playerShots=" + playerShots +
                 '}';
-    }
-
-    public void markHitOnBoard(Coordinate shotCoordinate) {
-        playerShots.add(shotCoordinate, ShootResult.HIT);
-    }
-
-    public Map<Coordinate,ShootResult> getPlayerShotsMap() {
-        return playerShots.getCoordinateShootResultMap();
     }
 }

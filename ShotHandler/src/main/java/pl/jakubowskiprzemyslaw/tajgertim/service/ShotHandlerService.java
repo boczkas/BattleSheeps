@@ -2,8 +2,10 @@ package pl.jakubowskiprzemyslaw.tajgertim.service;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
+import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldStatus;
+import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.PlayerAction;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.action.Shot;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.PlayerShootCoordinate;
@@ -25,7 +27,9 @@ public class ShotHandlerService {
         System.out.println("Received message" + shotAction);
         Shot shot = (Shot) shotAction.getAction();
 
-        queueService.sendObjectToQueue(Queues._12BoardHandlerShotQueryQueue, new PlayerShootCoordinate(shotAction.getPlayer(), shot.getCoordinate()));
+        Player player = shotAction.getPlayer();
+        Coordinate coordinate = shot.getCoordinate();
+        queueService.sendObjectToQueue(Queues._12BoardHandlerShotQueryQueue, new PlayerShootCoordinate(player, coordinate));
     }
 
     @RabbitListener(queues = "ShotHandlerFieldStatusQueueTest") // 17
@@ -34,10 +38,11 @@ public class ShotHandlerService {
 
         FieldState fieldState = fieldStatus.getFieldState();
 
+        Player player = fieldStatus.getPlayer();
         if (fieldState.equals(FieldState.NOT_HIT_MAST)) {
-            queueService.sendObjectToQueue(Queues._15JudgePlayerShootResultQueue, new PlayerShootResult(fieldStatus.getPlayer(), ShootResult.HIT));
+            queueService.sendObjectToQueue(Queues._15JudgePlayerShootResultQueue, new PlayerShootResult(player, ShootResult.HIT));
         } else {
-            queueService.sendObjectToQueue(Queues._15JudgePlayerShootResultQueue, new PlayerShootResult(fieldStatus.getPlayer(), ShootResult.MISS));
+            queueService.sendObjectToQueue(Queues._15JudgePlayerShootResultQueue, new PlayerShootResult(player, ShootResult.MISS));
         }
     }
 }
