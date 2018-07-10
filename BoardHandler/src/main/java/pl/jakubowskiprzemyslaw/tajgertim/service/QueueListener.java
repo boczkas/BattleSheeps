@@ -33,12 +33,13 @@ public class QueueListener {
 
         Player player = playerShootCoordinate.getPlayer();
         Coordinate shotCoordinate = playerShootCoordinate.getCoordinate();
-        FieldState fieldState = boardHandler.getOpponentFieldStatus(player, shotCoordinate);
+        FieldState opponentFieldState = boardHandler.getOpponentFieldStatus(player, shotCoordinate);
 
-        if (fieldState.equals(FieldState.NOT_HIT_MAST)) {
+        if (opponentFieldState.equals(FieldState.NOT_HIT_MAST)) {
             boardHandler.markHit(player, shotCoordinate);
         }
-        if (fieldState.equals(FieldState.EMPTY)) {
+
+        if (opponentFieldState.equals(FieldState.EMPTY)) {
             boardHandler.markMiss(player, shotCoordinate);
         }
 
@@ -49,7 +50,7 @@ public class QueueListener {
         queueService.sendObjectToQueue(Queues._17ShotHandlerFieldStatusQueue,
                 new FieldStatus(
                         shotCoordinate,
-                        fieldState,
+                        opponentFieldState,
                         player
                 )
         );

@@ -23,37 +23,14 @@ public class BoardHandler {
         addPlayerAndBoardTeeeeeesting();
     }
 
-    //TODO: Before first merge:   kill it with fire!
-    private void addPlayerAndBoardTeeeeeesting() {
-        List<Ship> shipList = new ArrayList<>();
-        List<Mast> mastList = new ArrayList<>();
-        mastList.add(new Mast(new Coordinate(1, 1)));
-        mastList.add(new Mast(new Coordinate(1, 2)));
-        mastList.add(new Mast(new Coordinate(1, 3)));
-        shipList.add(new Ship(mastList));
-
-        Player staszek = new Player("Staszek", "69");
-        playersBoards.addBoardsForPlayer(staszek, new Boards(new Board(shipList), new PlayerShots()));
-
-        shipList = new ArrayList<>();
-        mastList = new ArrayList<>();
-        mastList.add(new Mast(new Coordinate(2, 1)));
-        mastList.add(new Mast(new Coordinate(2, 2)));
-        mastList.add(new Mast(new Coordinate(2, 3)));
-        shipList.add(new Ship(mastList));
-
-        Player jozek = new Player("Jozek", "1337");
-        playersBoards.addBoardsForPlayer(jozek, new Boards(new Board(shipList), new PlayerShots()));
-
-        allRoomsOpponents.addOpponents(staszek, jozek);
+    void markHit(Player player, Coordinate coordinate) throws NoSuchPlayerException, NoShipAtCoordinateException, NoMastAtPositionException {
+        Player opponent = getOpponent(player);
+        playersBoards.markHitAtShip(opponent, coordinate);
+        playersBoards.markHitAtPlayerShotBoard(player, coordinate);
     }
 
-    private Player getOpponent(Player player) throws NoSuchPlayerException {
-        return allRoomsOpponents.getOpponent(player);
-    }
-
-    FieldState getPlayerFieldStatus(Player player, Coordinate coordinate) throws NoMastAtPositionException {
-        return playersBoards.getFieldStatus(player, coordinate);
+    void markMiss(Player player, Coordinate coordinate) {
+        playersBoards.markMissOnBoard(player, coordinate); //TODO: 24.07.2018 Mark opponent miss on player board
     }
 
     FieldState getOpponentFieldStatus(Player player, Coordinate coordinate) throws NoSuchPlayerException, NoMastAtPositionException {
@@ -61,22 +38,19 @@ public class BoardHandler {
         return getPlayerFieldStatus(playerOpponent, coordinate);
     }
 
-    void markHit(Player player, Coordinate shotCoordinate) throws NoSuchPlayerException, NoShipAtCoordinateException, NoMastAtPositionException {
-        Player opponent = getOpponent(player);
-        playersBoards.markHitAtShip(opponent, shotCoordinate);
-        playersBoards.markHitAtBoard(player, shotCoordinate);
+    private Player getOpponent(Player player) throws NoSuchPlayerException {
+        return allRoomsOpponents.getOpponent(player);
     }
 
-    void markMiss(Player player, Coordinate shotCoordinate) {
-        playersBoards.markMissAtBoard(player, shotCoordinate);
+    private FieldState getPlayerFieldStatus(Player player, Coordinate coordinate) throws NoMastAtPositionException {
+        return playersBoards.getFieldStatus(player, coordinate);
     }
 
     Board getPlayerBoard(Player player) {
         return playersBoards.getBoard(player);
     }
 
-
-    public Map<Coordinate,ShootResult> getPlayerShotsMap(Player player) {
+    Map<Coordinate,ShootResult> getPlayerShotsMap(Player player) {
         return playersBoards.getPlayerShotsMap(player);
     }
 
@@ -88,4 +62,28 @@ public class BoardHandler {
                 '}';
     }
 
+    //TODO: Before first merge:   kill it with fire!
+    private void addPlayerAndBoardTeeeeeesting() {
+        List<Ship> shipList = new ArrayList<>();
+        List<Mast> mastList = new ArrayList<>();
+        mastList.add(new Mast(new Coordinate(1, 1)));
+        mastList.add(new Mast(new Coordinate(1, 2)));
+        mastList.add(new Mast(new Coordinate(1, 3)));
+        shipList.add(new Ship(mastList));
+
+        Player staszek = new Player("Staszek", "69");
+        playersBoards.addBoardsForPlayer(staszek, new PlayerBoards(new Board(shipList), new PlayerShots()));
+
+        shipList = new ArrayList<>();
+        mastList = new ArrayList<>();
+        mastList.add(new Mast(new Coordinate(2, 1)));
+        mastList.add(new Mast(new Coordinate(2, 2)));
+        mastList.add(new Mast(new Coordinate(2, 3)));
+        shipList.add(new Ship(mastList));
+
+        Player jozek = new Player("Jozek", "1337");
+        playersBoards.addBoardsForPlayer(jozek, new PlayerBoards(new Board(shipList), new PlayerShots()));
+
+        allRoomsOpponents.addOpponents(staszek, jozek);
+    }
 }

@@ -13,14 +13,29 @@ import java.util.Map;
 
 public class PlayersBoards {
 
-    private Map<Player, Boards> playersBoards;
+    private Map<Player, PlayerBoards> playersBoards;
 
     public PlayersBoards() {
         this.playersBoards = new HashMap<>();
     }
 
-    public void addBoardsForPlayer(Player player, Boards boards) {
-        playersBoards.put(player, boards);
+    public void addBoardsForPlayer(Player player, PlayerBoards playerBoards) {
+        playersBoards.put(player, playerBoards);
+    }
+
+    public void markHitAtShip(Player player, Coordinate coordinate) throws NoShipAtCoordinateException, NoMastAtPositionException {
+        PlayerBoards playerPlayerBoards = playersBoards.get(player);
+        playerPlayerBoards.markHitOnShip(coordinate);
+    }
+
+    public void markHitAtPlayerShotBoard(Player player, Coordinate coordinate) {
+        PlayerBoards playerPlayerBoards = playersBoards.get(player);
+        playerPlayerBoards.markHitOnShotsBoard(coordinate);
+    }
+
+    public void markMissOnBoard(Player player, Coordinate coordinate) {
+        PlayerBoards playerBoards = playersBoards.get(player);
+        playerBoards.markMissOnBoard(coordinate);
     }
 
     public FieldState getFieldStatus(Player player, Coordinate coordinate) throws NoMastAtPositionException {
@@ -28,19 +43,14 @@ public class PlayersBoards {
         return board.getCoordinateStatus(coordinate);
     }
 
-    public void markHitAtShip(Player player, Coordinate coordinate) throws NoShipAtCoordinateException, NoMastAtPositionException {
-        Boards playerBoards = playersBoards.get(player);
-        playerBoards.markHitOnShip(coordinate);
+    public Board getBoard(Player player) {
+        PlayerBoards playerBoards = playersBoards.get(player);
+        return playerBoards.getBoard();
     }
 
-    public void markHitAtBoard(Player player, Coordinate shotCoordinate) {
-        Boards playerBoards = playersBoards.get(player);
-        playerBoards.markHitOnBoard(shotCoordinate);
-    }
-
-    public void markMissAtBoard(Player player, Coordinate shotCoordinate) {
-        Boards playerBoards = playersBoards.get(player);
-        playerBoards.markMissOnBoard(shotCoordinate);
+    public Map<Coordinate, ShootResult> getPlayerShotsMap(Player player) {
+        PlayerBoards playerBoards = playersBoards.get(player);
+        return playerBoards.getPlayerShotsMap();
     }
 
     @Override
@@ -48,15 +58,5 @@ public class PlayersBoards {
         return "PlayersBoards{" +
                 "playersBoards=" + playersBoards +
                 '}';
-    }
-
-    public Board getBoard(Player player) {
-        Boards boards = playersBoards.get(player);
-        return boards.getBoard();
-    }
-
-    public Map<Coordinate, ShootResult> getPlayerShotsMap(Player player) {
-        Boards boards = playersBoards.get(player);
-        return boards.getPlayerShotsMap();
     }
 }
