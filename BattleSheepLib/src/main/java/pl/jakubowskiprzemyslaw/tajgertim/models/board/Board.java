@@ -15,15 +15,12 @@ public class Board implements Serializable {
         this.shipList = shipList;
     }
 
-    public Board() {
-        this(new ArrayList<>());
+    public void markHit(Coordinate coordinate) throws NoShipAtCoordinateException, NoMastAtPositionException {
+        Ship ship = getShipAtCoordinate(coordinate);
+        ship.markMastAsHit(coordinate);
     }
 
-    public void addShip(Ship ship){
-        shipList.add(ship);
-    }
-
-    public Ship getShipAtCoordinate(Coordinate coordinate) throws NoShipAtCoordinateException {
+    private Ship getShipAtCoordinate(Coordinate coordinate) throws NoShipAtCoordinateException {
         for (Ship ship : shipList) {
             if(ship.containsCoordinate(coordinate)){
                 return ship;
@@ -51,10 +48,5 @@ public class Board implements Serializable {
         return "Board{" +
                 "shipList=" + shipList +
                 '}';
-    }
-
-    public void markHit(Coordinate coordinate) throws NoShipAtCoordinateException, NoMastAtPositionException {
-        Ship ship = getShipAtCoordinate(coordinate);
-        ship.markMastAsHit(coordinate);
     }
 }
