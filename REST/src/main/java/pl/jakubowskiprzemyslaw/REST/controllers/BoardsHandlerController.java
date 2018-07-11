@@ -27,13 +27,13 @@ public class BoardsHandlerController {
 
     public BoardsHandlerController(BoardsViewHandler handler) {
         this.handler = handler;
+        this.mapper = new ObjectMapper();
     }
 
     @PostMapping(value = "/getmyboard")
     public @ResponseBody
     ObjectNode getMyBoard() {
         Optional<BoardsView> view = handler.getView();
-        mapper = new ObjectMapper();
 
         if (view.isPresent()) {
             node = mapper.createObjectNode();
@@ -42,6 +42,7 @@ public class BoardsHandlerController {
             shipList.forEach(ship -> createJSONWithMasts(node, ship));
             return node;
         }
+
         return mapper.createObjectNode();
     }
 
@@ -49,7 +50,6 @@ public class BoardsHandlerController {
     public @ResponseBody
     ObjectNode getOpponentBoard() {
         Optional<BoardsView> view = handler.getView();
-        mapper = new ObjectMapper();
 
         if (view.isPresent()) {
             node = mapper.createObjectNode();

@@ -39,6 +39,7 @@ public class PlayerConfigController {
         String IP = getPlayerIP(request);
         player.setIP("69");
         sessionService.addObjectToSessionRequest(request, player);
+
         PlayerConfiguration playerConfiguration = new PlayerConfiguration(player);
         queueService.sendObjectToQueue(playerConfigQueueName, playerConfiguration);
         return "redirect:/fleetplacement";

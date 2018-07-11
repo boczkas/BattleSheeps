@@ -48,7 +48,7 @@ function clickMe() {
     $.ajax({
         type: "POST",
         url: "playing",
-        data: {coordinates: coordinates}
+        data: {guiCoordinates: coordinates}
     });
 }
 
