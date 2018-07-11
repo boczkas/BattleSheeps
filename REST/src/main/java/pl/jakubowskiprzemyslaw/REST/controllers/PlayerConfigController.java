@@ -37,7 +37,7 @@ public class PlayerConfigController {
     @PostMapping(value = "/playerconfig", produces = "text/html")
     public String sendGameConfig(@ModelAttribute("player") Player player, HttpServletRequest request) {
         String IP = getPlayerIP(request);
-        player.setIP("69"); // TODO: 11.07.2018 IP to setIP
+        player.setIP(IP);
         sessionService.addObjectToSessionRequest(request, player);
 
         PlayerConfiguration playerConfiguration = new PlayerConfiguration(player);
