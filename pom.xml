@@ -8,6 +8,7 @@
     <artifactId>battleSheep</artifactId>
     <packaging>pom</packaging>
     <version>0.1-SNAPSHOT</version>
+
     <modules>
         <module>BattleSheepLib</module>
         <module>BoardHandler</module>
