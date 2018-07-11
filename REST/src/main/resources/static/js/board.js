@@ -53,8 +53,8 @@ function clickMe() {
 }
 
 function refresh() {
-    refreshBoard("getmyboard");
-    refreshBoard("getopponentboard");
+    refreshBoard("getBoardView");
+    refreshBoard("getShotBoardView");
 }
 
 function refreshBoard(url) {

@@ -33,8 +33,8 @@ public class BoardsView implements QueueObject {
         return playerBoardView.getShipList();
     }
 
-    public Map<Coordinate, ShootResult> getFieldView() {
-        return opponentBoard.getFieldView();
+    public Map<Coordinate, ShootResult> getShootingMap() {
+        return opponentBoard.getShootingMap();
     }
 
     public Player getPlayer() {

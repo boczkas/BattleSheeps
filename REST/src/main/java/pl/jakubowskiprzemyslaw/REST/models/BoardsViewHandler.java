@@ -10,8 +10,8 @@ public class BoardsViewHandler {
 
   private BoardsView view;
 
-  public void setView(BoardsView view) {
-    this.view = view;
+  public void setBoardsView(BoardsView boardsView) {
+    this.view = boardsView;
   }
 
   public Optional<BoardsView> getView() {

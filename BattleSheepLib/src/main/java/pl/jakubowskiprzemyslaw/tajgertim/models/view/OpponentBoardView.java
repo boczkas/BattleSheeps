@@ -9,10 +9,10 @@ import java.util.Map;
 
 public class OpponentBoardView implements Serializable {
     private static final long serialVersionUID = 3909289998235259708L;
-    private Map<Coordinate, ShootResult> fieldView;
+    private Map<Coordinate, ShootResult> shootingMap;
 
-    public OpponentBoardView(Map<Coordinate, ShootResult> fieldView) {
-        this.fieldView = fieldView;
+    public OpponentBoardView(Map<Coordinate, ShootResult> shootingMap) {
+        this.shootingMap = shootingMap;
     }
 
     public OpponentBoardView() {
@@ -20,21 +20,21 @@ public class OpponentBoardView implements Serializable {
     }
 
     public void put(Coordinate coordinate, ShootResult fieldStateView){
-        fieldView.put(coordinate, fieldStateView);
+        shootingMap.put(coordinate, fieldStateView);
     }
 
     public ShootResult get(Coordinate coordinate){
-        return fieldView.getOrDefault(coordinate, ShootResult.UNKNOWN);
+        return shootingMap.getOrDefault(coordinate, ShootResult.UNKNOWN);
     }
 
-    public Map<Coordinate, ShootResult> getFieldView() {
-        return new HashMap<>(fieldView);
+    public Map<Coordinate, ShootResult> getShootingMap() {
+        return new HashMap<>(shootingMap);
     }
 
     @Override
     public String toString() {
         return "OpponentBoardView{" +
-                "fieldView=" + fieldView +
+                "shootingMap=" + shootingMap +
                 '}';
     }
 }
