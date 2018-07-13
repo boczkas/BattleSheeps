@@ -23,7 +23,7 @@
         <module>PlayingStateMachine</module>
         <module>ShotHandler</module>
         <module>REST</module>
-        <module>PlayerRegisterConfiguration</module>
+        <module>PlayerConfigurationRegister</module>
     </modules>
 
     <properties>
@@ -119,7 +119,7 @@
                 <module>PlayingStateMachine</module>
                 <module>ShotHandler</module>
                 <module>REST</module>
-                <module>PlayerRegisterConfiguration</module>
+                <module>PlayerConfigurationRegister</module>
             </modules>
         </profile>
     </profiles>
