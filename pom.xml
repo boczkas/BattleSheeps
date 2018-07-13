@@ -16,6 +16,7 @@
         <module>PlayingStateMachine</module>
         <module>ShotHandler</module>
         <module>REST</module>
+        <module>PlayerRegisterConfiguration</module>
     </modules>
 
     <dependencies>
@@ -45,6 +46,7 @@
                 <module>PlayingStateMachine</module>
                 <module>ShotHandler</module>
                 <module>REST</module>
+                <module>PlayerRegisterConfiguration</module>
             </modules>
         </profile>
     </profiles>
