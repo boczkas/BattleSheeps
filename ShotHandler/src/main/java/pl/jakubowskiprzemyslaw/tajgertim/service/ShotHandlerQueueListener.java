@@ -25,7 +25,7 @@ public class ShotHandlerQueueListener {
         this.logger = logger;
     }
 
-    @RabbitListener(queues = "ShotHandlerPlayerShotQueueTest")  // 10
+    @RabbitListener(queues = "ShotHandlerPlayerShotQueue")  // 10
     public void listenOnShotHandlerPlayerShotQueue(PlayerAction shotAction) {
         logger.logInfo(ShotHandlerQueueListener.class, "Received message " + shotAction);
         Shot shot = (Shot) shotAction.getAction();
@@ -35,7 +35,7 @@ public class ShotHandlerQueueListener {
         queueService.sendObjectToQueue(Queues._12BoardHandlerShotQueryQueue, new PlayerShootCoordinate(player, coordinate));
     }
 
-    @RabbitListener(queues = "ShotHandlerFieldStatusQueueTest") // 17
+    @RabbitListener(queues = "ShotHandlerFieldStatusQueue") // 17
     public void listenOnShotHandlerFieldStatusQueue(FieldStatus fieldStatus) {
         logger.logInfo(ShotHandlerQueueListener.class, "Received message " + fieldStatus);
         FieldState fieldState = fieldStatus.getFieldState();

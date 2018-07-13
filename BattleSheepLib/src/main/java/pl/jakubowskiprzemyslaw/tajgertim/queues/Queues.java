@@ -1,24 +1,24 @@
 package pl.jakubowskiprzemyslaw.tajgertim.queues;
 
 public enum Queues {
-    _1PlayerRegistrationQueue("PlayerRegistrationQueueTest"),
-    _2GameConfigurationRegistrationQueue("GameConfigurationRegistrationQueueTest"),
-    _3FleetPlacementSizeQueue("FleetPlacementSizeQueueTest"),
-    _4FleetPlacementQueue("FleetPlacementQueueTest"),
-    _5GameReadyValidationQueue("GameReadyValidationQueueTest"),
-    _6BoardHandlerPlayerQueue("BoardHandlerPlayerQueueTest"),
-    _7BoardHandlerFleetPlacementQueue("BoardHandlerFleetPlacementQueueTest"),
-    _8JudgeStartQueue("JudgeStartQueueTest"),
-    _9PlayingStateMachinePlayerActionQueue("PlayingStateMachinePlayerActionQueueTest"),
-    _10ShotHandlerPlayerShotQueue("ShotHandlerPlayerShotQueueTest"),
-    _11MoveHandlerPlayerMoveQueue("MoveHandlerPlayerMoveQueueTest"),
-    _12BoardHandlerShotQueryQueue("BoardHandlerShotQueryQueueTest"),
-    _13BoardHandlerMoveQueryQueue("BoardHandlerMoveQueryQueueTest"),
-    _14PlayingStateMachineNextRoundStatusQueue("PlayingStateMachineNextRoundStatusQueueTest"),
-    _15JudgePlayerShootResultQueue("JudgePlayerShootResultQueueTest"),
+    _1PlayerRegistrationQueue("PlayerRegistrationQueue"),
+    _2GameConfigurationRegistrationQueue("GameConfigurationRegistrationQueue"),
+    _3FleetPlacementSizeQueue("FleetPlacementSizeQueue"),
+    _4FleetPlacementQueue("FleetPlacementQueue"),
+    _5GameReadyValidationQueue("GameReadyValidationQueue"),
+    _6BoardHandlerPlayerQueue("BoardHandlerPlayerQueue"),
+    _7BoardHandlerFleetPlacementQueue("BoardHandlerFleetPlacementQueue"),
+    _8JudgeStartQueue("JudgeStartQueue"),
+    _9PlayingStateMachinePlayerActionQueue("PlayingStateMachinePlayerActionQueue"),
+    _10ShotHandlerPlayerShotQueue("ShotHandlerPlayerShotQueue"),
+    _11MoveHandlerPlayerMoveQueue("MoveHandlerPlayerMoveQueue"),
+    _12BoardHandlerShotQueryQueue("BoardHandlerShotQueryQueue"),
+    _13BoardHandlerMoveQueryQueue("BoardHandlerMoveQueryQueue"),
+    _14PlayingStateMachineNextRoundStatusQueue("PlayingStateMachineNextRoundStatusQueue"),
+    _15JudgePlayerShootResultQueue("JudgePlayerShootResultQueue"),
     _16JudgePlayerMoveResult("JudgePlayerMoveResultQueue"),
-    _17ShotHandlerFieldStatusQueue("ShotHandlerFieldStatusQueueTest"),
-    _18PlayingBoardsViewQueue("PlayingBoardsViewQueueTest");
+    _17ShotHandlerFieldStatusQueue("ShotHandlerFieldStatusQueue"),
+    _18PlayingBoardsViewQueue("PlayingBoardsViewQueue");
 
     private final String name;
 

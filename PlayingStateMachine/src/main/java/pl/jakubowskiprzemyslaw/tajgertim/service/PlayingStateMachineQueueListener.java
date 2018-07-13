@@ -21,7 +21,7 @@ public class PlayingStateMachineQueueListener {
         this.logger = logger;
     }
 
-    @RabbitListener(queues = "PlayingStateMachinePlayerActionQueueTest")
+    @RabbitListener(queues = "PlayingStateMachinePlayerActionQueue")
     public void listenOnPlayingStateMachinePlayerActionQueue(PlayerAction playerAction) {
 
         logger.logInfo(PlayingStateMachineQueueListener.class, "Received message" + playerAction);
@@ -35,8 +35,8 @@ public class PlayingStateMachineQueueListener {
         }
     }
 
-    @RabbitListener(queues = "PlayingStateMachineNextRoundStatusQueueTest")
-    public void listenOnPlayingStateMachineNextRoundStatusQueueTest(NextRoundStatus nextRoundStatus) {
+    @RabbitListener(queues = "PlayingStateMachineNextRoundStatusQueue")
+    public void listenOnPlayingStateMachineNextRoundStatusQueue(NextRoundStatus nextRoundStatus) {
         logger.logInfo(PlayingStateMachineQueueListener.class, nextRoundStatus.toString());
     }
 }

@@ -30,8 +30,8 @@ public class BoardHandlerQueueListener {
         this.logger = logger;
     }
 
-    @RabbitListener(queues = "BoardHandlerShotQueryQueueTest")  //12
-    public void listenOnBoardHandlerShotQueryQueueTest(PlayerShootCoordinate playerShootCoordinate) throws NoSuchPlayerException, NoMastAtPositionException, NoShipAtCoordinateException {
+    @RabbitListener(queues = "BoardHandlerShotQueryQueue")  //12
+    public void listenOnBoardHandlerShotQueryQueue(PlayerShootCoordinate playerShootCoordinate) throws NoSuchPlayerException, NoMastAtPositionException, NoShipAtCoordinateException {
 
         logger.logInfo(BoardHandlerQueueListener.class, "Received message" + playerShootCoordinate);
 
