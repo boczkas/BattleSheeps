@@ -14,7 +14,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 @Service
 public class QueueService {
 
-    private static final Logger logger = LoggerFactory.getLogger("BattleSheep");
+    private final LoggerService logger;
     private final RabbitTemplate template;
     private RabbitAdmin rabbitAdmin;
 
@@ -22,11 +22,12 @@ public class QueueService {
     public QueueService(RabbitTemplate template) {
         this.template = template;
         this.rabbitAdmin = new RabbitAdmin(template);
+        logger = new LoggerService();
     }
 
     @RabbitHandler
     public void sendObjectToQueue(String queueName, QueueObject queueObject) {
-        logger.info("Sending message: " + queueObject + " to queue: " + queueName);
+        logger.logInfo(QueueService.class, "Sending message: " + queueObject + " to queue: " + queueName);
         rabbitAdmin.declareQueue(new Queue(queueName, false, false, false, null));
         template.convertAndSend(queueName, queueObject);
     }

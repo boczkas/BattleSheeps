@@ -6,6 +6,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Ship implements Serializable {
     private static final long serialVersionUID = 3450985123295669350L;
@@ -15,7 +16,7 @@ public class Ship implements Serializable {
         this.mastList = mastList;
     }
 
-    public Ship() {
+    Ship() {
         this(new ArrayList<>());
     }
 
@@ -23,7 +24,7 @@ public class Ship implements Serializable {
         mastList.add(mast);
     }
 
-    public boolean containsCoordinate(Coordinate coordinate) {
+    boolean containsCoordinate(Coordinate coordinate) {
         return mastList.contains(new Mast(coordinate));
     }
 
@@ -31,22 +32,26 @@ public class Ship implements Serializable {
         return new ArrayList<>(mastList);
     }
 
-    public FieldState getMastState(Coordinate coordinate) throws NoMastAtPositionException {
-        if (getMast(coordinate).getMastState().equals(MastState.HIT)) {
+    FieldState getMastFieldState(Coordinate coordinate) throws NoMastAtPositionException {
+        MastState mastState = getMast(coordinate).getMastState();
+        if (mastState.equals(MastState.HIT)) {
             return FieldState.HIT_MAST;
         }
-        if (getMast(coordinate).getMastState().equals(MastState.NOT_HIT)) {
+        else{
             return FieldState.NOT_HIT_MAST;
         }
-        return FieldState.EMPTY;
     }
 
     private Mast getMast(Coordinate coordinate) throws NoMastAtPositionException {
-        for (Mast mast: mastList) {
-            if (mast.getCoordinate().equals(coordinate)) {
-                return mast;
-            }
+
+        Optional<Mast> mastAtCoordinate = mastList.stream()
+                .filter(mast -> mast.getCoordinate().equals(coordinate))
+                .findFirst();
+
+        if(mastAtCoordinate.isPresent()){
+            return mastAtCoordinate.get();
         }
+
         throw new NoMastAtPositionException(coordinate);
     }
 
@@ -57,7 +62,7 @@ public class Ship implements Serializable {
                 '}';
     }
 
-    public void markMastAsHit(Coordinate coordinate) throws NoMastAtPositionException {
+    void markMastAsHit(Coordinate coordinate) throws NoMastAtPositionException {
         Mast mast = getMast(coordinate);
         mast.markAsHit();
     }

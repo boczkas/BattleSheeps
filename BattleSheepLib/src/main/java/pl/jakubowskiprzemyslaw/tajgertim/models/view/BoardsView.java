@@ -29,7 +29,7 @@ public class BoardsView implements QueueObject {
         return opponentBoard;
     }
 
-    public List<Ship> getShipList(){
+    public List<Ship> getShipList() {
         return playerBoardView.getShipList();
     }
 

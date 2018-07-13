@@ -4,6 +4,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class AllRoomsOpponents {
     private List<Opponents> allRoomsOpponents;
@@ -25,11 +26,16 @@ public class AllRoomsOpponents {
     }
 
     public Player getOpponent(Player player) throws NoSuchPlayerException {
-        for(Opponents opponents : allRoomsOpponents){
-            if(opponents.contains(player)) {
-                return opponents.getOpponent(player);
-            }
+
+        Optional<Opponents> foundOpponents = allRoomsOpponents.stream()
+                .filter(opponents -> opponents.contains(player))
+                .findFirst();
+
+        if(foundOpponents.isPresent()){
+            Opponents opponents = foundOpponents.get();
+            return opponents.getOpponent(player);
         }
+
         throw new NoSuchPlayerException(player);
     }
 }

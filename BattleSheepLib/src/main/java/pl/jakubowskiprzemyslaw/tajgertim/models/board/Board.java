@@ -9,43 +9,38 @@ import java.util.List;
 
 public class Board implements Serializable {
     private static final long serialVersionUID = -1760899481776411254L;
-    private List<Ship> shipList;
+    private Fleet fleet;
 
-    public Board(List<Ship> shipList) {
-        this.shipList = shipList;
+    public Board(Fleet fleet) {
+        this.fleet = fleet;
     }
 
-    public void markHit(Coordinate coordinate) throws NoShipAtCoordinateException, NoMastAtPositionException {
+    public void markHit(Coordinate coordinate) throws NoMastAtPositionException {
         Ship ship = getShipAtCoordinate(coordinate);
         ship.markMastAsHit(coordinate);
     }
 
-    private Ship getShipAtCoordinate(Coordinate coordinate) throws NoShipAtCoordinateException {
-        for (Ship ship : shipList) {
-            if(ship.containsCoordinate(coordinate)){
-                return ship;
-            }
-        }
-        throw new NoShipAtCoordinateException(coordinate);
+    private Ship getShipAtCoordinate(Coordinate coordinate) {
+        return fleet.getShipAtCoordinate(coordinate);
     }
 
-    public List<Ship> getShipList() {
-        return new ArrayList<>(shipList);
+    public Fleet getFleet() {
+        return new Fleet(fleet);
     }
 
-    public FieldState getCoordinateStatus(Coordinate coordinate) throws NoMastAtPositionException {
-        for (Ship ship : shipList){
-            if(ship.containsCoordinate(coordinate)){
-                return ship.getMastState(coordinate);
-            }
-        }
-        return FieldState.EMPTY;
+
+    public FieldState getCoordinateStatus(Coordinate coordinate) {
+        return fleet.getCoordinateStatus(coordinate);
     }
 
     @Override
     public String toString() {
         return "Board{" +
-                "shipList=" + shipList +
+                "fleet=" + fleet +
                 '}';
+    }
+
+    public List<Ship> getShipList() {
+        return fleet.getShips();
     }
 }
