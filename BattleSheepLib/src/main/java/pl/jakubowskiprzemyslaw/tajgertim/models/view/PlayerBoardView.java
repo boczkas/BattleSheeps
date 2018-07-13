@@ -1,6 +1,7 @@
 package pl.jakubowskiprzemyslaw.tajgertim.models.view;
 
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.Board;
+import pl.jakubowskiprzemyslaw.tajgertim.models.board.Fleet;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.Ship;
 
 import java.io.Serializable;
@@ -18,14 +19,14 @@ public class PlayerBoardView implements Serializable {
         return board;
     }
 
+    List<Ship> getShipList() {
+        return board.getShipList();
+    }
+
     @Override
     public String toString() {
         return "PlayerBoardView{" +
                 "board=" + board +
                 '}';
-    }
-
-    public List<Ship> getShipList() {
-        return board.getShipList();
     }
 }

@@ -2,6 +2,7 @@ package pl.jakubowskiprzemyslaw.tajgertim.service;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
+import pl.jakubowskiprzemyslaw.tajgertim.models.QueueObject;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldStatus;
@@ -41,10 +42,14 @@ public class ShotHandlerQueueListener {
         FieldState fieldState = fieldStatus.getFieldState();
 
         Player player = fieldStatus.getPlayer();
+        QueueObject playerShootResult;
+
         if (fieldState.equals(FieldState.NOT_HIT_MAST)) {
-            queueService.sendObjectToQueue(Queues._15JudgePlayerShootResultQueue, new PlayerShootResult(player, ShootResult.HIT));
+            playerShootResult = new PlayerShootResult(player, ShootResult.HIT);
         } else {
-            queueService.sendObjectToQueue(Queues._15JudgePlayerShootResultQueue, new PlayerShootResult(player, ShootResult.MISS));
+            playerShootResult = new PlayerShootResult(player, ShootResult.MISS);
         }
+
+        queueService.sendObjectToQueue(Queues._15JudgePlayerShootResultQueue, playerShootResult);
     }
 }
