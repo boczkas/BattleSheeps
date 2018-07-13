@@ -21,7 +21,7 @@ public class JudgeQueueListener {
         this.logger = logger;
     }
 
-    @RabbitListener(queues = "JudgePlayerShootResultQueueTest")
+    @RabbitListener(queues = "JudgePlayerShootResultQueue")
     public void listenOnJudgePlayerShootResultQueue (PlayerShootResult playerShootResult) {
         logger.logInfo(JudgeQueueListener.class, "Received message" + playerShootResult);
 

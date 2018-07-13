@@ -16,7 +16,7 @@ public class RabbitListenerService {
     this.handler = handler;
   }
 
-  @RabbitListener(queues = "PlayingBoardsViewQueueTest")
+  @RabbitListener(queues = "PlayingBoardsViewQueue")
   public void getBoardsView(BoardsView boardsView) {
     handler.setBoardsView(boardsView);
   }
