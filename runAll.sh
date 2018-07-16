@@ -11,3 +11,5 @@ screen -dmS PlayingStateMachine java -jar PlayingStateMachine/target/PlayingStat
 screen -dmS BoardHandler java -jar BoardHandler/target/BoardHandler-1.0.jar
 
 screen -dmS REST java -jar REST/target/REST-1.0.jar
+
+screen -dmS GameReadyValidator java -jar GameReadyValidator/target/GameReadyValidator-1.0.jar
