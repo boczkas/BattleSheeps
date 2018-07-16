@@ -26,7 +26,7 @@ public class Fleet implements Serializable {
     }
 
     List<Ship> getShips() {
-        return new ArrayList<>(Collections.unmodifiableCollection(ships));
+        return Collections.unmodifiableList(ships);
     }
 
     Ship getShipAtCoordinate(Coordinate coordinate) {

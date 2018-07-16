@@ -5,8 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.jakubowskiprzemyslaw.REST.models.BoardsViewHandler;
 import pl.jakubowskiprzemyslaw.tajgertim.models.view.BoardsView;
+import pl.jakubowskiprzemyslaw.tajgertim.services.BattleShipQueueInteractionHandler;
 
-@Service
+@BattleShipQueueInteractionHandler
 public class RabbitListenerService {
 
   private final BoardsViewHandler handler;

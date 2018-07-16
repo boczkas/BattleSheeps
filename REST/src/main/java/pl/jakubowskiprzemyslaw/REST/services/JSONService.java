@@ -40,15 +40,18 @@ public class JSONService {
 
     private void createJSONWithMasts(ObjectNode node, Ship ship) {
         List<Mast> mastList = ship.getMastList();
-        AtomicInteger x = new AtomicInteger();
-        AtomicInteger y = new AtomicInteger();
 
         mastList.forEach(mast -> {
-            int[] coordinates = getMastCoordinates(mast);
-            x.set(coordinates[0]);
-            y.set(coordinates[1]);
-            node.put("cell" + x + y, "X");
+            addMastCoordinateToFrontNode(node, mast);
         });
+    }
+
+    private void addMastCoordinateToFrontNode(ObjectNode node, Mast mast) {
+        int[] coordinates = getMastCoordinates(mast);
+        int x = coordinates[0];
+        int y = coordinates[1];
+
+        node.put("cell" + x + "," + y, "X");
     }
 
     private void createJSONWithFields(ObjectNode node, Map<Coordinate, ShootResult> board) {
@@ -62,7 +65,7 @@ public class JSONService {
             coordinateX = coordinate.getX();
             coordinateY = coordinate.getY();
             shootResult = field.getValue();
-            node.put("opp_cell" + coordinateX + coordinateY, shootResult.toString());
+            node.put("opp_cell" + coordinateX + "," + coordinateY, shootResult.toString());
         }
     }
 
