@@ -15,7 +15,7 @@ class PlayerConnectedListener implements ApplicationListener<PlayerConnectedEven
 
     private final QueueService queueService;
     private int counter = 0;
-
+  
     @Autowired
     PlayerConnectedListener(QueueService queueService) {
         this.queueService = queueService;

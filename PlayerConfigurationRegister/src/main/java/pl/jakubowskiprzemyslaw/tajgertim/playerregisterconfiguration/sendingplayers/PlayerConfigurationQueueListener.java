@@ -30,5 +30,4 @@ class PlayerConfigurationQueueListener {
         queueService.sendObjectToQueue(Queues._6BoardHandlerPlayerQueue, player);
         logger.logInfo(PlayerConfigurationQueueListener.class, player.toString());
     }
-
 }

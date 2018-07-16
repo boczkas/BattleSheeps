@@ -25,6 +25,8 @@
         <module>REST</module>
         <module>PlayerConfigurationRegister</module>
         <module>GameConfigurationRegister</module>
+        <module>GameReadyValidator</module>
+        <module>FleetPlacer</module>
     </modules>
 
     <properties>
@@ -122,6 +124,8 @@
                 <module>REST</module>
                 <module>PlayerConfigurationRegister</module>
                 <module>GameConfigurationRegister</module>
+                <module>GameReadyValidator</module>
+                <module>FleetPlacer</module>
             </modules>
         </profile>
     </profiles>

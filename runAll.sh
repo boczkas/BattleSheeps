@@ -15,3 +15,5 @@ screen -dmS PlayerConfigurationRegister java -jar PlayerConfigurationRegister/ta
 screen -dmS GameConfigurationRegister java -jar GameConfigurationRegister/target/GameConfigurationRegister-1.0.jar
 
 screen -dmS REST java -jar REST/target/REST-1.0.jar
+
+screen -dmS GameReadyValidator java -jar GameReadyValidator/target/GameReadyValidator-1.0.jar
