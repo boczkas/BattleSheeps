@@ -25,9 +25,9 @@ class PlayerConfigurationQueueListener {
 
     @RabbitListener(queues = "PlayerRegistrationQueue")
     void getPlayerFromPlayerRegistrationQueue(PlayerConfiguration player) {
+        logger.logInfo(PlayerConfigurationQueueListener.class, player.toString());
         PlayerConnectedEvent event = new PlayerConnectedEvent(this);
         publisher.publishEvent(event);
         queueService.sendObjectToQueue(Queues._6BoardHandlerPlayerQueue, player);
-        logger.logInfo(PlayerConfigurationQueueListener.class, player.toString());
     }
 }
