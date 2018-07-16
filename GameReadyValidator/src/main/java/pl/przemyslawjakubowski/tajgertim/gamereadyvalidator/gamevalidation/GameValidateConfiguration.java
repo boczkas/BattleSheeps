@@ -9,7 +9,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 import pl.jakubowskiprzemyslaw.tajgertim.services.SessionService;
 
 @Configuration
-public class GameValidateConfiguration {
+class GameValidateConfiguration {
 
     private final RabbitTemplate rabbitTemplate;
 

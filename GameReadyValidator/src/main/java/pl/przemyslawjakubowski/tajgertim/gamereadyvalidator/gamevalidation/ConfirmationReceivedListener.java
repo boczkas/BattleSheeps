@@ -9,7 +9,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
 @Component
-public class ConfirmationReceivedListener implements ApplicationListener<ConfirmationReceivedEvent> {
+class ConfirmationReceivedListener implements ApplicationListener<ConfirmationReceivedEvent> {
 
     private final QueueService queueService;
     private int counter = 0;

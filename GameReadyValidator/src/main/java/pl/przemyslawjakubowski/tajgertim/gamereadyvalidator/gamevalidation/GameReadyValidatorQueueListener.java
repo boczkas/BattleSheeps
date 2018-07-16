@@ -17,7 +17,7 @@ class GameReadyValidatorQueueListener {
         this.publisher = publisher;
     }
 
-    @RabbitListener(queues = "GameReadyValidatorQueue")
+    @RabbitListener(queues = "GameReadyValidationQueue")
     void getConfirmationsFromGameReadyValidatorQueue(Confirmation confirmation) {
         ConfirmationReceivedEvent event = new ConfirmationReceivedEvent(this);
         publisher.publishEvent(event);
