@@ -55,4 +55,11 @@ public class Fleet implements Serializable {
 
         return FieldState.EMPTY;
     }
+
+    @Override
+    public String toString() {
+        return "Fleet{" +
+                "ships=" + ships +
+                '}';
+    }
 }
