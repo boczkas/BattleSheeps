@@ -9,8 +9,8 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.ShootResult;
 import java.util.Map;
 
 public class PlayerBoards {
-    private Board board;
-    private PlayerShots playerShots;
+    private final Board board;
+    private final PlayerShots playerShots;
 
     public PlayerBoards(Board board, PlayerShots playerShots) {
         this.board = board;
@@ -21,7 +21,7 @@ public class PlayerBoards {
         board.markHit(coordinate);
     }
 
-    void markMissOnBoard(Coordinate coordinate) {
+    void markMissOnShotsBoard(Coordinate coordinate) {
         playerShots.add(coordinate, ShootResult.MISS);
     }
 

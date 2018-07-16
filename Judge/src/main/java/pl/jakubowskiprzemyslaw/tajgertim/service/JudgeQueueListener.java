@@ -7,10 +7,11 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.round.RoundStatus;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.PlayerShootResult;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.ShootResult;
 import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
+import pl.jakubowskiprzemyslaw.tajgertim.services.BattleShipQueueInteractionHandler;
 import pl.jakubowskiprzemyslaw.tajgertim.services.LoggerService;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
-@Service
+@BattleShipQueueInteractionHandler
 public class JudgeQueueListener {
 
     private final QueueService queueService;
@@ -27,12 +28,16 @@ public class JudgeQueueListener {
 
         ShootResult shootResult = playerShootResult.getShootResult();
 
+        RoundStatus roundStatus = RoundStatus.GAME_END;
+
         if(shootResult.equals(ShootResult.HIT)){
-            queueService.sendObjectToQueue(Queues._14PlayingStateMachineNextRoundStatusQueue, new NextRoundStatus(RoundStatus.SAME_PLAYER));
+            roundStatus = RoundStatus.SAME_PLAYER;
         }
 
         if(shootResult.equals(ShootResult.MISS)){
-            queueService.sendObjectToQueue(Queues._14PlayingStateMachineNextRoundStatusQueue, new NextRoundStatus(RoundStatus.NEXT_PLAYER));
+            roundStatus = RoundStatus.NEXT_PLAYER;
         }
+
+        queueService.sendObjectToQueue(Queues._14PlayingStateMachineNextRoundStatusQueue, new NextRoundStatus(roundStatus));
     }
 }

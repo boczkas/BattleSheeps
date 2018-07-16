@@ -13,10 +13,11 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.PlayerShootCoordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.PlayerShootResult;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.ShootResult;
 import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
+import pl.jakubowskiprzemyslaw.tajgertim.services.BattleShipQueueInteractionHandler;
 import pl.jakubowskiprzemyslaw.tajgertim.services.LoggerService;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
-@Service
+@BattleShipQueueInteractionHandler
 public class ShotHandlerQueueListener {
     private final QueueService queueService;
     private final LoggerService logger;

@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class PlayersBoards {
 
-    private Map<Player, PlayerBoards> playersBoards;
+    private final Map<Player, PlayerBoards> playersBoards;
 
     public PlayersBoards() {
         this.playersBoards = new HashMap<>();
@@ -35,7 +35,7 @@ public class PlayersBoards {
 
     public void markMissOnBoard(Player player, Coordinate coordinate) {
         PlayerBoards playerBoards = playersBoards.get(player);
-        playerBoards.markMissOnBoard(coordinate);
+        playerBoards.markMissOnShotsBoard(coordinate);
     }
 
     public FieldState getFieldStatus(Player player, Coordinate coordinate) throws NoMastAtPositionException {
