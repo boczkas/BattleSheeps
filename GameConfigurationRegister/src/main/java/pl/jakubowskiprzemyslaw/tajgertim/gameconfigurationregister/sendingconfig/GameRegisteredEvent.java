@@ -2,11 +2,11 @@ package pl.jakubowskiprzemyslaw.tajgertim.gameconfigurationregister.sendingconfi
 
 import org.springframework.context.ApplicationEvent;
 
-public class GameRegisteredEvent extends ApplicationEvent {
+class GameRegisteredEvent extends ApplicationEvent {
 
     private static final long serialVersionUID = -313548090572734951L;
 
-    public GameRegisteredEvent(Object source) {
+    GameRegisteredEvent(Object source) {
         super(source);
     }
 }
