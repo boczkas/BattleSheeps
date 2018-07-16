@@ -1,5 +1,6 @@
 package pl.jakubowskiprzemyslaw.tajgertim.playerregisterconfiguration.sendingplayers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import pl.jakubowskiprzemyslaw.tajgertim.models.confirmation.Confirmation;
@@ -15,6 +16,7 @@ class PlayerConnectedListener implements ApplicationListener<PlayerConnectedEven
     private final QueueService queueService;
     private int counter = 0;
 
+    @Autowired
     PlayerConnectedListener(QueueService queueService) {
         this.queueService = queueService;
     }
