@@ -121,6 +121,7 @@
                 <module>ShotHandler</module>
                 <module>REST</module>
                 <module>PlayerConfigurationRegister</module>
+                <module>GameConfigurationRegister</module>
             </modules>
         </profile>
     </profiles>
