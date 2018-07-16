@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -e
 
 mvn clean install
@@ -17,3 +19,5 @@ screen -dmS GameConfigurationRegister java -jar GameConfigurationRegister/target
 screen -dmS REST java -jar REST/target/REST-1.0.jar
 
 screen -dmS GameReadyValidator java -jar GameReadyValidator/target/GameReadyValidator-1.0.jar
+
+screen -dmS FleetPlacer java -jar FleetPlacer/target/FleetPlacer-1.0.jar
