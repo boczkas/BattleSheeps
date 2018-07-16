@@ -2,6 +2,8 @@ package pl.jakubowskiprzemyslaw.tajgertim.fleetplacer.service;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import pl.jakubowskiprzemyslaw.tajgertim.fleetplacer.event.FleetPlacedEvent;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.FleetPlacement;
 import pl.jakubowskiprzemyslaw.tajgertim.models.configuration.GameConfiguration;
 import pl.jakubowskiprzemyslaw.tajgertim.models.confirmation.FleetPlacementConfirmation;
@@ -15,26 +17,25 @@ public class FleetPlacerQueueListener {
 
     private final QueueService queueService;
     private final LoggerService logger;
-    private int amountOfFleetsConfigured;
+    private final ApplicationEventPublisher publisher;
 
     @Autowired
-    public FleetPlacerQueueListener(QueueService queueService, LoggerService logger) {
+    public FleetPlacerQueueListener(QueueService queueService, LoggerService logger, ApplicationEventPublisher publisher) {
         this.queueService = queueService;
         this.logger = logger;
-        amountOfFleetsConfigured = 0;
+        this.publisher = publisher;
     }
 
     @RabbitListener(queues = "FleetPlacementQueue")
     public void listenOnFleetPlacementQueue(FleetPlacement fleetPlacement) {
         logger.logInfo(FleetPlacerQueueListener.class, "Received message" + fleetPlacement);
+
         //TODO: 30.07.2018 check if placement is correct
         queueService.sendObjectToQueue(Queues._7BoardHandlerFleetPlacementQueue, fleetPlacement);
 
-        amountOfFleetsConfigured++;
-        if (amountOfFleetsConfigured == 2) {
-            queueService.sendObjectToQueue(Queues._5GameReadyValidationQueue, new FleetPlacementConfirmation());
-            amountOfFleetsConfigured = 0;
-        }
+        FleetPlacedEvent event = new FleetPlacedEvent(this);
+        publisher.publishEvent(event);
+
     }
 
     @RabbitListener(queues = "FleetPlacementSizeQueue")
