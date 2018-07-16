@@ -25,9 +25,9 @@ class GameConfigurationQueueListener {
 
     @RabbitListener(queues = "GameConfigurationRegistrationQueue")
     void getGameConfigurationFromGameConfigurationQueue(GameConfiguration gameConfiguration) {
+        loggerService.logInfo(GameConfigurationQueueListener.class, gameConfiguration.toString());
         GameRegisteredEvent event = new GameRegisteredEvent(this);
         publisher.publishEvent(event);
         queueService.sendObjectToQueue(Queues._3FleetPlacementSizeQueue, gameConfiguration);
-        loggerService.logInfo(GameConfigurationQueueListener.class, gameConfiguration.toString());
     }
 }
