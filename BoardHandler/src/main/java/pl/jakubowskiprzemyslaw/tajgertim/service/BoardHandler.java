@@ -1,22 +1,22 @@
 package pl.jakubowskiprzemyslaw.tajgertim.service;
 
-import org.springframework.stereotype.Service;
 import pl.jakubowskiprzemyslaw.tajgertim.models.*;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.*;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.ShootResult;
+import pl.jakubowskiprzemyslaw.tajgertim.services.BattleShipHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@BattleShipHandler
 public class BoardHandler {
 
-    private PlayersBoards playersBoards;
-    private AllRoomsOpponents allRoomsOpponents;
+    private final PlayersBoards playersBoards;
+    private final AllRoomsOpponents allRoomsOpponents;
 
     public BoardHandler() {
         this.allRoomsOpponents = new AllRoomsOpponents();
@@ -35,8 +35,8 @@ public class BoardHandler {
     }
 
     FieldState getOpponentFieldStatus(Player player, Coordinate coordinate) throws NoSuchPlayerException, NoMastAtPositionException {
-        Player playerOpponent = getOpponent(player);
-        return getPlayerFieldStatus(playerOpponent, coordinate);
+        Player opponent = getOpponent(player);
+        return getPlayerFieldStatus(opponent, coordinate);
     }
 
     private Player getOpponent(Player player) throws NoSuchPlayerException {
@@ -51,7 +51,7 @@ public class BoardHandler {
         return playersBoards.getBoard(player);
     }
 
-    Map<Coordinate,ShootResult> getPlayerShotsMap(Player player) {
+    Map<Coordinate, ShootResult> getPlayerShotsMap(Player player) {
         return playersBoards.getPlayerShotsMap(player);
     }
 
@@ -62,7 +62,6 @@ public class BoardHandler {
                 ", allRoomsOpponents=" + allRoomsOpponents +
                 '}';
     }
-
 
 
     //TODO: Before first merge:   kill it with fire!

@@ -19,7 +19,7 @@ public class FleetPlacementController{
         this.sessionService = sessionService;
     }
 
-    @GetMapping(value = "/fleetplacement")
+    @GetMapping(value = "/fleetplacement", produces = "text/html")
     public String getFleetPlacement(HttpServletRequest request) {
         if (!sessionService.isObjectInSession(request, "Player")) {
             return "redirect:/playerconfig";

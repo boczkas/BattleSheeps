@@ -10,7 +10,7 @@ public class LoggerService {
         logger.error(message);
     }
 
-    public void logInfo(Class shotHandlerClass, String message) {
-        logger.info("[" + shotHandlerClass.getSimpleName() + "]: " +  message);
+    public void logInfo(Class aClass, String message) {
+        logger.info("[" + aClass.getSimpleName() + "]: " +  message);
     }
 }

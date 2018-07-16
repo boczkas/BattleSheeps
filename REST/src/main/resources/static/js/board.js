@@ -6,6 +6,10 @@ window.onload = function load() {
     setDivsForBoard(opponentBoard, true, false);
 };
 
+function setCellValue(cell, j, i) {
+    cell.setAttribute("value", j + "," + i);
+}
+
 function setDivsForBoard(board, clickable, myBoard) {
 
     for (var i = 0; i < 10; i++) {
@@ -17,11 +21,11 @@ function setDivsForBoard(board, clickable, myBoard) {
             var cell = document.createElement('DIV');
             cell.setAttribute("class", "cell col-xs-1 col-xs-push-1");
 
-            var attribute = (j.toString()).concat(i.toString());
+            var attribute = j.toString() + "," + i.toString();
 
-            setAttribute(cell, attribute, myBoard);
+            setCellAttribute(cell, attribute, myBoard);
 
-            cell.setAttribute("value", j + "," + i);
+            setCellValue(cell, j, i);
 
             if (clickable) {
                 cell.onclick = clickMe;
@@ -33,7 +37,7 @@ function setDivsForBoard(board, clickable, myBoard) {
     }
 }
 
-function setAttribute(cell, attribute, myBoard) {
+function setCellAttribute(cell, attribute, myBoard) {
     if (myBoard) {
         cell.setAttribute("id", "cell" + attribute);
     }
@@ -63,13 +67,13 @@ function refreshBoard(url) {
         url: url,
         success: function (data) {
             if (jQuery.isEmptyObject(data) !== true) {
-                setElementValues(data);
+                setShotResults(data);
             }
         }
     });
 }
 
-function setElementValues(container) {
+function setShotResults(container) {
     for (var key in container) {
         var elementById = document.getElementById(key);
         elementById.innerText = container[key];
