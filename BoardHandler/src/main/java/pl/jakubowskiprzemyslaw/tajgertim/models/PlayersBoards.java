@@ -23,7 +23,7 @@ public class PlayersBoards {
         playersBoards.put(player, playerBoards);
     }
 
-    public void markHitAtShip(Player player, Coordinate coordinate) throws NoShipAtCoordinateException, NoMastAtPositionException {
+    public void markHitAtShip(Player player, Coordinate coordinate) throws NoMastAtPositionException {
         PlayerBoards playerPlayerBoards = playersBoards.get(player);
         playerPlayerBoards.markHitOnShip(coordinate);
     }
@@ -38,7 +38,7 @@ public class PlayersBoards {
         playerBoards.markMissOnShotsBoard(coordinate);
     }
 
-    public FieldState getFieldStatus(Player player, Coordinate coordinate) throws NoMastAtPositionException {
+    public FieldState getFieldStatus(Player player, Coordinate coordinate) {
         Board board = playersBoards.get(player).getBoard();
         return board.getCoordinateStatus(coordinate);
     }

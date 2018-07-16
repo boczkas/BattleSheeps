@@ -17,7 +17,7 @@ public class PlayerBoards {
         this.playerShots = playerShots;
     }
 
-    void markHitOnShip(Coordinate coordinate) throws NoShipAtCoordinateException, NoMastAtPositionException {
+    void markHitOnShip(Coordinate coordinate) throws NoMastAtPositionException {
         board.markHit(coordinate);
     }
 

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import pl.jakubowskiprzemyslaw.tajgertim.models.QueueObject;
 import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 
+import java.util.Map;
+
 @Service
 public class QueueService {
 
@@ -28,7 +30,12 @@ public class QueueService {
     @RabbitHandler
     public void sendObjectToQueue(String queueName, QueueObject queueObject) {
         logger.logInfo(QueueService.class, "Sending message: " + queueObject + " to queue: " + queueName);
-        rabbitAdmin.declareQueue(new Queue(queueName, false, false, false, null));
+        boolean DURABLE = false;
+        boolean EXCLUSIVE = false;
+        boolean AUTO_DELETE = false;
+        Map<String, Object> ARGUMENTS = null;
+
+        rabbitAdmin.declareQueue(new Queue(queueName, DURABLE, EXCLUSIVE, AUTO_DELETE, ARGUMENTS));
         template.convertAndSend(queueName, queueObject);
     }
 

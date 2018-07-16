@@ -30,11 +30,10 @@ public class JudgeQueueListener {
 
         RoundStatus roundStatus = RoundStatus.GAME_END;
 
-        if(shootResult.equals(ShootResult.HIT)){
+        if (shootResult.equals(ShootResult.HIT)) {
             roundStatus = RoundStatus.SAME_PLAYER;
         }
-
-        if(shootResult.equals(ShootResult.MISS)){
+        else if (shootResult.equals(ShootResult.MISS)) {
             roundStatus = RoundStatus.NEXT_PLAYER;
         }
 
