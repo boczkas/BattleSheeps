@@ -29,6 +29,10 @@ public final class GameConfiguration implements QueueObject {
         return gameName;
     }
 
+    public int getBoardSize() {
+        return shipConfiguration.getBoardSize();
+    }
+
     public void setGameName(String gameName) {
         this.gameName = gameName;
     }

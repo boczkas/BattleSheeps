@@ -62,4 +62,8 @@ public class Fleet implements Serializable {
                 "ships=" + ships +
                 '}';
     }
+
+    public void addShip(Ship ship) {
+        ships.add(ship);
+    }
 }
