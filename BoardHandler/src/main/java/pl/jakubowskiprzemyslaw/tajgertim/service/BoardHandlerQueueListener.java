@@ -1,8 +1,8 @@
 package pl.jakubowskiprzemyslaw.tajgertim.service;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.stereotype.Service;
 import pl.jakubowskiprzemyslaw.tajgertim.models.NoSuchPlayerException;
+import pl.jakubowskiprzemyslaw.tajgertim.models.board.Fleet;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.FleetPlacement;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.NoMastAtPositionException;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.NoShipAtCoordinateException;
@@ -33,8 +33,8 @@ public class BoardHandlerQueueListener {
         this.logger = logger;
     }
 
-    @RabbitListener(queues = "BoardHandlerShotQueryQueue")  //12
-    public void listenOnBoardHandlerShotQueryQueue(PlayerShootCoordinate playerShootCoordinate) throws NoSuchPlayerException, NoMastAtPositionException, NoShipAtCoordinateException {
+    @RabbitListener(queues = "BoardHandlerShotQueryQueue")  // 12
+    public void listenOnBoardHandlerShotQueryQueue(PlayerShootCoordinate playerShootCoordinate) throws NoSuchPlayerException, NoMastAtPositionException {
 
         logger.logInfo(BoardHandlerQueueListener.class, "Received message" + playerShootCoordinate);
 
@@ -67,13 +67,17 @@ public class BoardHandlerQueueListener {
                 );
     }
 
-    @RabbitListener(queues = "BoardHandlerPlayerQueue")
+    @RabbitListener(queues = "BoardHandlerPlayerQueue") // 6
     void listenOnBoardHandlerPlayerQueue(PlayerConfiguration playerConfiguration) {
         logger.logInfo(BoardHandlerQueueListener.class, playerConfiguration.toString());
+        boardHandler.addPlayer(playerConfiguration.getPlayer());
     }
 
-    @RabbitListener(queues = "BoardHandlerFleetPlacementQueue")
+    @RabbitListener(queues = "BoardHandlerFleetPlacementQueue") // 7
     void listenOnBoardHandlerFleetPlacementQueue(FleetPlacement fleetPlacement) {
         logger.logInfo(BoardHandlerQueueListener.class, fleetPlacement.toString());
+        Player player = fleetPlacement.getPlayer();
+        Fleet fleet = fleetPlacement.getFleet();
+        boardHandler.addFleetForPlayer(player, fleet);
     }
 }

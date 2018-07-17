@@ -1,8 +1,9 @@
 package pl.jakubowskiprzemyslaw.tajgertim.models;
 
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.Board;
+import pl.jakubowskiprzemyslaw.tajgertim.models.board.Fleet;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.NoMastAtPositionException;
-import pl.jakubowskiprzemyslaw.tajgertim.models.board.NoShipAtCoordinateException;
+import pl.jakubowskiprzemyslaw.tajgertim.models.configuration.PlayerConfiguration;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
@@ -23,7 +24,7 @@ public class PlayersBoards {
         playersBoards.put(player, playerBoards);
     }
 
-    public void markHitAtShip(Player player, Coordinate coordinate) throws NoShipAtCoordinateException, NoMastAtPositionException {
+    public void markHitAtShip(Player player, Coordinate coordinate) throws NoMastAtPositionException {
         PlayerBoards playerPlayerBoards = playersBoards.get(player);
         playerPlayerBoards.markHitOnShip(coordinate);
     }
@@ -38,7 +39,7 @@ public class PlayersBoards {
         playerBoards.markMissOnShotsBoard(coordinate);
     }
 
-    public FieldState getFieldStatus(Player player, Coordinate coordinate) throws NoMastAtPositionException {
+    public FieldState getFieldStatus(Player player, Coordinate coordinate) {
         Board board = playersBoards.get(player).getBoard();
         return board.getCoordinateStatus(coordinate);
     }
@@ -51,6 +52,24 @@ public class PlayersBoards {
     public Map<Coordinate, ShootResult> getPlayerShotsMap(Player player) {
         PlayerBoards playerBoards = playersBoards.get(player);
         return playerBoards.getPlayerShotsMap();
+    }
+
+    public void addPlayer(Player player) {
+        Fleet fleet = new Fleet();
+        PlayerBoards playerBoards = createPlayerBoards(fleet);
+        playersBoards.put(player, playerBoards);
+    }
+
+    public void addFleetForPlayer(Player player, Fleet fleet) {
+        PlayerBoards playerBoards = createPlayerBoards(fleet);
+        playersBoards.put(player, playerBoards);
+    }
+
+    private PlayerBoards createPlayerBoards(Fleet fleet) {
+        Board board = new Board(fleet);
+        PlayerShots playerShots = new PlayerShots();
+
+        return new PlayerBoards(board, playerShots);
     }
 
     @Override

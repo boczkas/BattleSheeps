@@ -2,7 +2,6 @@ package pl.jakubowskiprzemyslaw.tajgertim.models;
 
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.Board;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.NoMastAtPositionException;
-import pl.jakubowskiprzemyslaw.tajgertim.models.board.NoShipAtCoordinateException;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.ShootResult;
 
@@ -17,7 +16,7 @@ public class PlayerBoards {
         this.playerShots = playerShots;
     }
 
-    void markHitOnShip(Coordinate coordinate) throws NoShipAtCoordinateException, NoMastAtPositionException {
+    void markHitOnShip(Coordinate coordinate) throws NoMastAtPositionException {
         board.markHit(coordinate);
     }
 
