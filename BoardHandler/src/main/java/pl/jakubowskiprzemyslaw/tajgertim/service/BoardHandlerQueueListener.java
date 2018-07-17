@@ -11,6 +11,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldStatus;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
+import pl.jakubowskiprzemyslaw.tajgertim.models.room.Room;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.PlayerShootCoordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.view.BoardsView;
 import pl.jakubowskiprzemyslaw.tajgertim.models.view.OpponentBoardView;
@@ -70,7 +71,9 @@ public class BoardHandlerQueueListener {
     @RabbitListener(queues = "BoardHandlerPlayerQueue") // 6
     void listenOnBoardHandlerPlayerQueue(PlayerConfiguration playerConfiguration) {
         logger.logInfo(BoardHandlerQueueListener.class, playerConfiguration.toString());
-        boardHandler.addPlayer(playerConfiguration.getPlayer());
+        Player player = playerConfiguration.getPlayer();
+        boardHandler.addPlayer(player);
+        boardHandler.addPlayerToRoom(new Room("1"), player);
     }
 
     @RabbitListener(queues = "BoardHandlerFleetPlacementQueue") // 7
