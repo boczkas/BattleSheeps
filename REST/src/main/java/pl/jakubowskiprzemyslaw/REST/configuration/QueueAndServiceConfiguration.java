@@ -5,6 +5,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import pl.jakubowskiprzemyslaw.tajgertim.services.BattleShipQueueInteractionHandler;
 import pl.jakubowskiprzemyslaw.tajgertim.services.LoggerService;
 import pl.jakubowskiprzemyslaw.REST.services.FleetGeneratorService;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
@@ -38,7 +39,8 @@ public class QueueAndServiceConfiguration {
     @Bean
     public LoggerService getLoggerService() {
         return new LoggerService();
-      
+    }
+
     @Bean
     public FleetGeneratorService getFleetGenerator() {
         return new FleetGeneratorService();
