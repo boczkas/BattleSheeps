@@ -3,8 +3,10 @@ package pl.jakubowskiprzemyslaw.tajgertim.service;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 import pl.jakubowskiprzemyslaw.tajgertim.models.NoSuchPlayerException;
+import pl.jakubowskiprzemyslaw.tajgertim.models.board.FleetPlacement;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.NoMastAtPositionException;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.NoShipAtCoordinateException;
+import pl.jakubowskiprzemyslaw.tajgertim.models.configuration.PlayerConfiguration;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldStatus;
@@ -63,5 +65,15 @@ public class BoardHandlerQueueListener {
                         new PlayerBoardView(boardHandler.getPlayerBoard(player)),
                         new OpponentBoardView(boardHandler.getPlayerShotsMap(player)))
                 );
+    }
+
+    @RabbitListener(queues = "BoardHandlerPlayerQueue")
+    void listenOnBoardHandlerPlayerQueue(PlayerConfiguration playerConfiguration) {
+        logger.logInfo(BoardHandlerQueueListener.class, playerConfiguration.toString());
+    }
+
+    @RabbitListener(queues = "BoardHandlerFleetPlacementQueue")
+    void listenOnBoardHandlerFleetPlacementQueue(FleetPlacement fleetPlacement) {
+        logger.logInfo(BoardHandlerQueueListener.class, fleetPlacement.toString());
     }
 }
