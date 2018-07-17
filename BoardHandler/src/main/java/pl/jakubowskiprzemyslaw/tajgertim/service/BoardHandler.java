@@ -6,6 +6,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.configuration.PlayerConfiguratio
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
+import pl.jakubowskiprzemyslaw.tajgertim.models.room.Room;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.ShootResult;
 import pl.jakubowskiprzemyslaw.tajgertim.services.BattleShipHandler;
 
@@ -69,5 +70,9 @@ public class BoardHandler {
 
     public void addFleetForPlayer(Player player, Fleet fleet) {
         playersBoards.addFleetForPlayer(player, fleet);
+    }
+
+    public void addPlayerToRoom(Room room, Player player) {
+        allRoomsOpponents.addPlayerToRoom(room, player);
     }
 }
