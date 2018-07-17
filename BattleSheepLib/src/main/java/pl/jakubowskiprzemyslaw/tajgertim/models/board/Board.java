@@ -2,6 +2,7 @@ package pl.jakubowskiprzemyslaw.tajgertim.models.board;
 
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
+import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldStatus;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -42,5 +43,18 @@ public class Board implements Serializable {
 
     public List<Ship> getShipList() {
         return fleet.getShips();
+    }
+
+    public void drawBoardForBoardSize(int boardSize) { //for testing only
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j< boardSize; j++) {
+                if (fleet.getCoordinateStatus(new Coordinate(i, j)).equals(FieldState.EMPTY)) {
+                    System.out.print(".");
+                } else {
+                    System.out.print("*");
+                }
+            }
+            System.out.println();
+        }
     }
 }

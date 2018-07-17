@@ -16,7 +16,7 @@ public class Ship implements Serializable {
         this.mastList = mastList;
     }
 
-    Ship() {
+    public Ship() {
         this(new ArrayList<>());
     }
 

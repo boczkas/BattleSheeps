@@ -9,7 +9,6 @@ import pl.jakubowskiprzemyslaw.REST.services.FleetGeneratorService;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.Fleet;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.FleetPlacement;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
-import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 import pl.jakubowskiprzemyslaw.tajgertim.services.SessionService;
 
@@ -20,11 +19,13 @@ public class FleetPlacementController{
 
     private final SessionService sessionService;
     private final QueueService queueService;
+    private final FleetGeneratorService fleetGeneratorService;
 
     @Autowired
-    public FleetPlacementController(SessionService sessionService, QueueService queueService) {
+    public FleetPlacementController(SessionService sessionService, QueueService queueService, FleetGeneratorService fleetGeneratorService) {
         this.sessionService = sessionService;
         this.queueService = queueService;
+        this.fleetGeneratorService = fleetGeneratorService;
     }
 
     @GetMapping(value = "/fleetplacement", produces = "text/html")
@@ -39,7 +40,7 @@ public class FleetPlacementController{
     public String placeFleetAndPlay(@ModelAttribute("fleet") Fleet fleet, HttpServletRequest request) {
 
         Player player = (Player) request.getSession().getAttribute("Player");
-        fleet = FleetGeneratorService.generateRandomFleet();
+        fleet = fleetGeneratorService.generateRandomFleet();
 
         queueService.sendObjectToQueue("FleetPlacementQueue", new FleetPlacement(player, fleet));
 
