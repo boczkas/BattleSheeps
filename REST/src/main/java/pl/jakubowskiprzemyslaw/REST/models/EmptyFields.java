@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class EmptyFields {
 
-    List<Coordinate> emptyCoordinates;
+    private List<Coordinate> emptyCoordinates;
 
     public EmptyFields(int boardSize) {
         emptyCoordinates = new ArrayList<>();
@@ -21,7 +21,7 @@ public class EmptyFields {
         return emptyCoordinates.get(i);
     }
 
-    public boolean isEmpty(Coordinate coordinate) {
+    public boolean isCoordinateAvailable(Coordinate coordinate) {
         return emptyCoordinates.contains(coordinate);
     }
 

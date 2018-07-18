@@ -39,43 +39,45 @@ public class FleetGeneratorService {
         List<Integer> shipPlacementList = shipConfiguration.getShipPlacementList();
 
         for (Integer shipLength : shipPlacementList) {
-            Optional<Ship> ship = Optional.empty();
-            while (!ship.isPresent()) {
-                Coordinate randomCoordinate = emptyFields.getRandomCoordinate();
-                ship = tryToPlaceShip(shipLength, randomCoordinate);
-            }
-
-            fleet.addShip(ship.get());
+            Ship ship = placeShip(shipLength);
+            fleet.addShip(ship);
         }
 
         return fleet;
     }
 
-    Optional<Ship> tryToPlaceShip(int shipLength, Coordinate coordinate) {
-        Ship ship = new Ship();
-        List<Coordinate> shipCoordinates = new ArrayList<>();
-        shipCoordinates.add(coordinate);
-        shipLength--;
+    private Ship placeShip(Integer shipLength) {
+        Optional<Ship> ship = Optional.empty();
+
+        while (!ship.isPresent()) {
+            Coordinate randomCoordinate = emptyFields.getRandomCoordinate();
+            ship = tryToPlaceShip(shipLength, randomCoordinate);
+        }
+
+        return ship.get();
+    }
+
+    private Optional<Ship> tryToPlaceShip(int shipLength, Coordinate coordinate) {
+        List<Coordinate> shipCoordinates = createShipCoordinatesWithFirstCoordinateAdded(coordinate);
 
         Random random = new Random();
         int coordinateX = random.nextInt(2);
         Coordinate direction = new Coordinate(coordinateX, 1 - coordinateX);
 
         Coordinate nextCoordinate = new Coordinate(coordinate.getX(), coordinate.getY());
-        while (shipLength > 0) {
+        while (shipLength > 1) {
             nextCoordinate = nextCoordinate.moveCoordinate(direction);
-            if (!emptyFields.isEmpty(nextCoordinate)) {
+            if (!emptyFields.isCoordinateAvailable(nextCoordinate)) {
                 return Optional.empty();
             }
             shipLength--;
             shipCoordinates.add(nextCoordinate);
         }
 
-
-        System.out.println(shipCoordinates);
-
         shipCoordinates
                 .forEach(emptyFields::removeCoordinate);
+
+        Ship ship = new Ship();
         shipCoordinates.stream()
                 .map(Mast::new)
                 .forEach(ship::addMastToShip);
@@ -86,6 +88,12 @@ public class FleetGeneratorService {
                 .forEach(emptyFields::removeCoordinate);
 
         return Optional.of(ship);
+    }
+
+    private List<Coordinate> createShipCoordinatesWithFirstCoordinateAdded(Coordinate coordinate){
+        List<Coordinate> shipCoordinates = new ArrayList<>();
+        shipCoordinates.add(coordinate);
+        return shipCoordinates;
     }
 
     private Set<Coordinate> createBuffer(List<Coordinate> shipCoordinates) {

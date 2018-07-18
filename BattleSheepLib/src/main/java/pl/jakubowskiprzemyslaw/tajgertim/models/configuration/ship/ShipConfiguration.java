@@ -13,11 +13,23 @@ public class ShipConfiguration implements Serializable {
         shipConfiguration.put(shipSize, shipAmount);
     }
 
-    @Override
-    public String toString() {
-        return "ShipConfiguration{" +
-                "shipConfiguration=" + shipConfiguration +
-                '}';
+    public int getBoardSize() {
+        int fleetSize = getFleetSize();
+        double minimalBoardSize = Math.sqrt(fleetSize / .2);
+        return (int) Math.ceil(minimalBoardSize);
+        //TODO: 31.07 max(boardSize, max(ShipSize))
+    }
+
+    public List<Integer> getShipPlacementList() {
+        List<Integer> shipPlacementList = new ArrayList<>();
+
+        for (ShipSize shipSize : shipConfiguration.keySet()) {
+            shipPlacementList.addAll(creteShipPlacementListForSpecificShipSize(shipSize));
+        }
+
+        shipPlacementList.sort((o1, o2) -> o1 < o2? 1: -1);
+
+        return shipPlacementList;
     }
 
     int getFleetSize() {
@@ -28,24 +40,21 @@ public class ShipConfiguration implements Serializable {
                 .sum();
     }
 
-    public int getBoardSize() {
-        int fleetSize = getFleetSize();
-        double minimalBoardSize = Math.sqrt(fleetSize / .2);
-        return (int) Math.ceil(minimalBoardSize);
-        //TODO: 17.07 max(boardSize, max(ShipSize))
-    }
-
-    public List<Integer> getShipPlacementList() {
+    private List<Integer> creteShipPlacementListForSpecificShipSize(ShipSize shipSize) {
         List<Integer> shipPlacementList = new ArrayList<>();
+        int shipAmount = shipConfiguration.get(shipSize).getShipAmount();
 
-        for (ShipSize shipSize : shipConfiguration.keySet()) {
-            for (int i = 0; i < shipConfiguration.get(shipSize).getShipAmount(); i++) {
-                shipPlacementList.add(shipSize.size());
-            }
+        for (int i = 0; i < shipAmount; i++) {
+            shipPlacementList.add(shipSize.size());
         }
 
-        shipPlacementList.sort((o1, o2) -> o1 < o2? 1: -1);
-
         return shipPlacementList;
+    }
+
+    @Override
+    public String toString() {
+        return "ShipConfiguration{" +
+                "shipConfiguration=" + shipConfiguration +
+                '}';
     }
 }
