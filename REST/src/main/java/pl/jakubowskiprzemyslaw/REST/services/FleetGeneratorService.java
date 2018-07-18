@@ -41,8 +41,8 @@ public class FleetGeneratorService {
         for (Integer shipLength : shipPlacementList) {
             Ship ship = placeShip(shipLength);
             fleet.addShip(ship);
+            removeShipAndBufferFromEmptyFields(ship);
         }
-
         return fleet;
     }
 
@@ -58,39 +58,60 @@ public class FleetGeneratorService {
     }
 
     private Optional<Ship> tryToPlaceShip(int shipLength, Coordinate coordinate) {
+
+        List<Coordinate> shipCoordinates;
+        try {
+            shipCoordinates = tryToAllocateCoordinatesToBoard(shipLength, coordinate);
+        } catch (CannotAllocatePositionsOnBoardException cannotAllocatePositionsOnBoardException) {
+            return Optional.empty();
+        }
+
+        Ship ship = createShip(shipCoordinates);
+
+        return Optional.of(ship);
+    }
+
+    private List<Coordinate> tryToAllocateCoordinatesToBoard(int shipLength, Coordinate coordinate) throws CannotAllocatePositionsOnBoardException {
         List<Coordinate> shipCoordinates = createShipCoordinatesWithFirstCoordinateAdded(coordinate);
 
-        Random random = new Random();
-        int coordinateX = random.nextInt(2);
-        Coordinate direction = new Coordinate(coordinateX, 1 - coordinateX);
+        Coordinate direction = getDirection();
 
         Coordinate nextCoordinate = new Coordinate(coordinate.getX(), coordinate.getY());
         while (shipLength > 1) {
             nextCoordinate = nextCoordinate.moveCoordinate(direction);
             if (!emptyFields.isCoordinateAvailable(nextCoordinate)) {
-                return Optional.empty();
+                throw new CannotAllocatePositionsOnBoardException("");
             }
             shipLength--;
             shipCoordinates.add(nextCoordinate);
         }
 
-        shipCoordinates
-                .forEach(emptyFields::removeCoordinate);
+        return shipCoordinates;
+    }
 
+    private void removeShipAndBufferFromEmptyFields(Ship ship) {
+        List<Coordinate> shipCoordinates = ship.getCoordinates();
+
+        Set<Coordinate> occupiedFields = createBuffer(shipCoordinates);
+        occupiedFields
+                .forEach(emptyFields::removeCoordinate);
+    }
+
+    private Ship createShip(List<Coordinate> shipCoordinates) {
         Ship ship = new Ship();
         shipCoordinates.stream()
                 .map(Mast::new)
                 .forEach(ship::addMastToShip);
-
-        Set<Coordinate> occupiedFields = createBuffer(shipCoordinates);
-
-        occupiedFields
-                .forEach(emptyFields::removeCoordinate);
-
-        return Optional.of(ship);
+        return ship;
     }
 
-    private List<Coordinate> createShipCoordinatesWithFirstCoordinateAdded(Coordinate coordinate){
+    private Coordinate getDirection() {
+        Random random = new Random();
+        int coordinateX = random.nextInt(2);
+        return new Coordinate(coordinateX, 1 - coordinateX);
+    }
+
+    private List<Coordinate> createShipCoordinatesWithFirstCoordinateAdded(Coordinate coordinate) {
         List<Coordinate> shipCoordinates = new ArrayList<>();
         shipCoordinates.add(coordinate);
         return shipCoordinates;

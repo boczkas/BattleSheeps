@@ -55,6 +55,15 @@ public class Ship implements Serializable {
         throw new NoMastAtPositionException(coordinate);
     }
 
+    public List<Coordinate> getCoordinates() {
+        List<Coordinate> shipCoordinates = new ArrayList<>();
+
+        mastList.stream()
+                .map(Mast::getCoordinate)
+                .forEach(shipCoordinates::add);
+        return shipCoordinates;
+    }
+
     @Override
     public String toString() {
         return "Ship{" +

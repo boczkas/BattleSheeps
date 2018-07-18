@@ -44,6 +44,6 @@ public class FleetPlacementController{
 
         queueService.sendObjectToQueue("FleetPlacementQueue", new FleetPlacement(player, fleet));
 
-        return "playing";
+        return "redirect:/playing";
     }
 }
