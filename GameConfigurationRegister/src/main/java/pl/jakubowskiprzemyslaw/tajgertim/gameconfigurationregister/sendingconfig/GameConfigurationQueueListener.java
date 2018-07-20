@@ -9,6 +9,8 @@ import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 import pl.jakubowskiprzemyslaw.tajgertim.services.LoggerService;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
+import java.util.Objects;
+
 @Service
 class GameConfigurationQueueListener {
 
@@ -26,7 +28,7 @@ class GameConfigurationQueueListener {
     @RabbitListener(queues = "GameConfigurationRegistrationQueue")
     void getGameConfigurationFromGameConfigurationQueue(GameConfiguration gameConfiguration) {
         loggerService.logInfo(GameConfigurationQueueListener.class, gameConfiguration.toString());
-        GameRegisteredEvent event = new GameRegisteredEvent(this);
+        GameConfiguredEvent event = new GameConfiguredEvent(this);
         publisher.publishEvent(event);
         queueService.sendObjectToQueue(Queues._3FleetPlacementSizeQueue, gameConfiguration);
     }

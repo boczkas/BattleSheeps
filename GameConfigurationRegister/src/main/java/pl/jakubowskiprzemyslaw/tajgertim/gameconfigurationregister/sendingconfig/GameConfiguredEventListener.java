@@ -8,19 +8,22 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.confirmation.GameConfigurationCo
 import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
+import java.util.Objects;
+
 @Component
-public class GameConfiguredListener implements ApplicationListener<GameRegisteredEvent> {
+public class GameConfiguredEventListener implements ApplicationListener<GameConfiguredEvent> {
 
     private final QueueService queueService;
 
     @Autowired
-    public GameConfiguredListener(QueueService queueService) {
+    public GameConfiguredEventListener(QueueService queueService) {
         this.queueService = queueService;
     }
 
     @Override
-    public void onApplicationEvent(GameRegisteredEvent event) {
+    public void onApplicationEvent(GameConfiguredEvent event) {
         Confirmation gameConfigured = new GameConfigurationConfirmation();
         queueService.sendObjectToQueue(Queues._5GameReadyValidationQueue, gameConfigured);
     }
+
 }

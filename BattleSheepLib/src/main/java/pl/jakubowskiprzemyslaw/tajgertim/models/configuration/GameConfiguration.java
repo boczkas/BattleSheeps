@@ -5,6 +5,8 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.configuration.ship.ShipAmount;
 import pl.jakubowskiprzemyslaw.tajgertim.models.configuration.ship.ShipConfiguration;
 import pl.jakubowskiprzemyslaw.tajgertim.models.configuration.ship.ShipSize;
 
+import java.util.Objects;
+
 public final class GameConfiguration implements QueueObject {
 
     private static final long serialVersionUID = -6981739379739109856L;
@@ -43,5 +45,20 @@ public final class GameConfiguration implements QueueObject {
                 "gameName='" + gameName + '\'' +
                 ", shipConfiguration=" + shipConfiguration +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GameConfiguration that = (GameConfiguration) o;
+        return Objects.equals(gameName, that.gameName) &&
+                Objects.equals(shipConfiguration, that.shipConfiguration);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(gameName, shipConfiguration);
     }
 }
