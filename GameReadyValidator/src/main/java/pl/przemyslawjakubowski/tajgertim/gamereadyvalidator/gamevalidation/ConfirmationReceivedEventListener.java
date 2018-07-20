@@ -9,24 +9,26 @@ import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
 @Component
-class ConfirmationReceivedListener implements ApplicationListener<ConfirmationReceivedEvent> {
+class ConfirmationReceivedEventListener implements ApplicationListener<ConfirmationReceivedEvent> {
 
     private final QueueService queueService;
-    private int counter = 0;
+    private final Confirmations confirmations;
 
     @Autowired
-    ConfirmationReceivedListener(QueueService queueService) {
+    ConfirmationReceivedEventListener(QueueService queueService, Confirmations confirmations) {
         this.queueService = queueService;
+        this.confirmations = confirmations;
     }
 
     @Override
     public void onApplicationEvent(ConfirmationReceivedEvent event) {
-        counter++;
+        Confirmation confirmation = event.getConfirmation();
+        confirmations.addConfirmation(confirmation);
 
-        if(counter == 3) {
-            Confirmation confirmation = new FinalConfigurationConfirmation();
-            queueService.sendObjectToQueue(Queues._8JudgeStartQueue, confirmation);
-            counter = 0;
+        if (confirmations.areConfirmationsComplete()) {
+            Confirmation finalConfigurationConfirmation = new FinalConfigurationConfirmation();
+            queueService.sendObjectToQueue(Queues._8JudgeStartQueue, finalConfigurationConfirmation);
+            confirmations.clear();
         }
     }
 }

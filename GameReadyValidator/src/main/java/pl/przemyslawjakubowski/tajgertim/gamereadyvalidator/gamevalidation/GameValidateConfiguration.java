@@ -30,4 +30,9 @@ class GameValidateConfiguration {
 
     @Bean
     LoggerService getLoggerService() { return new LoggerService();}
+
+    @Bean
+    Confirmations getConfirmations() {
+        return new Confirmations();
+    }
 }
