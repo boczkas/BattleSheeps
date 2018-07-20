@@ -1,7 +1,6 @@
 package pl.jakubowskiprzemyslaw.REST.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,39 +8,44 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.jakubowskiprzemyslaw.tajgertim.models.configuration.PlayerConfiguration;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
+import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 import pl.jakubowskiprzemyslaw.tajgertim.services.SessionService;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class PlayerConfigController extends BaseController {
+public class PlayerConfigController {
 
-  @Value("${queueName.playerConfig}")
-  private String playerConfigQueueName;
+    private final SessionService sessionService;
+    private final QueueService queueService;
 
-  @Autowired
-  public PlayerConfigController(QueueService queueService, SessionService sessionService) {
-    super(queueService, sessionService);
-  }
+    private String playerConfigQueueName = Queues._1PlayerRegistrationQueue.toString();
 
-  @GetMapping(value = "/playerconfig", produces = "text/html")
-  public String getGameConfig(Model model) {
-    model.addAttribute("player", new Player("", ""));
-    return "playerconfig";
-  }
+    @Autowired
+    public PlayerConfigController(QueueService queueService, SessionService sessionService) {
+        this.queueService = queueService;
+        this.sessionService = sessionService;
+    }
 
-  @PostMapping(value = "/playerconfig", produces = "text/html")
-  public String sendGameConfig(@ModelAttribute("player") Player player, HttpServletRequest request) {
-    String IP = getPlayerIP(request);
-    player.setIP(IP);
-    addObjectToSessionRequest(request, player);
-    PlayerConfiguration playerConfiguration = new PlayerConfiguration(player);
-    sendObjectToQueue(playerConfigQueueName, playerConfiguration);
-    return "redirect:/fleetplacement";
-  }
+    @GetMapping(value = "/playerconfig", produces = "text/html")
+    public String getGameConfig(Model model) {
+        model.addAttribute("player", new Player("", ""));
+        return "playerconfig";
+    }
 
-  private String getPlayerIP(HttpServletRequest request) {
-    return request.getRemoteAddr();
-  }
+    @PostMapping(value = "/playerconfig", produces = "text/html")
+    public String sendGameConfig(@ModelAttribute("player") Player player, HttpServletRequest request) {
+        String IP = getPlayerIP(request);
+        player.setIP(IP);
+        sessionService.addObjectToSessionRequest(request, player);
+
+        PlayerConfiguration playerConfiguration = new PlayerConfiguration(player);
+        queueService.sendObjectToQueue(playerConfigQueueName, playerConfiguration);
+        return "redirect:/fleetplacement";
+    }
+
+    private String getPlayerIP(HttpServletRequest request) {
+        return request.getRemoteAddr();
+    }
 }

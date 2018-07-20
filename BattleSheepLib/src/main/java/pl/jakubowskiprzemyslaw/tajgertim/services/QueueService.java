@@ -9,11 +9,14 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.jakubowskiprzemyslaw.tajgertim.models.QueueObject;
+import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
+
+import java.util.Map;
 
 @Service
 public class QueueService {
 
-    private static final Logger logger = LoggerFactory.getLogger(QueueService.class);
+    private final LoggerService logger;
     private final RabbitTemplate template;
     private RabbitAdmin rabbitAdmin;
 
@@ -21,13 +24,24 @@ public class QueueService {
     public QueueService(RabbitTemplate template) {
         this.template = template;
         this.rabbitAdmin = new RabbitAdmin(template);
+        logger = new LoggerService();
     }
 
     @RabbitHandler
     public void sendObjectToQueue(String queueName, QueueObject queueObject) {
-        logger.info("Sending message: " + queueObject + " to queue: " + queueName);
-        rabbitAdmin.declareQueue(new Queue(queueName, false, false, false, null));
+        logger.logInfo(QueueService.class, "Sending message: " + queueObject + " to queue: " + queueName);
+        boolean DURABLE = false;
+        boolean EXCLUSIVE = false;
+        boolean AUTO_DELETE = false;
+        Map<String, Object> ARGUMENTS = null;
+
+        rabbitAdmin.declareQueue(new Queue(queueName, DURABLE, EXCLUSIVE, AUTO_DELETE, ARGUMENTS));
         template.convertAndSend(queueName, queueObject);
+    }
+
+    @RabbitHandler
+    public void sendObjectToQueue(Queues queueType, QueueObject queueObject) {
+       sendObjectToQueue(queueType.toString(), queueObject);
     }
 
     @RabbitHandler

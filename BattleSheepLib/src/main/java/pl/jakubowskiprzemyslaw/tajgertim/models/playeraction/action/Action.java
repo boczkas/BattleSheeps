@@ -3,7 +3,7 @@ package pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.action;
 import java.io.Serializable;
 
 /**
- * Marking interface for actions which Player can perform
+ * Mark Player action
  */
 public interface Action extends Serializable {
 }

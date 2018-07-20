@@ -4,49 +4,43 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import pl.jakubowskiprzemyslaw.REST.services.GUIService;
+import pl.jakubowskiprzemyslaw.REST.services.PlayerService;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.PlayerAction;
-import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.action.Action;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.action.Shot;
+import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
-import pl.jakubowskiprzemyslaw.tajgertim.services.SessionService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.NotNull;
 
 @Controller
-@SessionAttributes("player")
-public class PlayingController extends BaseController {
+public class PlayingController {
 
-  @Autowired
-  PlayingController(QueueService queueService, SessionService sessionService) {
-    super(queueService, sessionService);
-  }
+    private final QueueService queueService;
+    private final PlayerService playerService;
+    private final GUIService guiService;
 
-  @GetMapping(value = "/playing", produces = "text/html")
-  public String getPlaying() {
-    return "playing";
-  }
+    @Autowired
+    PlayingController(QueueService queueService, PlayerService playerService, GUIService guiService) {
+        this.queueService = queueService;
+        this.playerService = playerService;
+        this.guiService = guiService;
+    }
 
-  @PostMapping(value = "/playing", produces = "text/plain")
-  public String makeShoot(String coordinates, HttpServletRequest request) {
+    @GetMapping(value = "/playing", produces = "text/html")
+    public String getPlaying() {
+        return "playing";
+    }
 
-    Object player = request.getSession().getAttribute("Player");
-    Coordinate coordinate = returnCoordinates(coordinates);
-    Action action = new Shot(coordinate);
+    @PostMapping(value = "/playing", produces = "text/plain")
+    public void makeShot(String guiCoordinates, HttpServletRequest request) {
+        Player player = playerService.getPlayerFromRequest(request);
+        Coordinate coordinate = guiService.translateGUICoordinatesToCoordinate(guiCoordinates);
+        PlayerAction playerAction = new PlayerAction(player, new Shot(coordinate));
 
-    PlayerAction playerAction = new PlayerAction((Player) player, action);
-    sendObjectToQueue("PlayingStateMachinePlayerActionQueueTest", playerAction);
+        queueService.sendObjectToQueue(Queues._9PlayingStateMachinePlayerActionQueue, playerAction);
+    }
 
-    return "playing";
-  }
-
-  private Coordinate returnCoordinates(@NotNull String coordinates) {
-    String[] split = coordinates.split(",");
-    int x = Integer.valueOf(split[0]);
-    int y = Integer.valueOf(split[1]);
-    return new Coordinate(x, y);
-  }
 }
