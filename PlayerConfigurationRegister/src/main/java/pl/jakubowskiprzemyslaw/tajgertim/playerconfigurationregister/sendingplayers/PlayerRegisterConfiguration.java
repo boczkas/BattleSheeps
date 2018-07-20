@@ -1,4 +1,4 @@
-package pl.jakubowskiprzemyslaw.tajgertim.playerregisterconfiguration.sendingplayers;
+package pl.jakubowskiprzemyslaw.tajgertim.playerconfigurationregister.sendingplayers;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

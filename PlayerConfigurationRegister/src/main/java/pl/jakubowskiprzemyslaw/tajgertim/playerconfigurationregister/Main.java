@@ -1,4 +1,4 @@
-package pl.jakubowskiprzemyslaw.tajgertim.playerregisterconfiguration;
+package pl.jakubowskiprzemyslaw.tajgertim.playerconfigurationregister;
 
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;

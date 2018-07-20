@@ -1,23 +1,21 @@
-package pl.jakubowskiprzemyslaw.tajgertim.playerregisterconfiguration.sendingplayers;
+package pl.jakubowskiprzemyslaw.tajgertim.playerconfigurationregister.sendingplayers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import pl.jakubowskiprzemyslaw.tajgertim.models.confirmation.Confirmation;
 import pl.jakubowskiprzemyslaw.tajgertim.models.confirmation.PlayerConfigurationConfirmation;
-import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.PlayerShootResult;
 import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
-import pl.jakubowskiprzemyslaw.tajgertim.services.LoggerService;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
 @Component
-class PlayerConnectedListener implements ApplicationListener<PlayerConnectedEvent> {
+class PlayerConnectedEventListener implements ApplicationListener<PlayerConnectedEvent> {
 
     private final QueueService queueService;
     private int counter = 0;
-  
+
     @Autowired
-    PlayerConnectedListener(QueueService queueService) {
+    PlayerConnectedEventListener(QueueService queueService) {
         this.queueService = queueService;
     }
 
