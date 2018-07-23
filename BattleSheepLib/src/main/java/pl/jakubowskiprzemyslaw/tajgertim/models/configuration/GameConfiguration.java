@@ -27,18 +27,6 @@ public final class GameConfiguration implements QueueObject {
         this.shipConfiguration.put(ShipSize.mast4, new ShipAmount(frontGameConfiguration.getMast4()));
     }
 
-    public String getGameName() {
-        return gameName;
-    }
-
-    public int getBoardSize() {
-        return shipConfiguration.getBoardSize();
-    }
-
-    public void setGameName(String gameName) {
-        this.gameName = gameName;
-    }
-
     @Override
     public String toString() {
         return "GameConfiguration{" +
@@ -58,7 +46,6 @@ public final class GameConfiguration implements QueueObject {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(gameName, shipConfiguration);
     }
 }

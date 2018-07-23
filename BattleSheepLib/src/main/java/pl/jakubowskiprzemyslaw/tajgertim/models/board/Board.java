@@ -34,27 +34,29 @@ public class Board implements Serializable {
         return fleet.getCoordinateStatus(coordinate);
     }
 
+    public List<Ship> getShipList() {
+        return fleet.getShips();
+    }
+
+    public String getConsoleView(int boardSize) { //for testing only
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j< boardSize; j++) {
+                if (fleet.getCoordinateStatus(new Coordinate(j, i)).equals(FieldState.EMPTY)) {
+                    stringBuilder.append(".");
+                } else {
+                    stringBuilder.append("*");
+                }
+            }
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
     @Override
     public String toString() {
         return "Board{" +
                 "fleet=" + fleet +
                 '}';
-    }
-
-    public List<Ship> getShipList() {
-        return fleet.getShips();
-    }
-
-    public void drawBoardForBoardSize(int boardSize) { //for testing only
-        for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j< boardSize; j++) {
-                if (fleet.getCoordinateStatus(new Coordinate(i, j)).equals(FieldState.EMPTY)) {
-                    System.out.print(".");
-                } else {
-                    System.out.print("*");
-                }
-            }
-            System.out.println();
-        }
     }
 }

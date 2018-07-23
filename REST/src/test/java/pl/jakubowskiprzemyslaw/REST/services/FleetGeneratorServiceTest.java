@@ -13,7 +13,7 @@ public class FleetGeneratorServiceTest {
         Fleet fleet = fleetGeneratorService.generateRandomFleet();
         Board board = new Board(fleet);
 
-        board.drawBoardForBoardSize(10);
+        System.out.println(board.getConsoleView(10));
     }
 
 

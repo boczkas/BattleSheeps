@@ -10,12 +10,8 @@ public class ShipAmount implements Serializable {
         shipAmount = Integer.parseInt(amount);
     }
 
-    public int getShipAmount() {
+    int getShipAmount() {
         return shipAmount;
-    }
-
-    public void setShipAmount(int shipAmount) {
-        this.shipAmount = shipAmount;
     }
 
     @Override
