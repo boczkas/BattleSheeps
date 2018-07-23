@@ -2,9 +2,7 @@ package pl.jakubowskiprzemyslaw.tajgertim;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pl.jakubowskiprzemyslaw.tajgertim.event.FieldStatusEvent;
 import pl.jakubowskiprzemyslaw.tajgertim.event.ShotActionEvent;
-import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldStatus;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.PlayerAction;
 import pl.jakubowskiprzemyslaw.tajgertim.service.ShotHandlerQueueListener;
 

@@ -1,21 +1,14 @@
 package pl.jakubowskiprzemyslaw.tajgertim;
 
-import org.hibernate.validator.constraints.br.TituloEleitoral;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pl.jakubowskiprzemyslaw.tajgertim.event.FieldStatusEvent;
-import pl.jakubowskiprzemyslaw.tajgertim.event.FieldStatusEventListener;
 import pl.jakubowskiprzemyslaw.tajgertim.event.ShotActionEvent;
 import pl.jakubowskiprzemyslaw.tajgertim.event.ShotActionEventListener;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
-import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
-import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldStatus;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.PlayerAction;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.action.Shot;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.PlayerShootCoordinate;
-import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.PlayerShootResult;
-import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.ShootResult;
 import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 

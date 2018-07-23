@@ -4,7 +4,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pl.jakubowskiprzemyslaw.tajgertim.event.FieldStatusEvent;
 import pl.jakubowskiprzemyslaw.tajgertim.event.FieldStatusEventListener;
-import pl.jakubowskiprzemyslaw.tajgertim.event.ShotActionEvent;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldStatus;

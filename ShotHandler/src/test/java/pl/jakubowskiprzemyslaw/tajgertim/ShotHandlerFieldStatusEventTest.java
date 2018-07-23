@@ -3,7 +3,6 @@ package pl.jakubowskiprzemyslaw.tajgertim;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pl.jakubowskiprzemyslaw.tajgertim.event.FieldStatusEvent;
-import pl.jakubowskiprzemyslaw.tajgertim.models.configuration.GameConfiguration;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldStatus;
 import pl.jakubowskiprzemyslaw.tajgertim.service.ShotHandlerQueueListener;
 
