@@ -48,7 +48,7 @@ public class Ship implements Serializable {
                 .filter(mast -> mast.getCoordinate().equals(coordinate))
                 .findFirst();
 
-        if(mastAtCoordinate.isPresent()){
+        if (mastAtCoordinate.isPresent()){
             return mastAtCoordinate.get();
         }
 
