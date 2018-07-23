@@ -3,7 +3,7 @@ package pl.jakubowskiprzemyslaw.tajgertim.models.room;
 import java.util.Objects;
 
 public class Room {
-    String name;
+    private String name;
 
     public Room(String name) {
         this.name = name;

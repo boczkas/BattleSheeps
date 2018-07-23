@@ -12,11 +12,7 @@ import java.util.Objects;
 
 public class NextRoundStatus implements QueueObject {
     private static final long serialVersionUID = -2030492077082436469L;
-    RoundStatus roundStatus;
-
-    public NextRoundStatus() {
-        this.roundStatus = RoundStatus.NEXT_PLAYER;
-    }
+    private RoundStatus roundStatus;
 
     public NextRoundStatus(RoundStatus roundStatus) {
         this.roundStatus = roundStatus;
