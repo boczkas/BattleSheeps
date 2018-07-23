@@ -14,6 +14,10 @@ public class Coordinate implements Serializable {
         this.y = y;
     }
 
+    public Coordinate moveCoordinate(Coordinate coordinate) {
+        return new Coordinate(x + coordinate.x, y + coordinate.y);
+    }
+
     @Override
     public String toString() {
         return "Coordinate{" +
@@ -33,7 +37,6 @@ public class Coordinate implements Serializable {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(x, y);
     }
 
@@ -45,4 +48,7 @@ public class Coordinate implements Serializable {
         return y;
     }
 
+    public boolean isInRange(int range) {
+        return this.x < range && this.y < range;
+    }
 }

@@ -25,12 +25,16 @@ public class Fleet implements Serializable {
         ships = new ArrayList<>(fleet.getShips());
     }
 
+
+    public void addShip(Ship ship) {
+        ships.add(ship);
+    }
+
     List<Ship> getShips() {
         return Collections.unmodifiableList(ships);
     }
 
     Ship getShipAtCoordinate(Coordinate coordinate) {
-
         final Optional<Ship> shipOnCoordinate = ships.stream()
                 .filter(ship -> ship.containsCoordinate(coordinate))
                 .findFirst();
@@ -39,7 +43,6 @@ public class Fleet implements Serializable {
     }
 
     FieldState getCoordinateStatus(Coordinate coordinate) {
-
         final Optional<Ship> shipForCoordinate = ships.stream()
                 .filter(ship -> ship.containsCoordinate(coordinate))
                 .findFirst();
@@ -52,7 +55,13 @@ public class Fleet implements Serializable {
                 e.printStackTrace();
             }
         }
-
         return FieldState.EMPTY;
+    }
+
+    @Override
+    public String toString() {
+        return "Fleet{" +
+                "ships=" + ships +
+                '}';
     }
 }

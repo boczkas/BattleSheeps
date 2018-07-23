@@ -9,15 +9,15 @@ import java.util.Optional;
 @Service
 public class SessionService {
 
-  public void addObjectToSessionRequest(HttpServletRequest request, Object object) {
-    HttpSession session = request.getSession();
-    session.setAttribute(object.getClass().getSimpleName(), object);
-  }
+    public void addObjectToSessionRequest(HttpServletRequest request, Object object) {
+        HttpSession session = request.getSession();
+        session.setAttribute(object.getClass().getSimpleName(), object);
+    }
 
-  public boolean isObjectInSession(HttpServletRequest request, String objectName) {
-    HttpSession session = request.getSession();
-    Object attribute = session.getAttribute(objectName);
-    Optional<Object> objectInSession = Optional.ofNullable(attribute);
-    return objectInSession.isPresent();
-  }
+    public boolean isObjectInSession(HttpServletRequest request, String objectName) {
+        HttpSession session = request.getSession();
+        Object attribute = session.getAttribute(objectName);
+        Optional<Object> objectInSession = Optional.ofNullable(attribute);
+        return objectInSession.isPresent();
+    }
 }

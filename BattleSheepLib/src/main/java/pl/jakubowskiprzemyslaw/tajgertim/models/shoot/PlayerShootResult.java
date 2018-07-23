@@ -8,11 +8,6 @@ public class PlayerShootResult implements QueueObject {
     private Player player;
     private ShootResult shootResult;
 
-    public PlayerShootResult() {
-        this.player = new Player("", "");
-        this.shootResult = ShootResult.MISS;
-    }
-
     public PlayerShootResult(Player player, ShootResult shootResult) {
         this.player = player;
         this.shootResult = shootResult;

@@ -6,17 +6,20 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class Ship implements Serializable {
     private static final long serialVersionUID = 3450985123295669350L;
+
     private List<Mast> mastList;
 
-    public Ship(List<Mast> mastList) {
+    private Ship(List<Mast> mastList) {
         this.mastList = mastList;
     }
 
-    Ship() {
+    public Ship() {
+
         this(new ArrayList<>());
     }
 
@@ -36,8 +39,7 @@ public class Ship implements Serializable {
         MastState mastState = getMast(coordinate).getMastState();
         if (mastState.equals(MastState.HIT)) {
             return FieldState.HIT_MAST;
-        }
-        else{
+        } else {
             return FieldState.NOT_HIT_MAST;
         }
     }
@@ -48,11 +50,25 @@ public class Ship implements Serializable {
                 .filter(mast -> mast.getCoordinate().equals(coordinate))
                 .findFirst();
 
-        if (mastAtCoordinate.isPresent()){
+        if(mastAtCoordinate.isPresent()) {
             return mastAtCoordinate.get();
         }
 
         throw new NoMastAtPositionException(coordinate);
+    }
+
+    public List<Coordinate> getCoordinates() {
+        List<Coordinate> shipCoordinates = new ArrayList<>();
+
+        mastList.stream()
+                .map(Mast::getCoordinate)
+                .forEach(shipCoordinates::add);
+        return shipCoordinates;
+    }
+
+    void markMastAsHit(Coordinate coordinate) throws NoMastAtPositionException {
+        Mast mast = getMast(coordinate);
+        mast.markAsHit();
     }
 
     @Override
@@ -62,8 +78,16 @@ public class Ship implements Serializable {
                 '}';
     }
 
-    void markMastAsHit(Coordinate coordinate) throws NoMastAtPositionException {
-        Mast mast = getMast(coordinate);
-        mast.markAsHit();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ship ship = (Ship) o;
+        return Objects.equals(mastList, ship.mastList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mastList);
     }
 }

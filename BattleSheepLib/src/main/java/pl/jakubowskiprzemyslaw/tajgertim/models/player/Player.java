@@ -26,10 +26,6 @@ public final class Player implements Serializable {
         return name;
     }
 
-    public String getIP() {
-        return IP;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

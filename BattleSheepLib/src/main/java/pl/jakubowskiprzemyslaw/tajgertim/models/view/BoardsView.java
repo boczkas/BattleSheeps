@@ -21,14 +21,6 @@ public class BoardsView implements QueueObject {
         this.player = player;
     }
 
-    public PlayerBoardView getPlayerBoardView() {
-        return playerBoardView;
-    }
-
-    public OpponentBoardView getOpponentBoard() {
-        return opponentBoard;
-    }
-
     public List<Ship> getShipList() {
         return playerBoardView.getShipList();
     }
