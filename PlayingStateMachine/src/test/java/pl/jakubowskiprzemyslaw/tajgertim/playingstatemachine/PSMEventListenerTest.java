@@ -21,17 +21,20 @@ public class PSMEventListenerTest {
 
     private PlayerActionEventListener eventListener;
     private QueueService queueService;
+    private Player player;
 
+    private static final int COORDINATE_X = 1;
+    private static final int COORDINATE_Y = 1;
 
     @BeforeMethod
     public void setUp() {
         queueService = mock(QueueService.class);
         eventListener = new PlayerActionEventListener(queueService);
+        player = new Player("", "");
     }
 
     public void shotObjectAsPlayerAction_SendsPlayerShot_ToQueue10() {
-        Player player = new Player("", "");
-        Coordinate coordinate = new Coordinate(1, 1);
+        Coordinate coordinate = new Coordinate(COORDINATE_X, COORDINATE_Y);
         Action shot = new Shot(coordinate);
         PlayerAction action = new PlayerAction(player, shot);
         PlayerActionEvent event = new PlayerActionEvent(this, action);
@@ -42,7 +45,6 @@ public class PSMEventListenerTest {
     }
 
     public void moveObjectAsPlayerAction_SendsPlayerMove_ToQueue11() {
-        Player player = new Player("", "");
         Action move = new Move();
         PlayerAction action = new PlayerAction(player, move);
         PlayerActionEvent event = new PlayerActionEvent(this, action);
