@@ -4,6 +4,8 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.QueueObject;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 
+import java.util.Objects;
+
 public class PlayerShootCoordinate implements QueueObject {
     private static final long serialVersionUID = 6941519339539583564L;
     private Player player;
@@ -33,5 +35,20 @@ public class PlayerShootCoordinate implements QueueObject {
                 "player=" + player +
                 ", coordinate=" + coordinate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PlayerShootCoordinate that = (PlayerShootCoordinate) o;
+        return Objects.equals(player, that.player) &&
+                Objects.equals(coordinate, that.coordinate);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(player, coordinate);
     }
 }

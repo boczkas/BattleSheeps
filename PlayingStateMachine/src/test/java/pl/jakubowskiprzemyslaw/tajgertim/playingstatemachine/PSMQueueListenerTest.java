@@ -32,7 +32,7 @@ public class PSMQueueListenerTest {
     }
 
     @Test(expectedExceptions = ClassCastException.class)
-    public void listenOnPlayerRegistrationQueue_getObject_throwClassCastException() {
+    public void listenOnPlayerActionQueue_getObject_throwClassCastException() {
         Object object = new Object();
         queueListener.listenOnPlayingStateMachinePlayerActionQueue((PlayerAction) object);
     }

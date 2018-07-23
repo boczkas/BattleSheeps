@@ -29,7 +29,7 @@ public class GameConfigurationEventTest {
         assertNotEquals(event, null);
     }
 
-    public void equalsAnotherObject_ReturnsTrue_IfAntoherObjectIsSimilar() {
+    public void equalsAnotherObject_ReturnsTrue_IfAnotherObjectIsSimilar() {
         GameConfiguredEvent configuredEvent = new GameConfiguredEvent(mock(GameConfigurationQueueListener.class), configuration);
         assertEquals(event, configuredEvent);
     }
