@@ -1,39 +1,29 @@
 package pl.jakubowskiprzemyslaw.tajgertim.service;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.stereotype.Service;
+import org.springframework.context.ApplicationEventPublisher;
+import pl.jakubowskiprzemyslaw.tajgertim.event.PlayerActionEvent;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.PlayerAction;
-import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.action.Move;
-import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.action.Shot;
 import pl.jakubowskiprzemyslaw.tajgertim.models.round.NextRoundStatus;
-import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 import pl.jakubowskiprzemyslaw.tajgertim.services.BattleShipQueueInteractionHandler;
 import pl.jakubowskiprzemyslaw.tajgertim.services.LoggerService;
-import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
 @BattleShipQueueInteractionHandler
 public class PlayingStateMachineQueueListener {
 
-    private final QueueService queueService;
     private final LoggerService logger;
+    private final ApplicationEventPublisher publisher;
 
-    public PlayingStateMachineQueueListener(QueueService queueService, LoggerService logger) {
-        this.queueService = queueService;
+    public PlayingStateMachineQueueListener(LoggerService logger, ApplicationEventPublisher publisher) {
         this.logger = logger;
+        this.publisher = publisher;
     }
 
     @RabbitListener(queues = "PlayingStateMachinePlayerActionQueue")
     public void listenOnPlayingStateMachinePlayerActionQueue(PlayerAction playerAction) {
-
         logger.logInfo(PlayingStateMachineQueueListener.class, "Received message" + playerAction);
-
-        if(playerAction.getAction() instanceof Shot) {
-            queueService.sendObjectToQueue(Queues._10ShotHandlerPlayerShotQueue, playerAction);
-        }
-
-        if(playerAction.getAction() instanceof Move) {
-            queueService.sendObjectToQueue(Queues._11MoveHandlerPlayerMoveQueue, playerAction);
-        }
+        PlayerActionEvent event = new PlayerActionEvent(this, playerAction);
+        publisher.publishEvent(event);
     }
 
     @RabbitListener(queues = "PlayingStateMachineNextRoundStatusQueue")
