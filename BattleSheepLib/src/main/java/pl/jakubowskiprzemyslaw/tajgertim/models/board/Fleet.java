@@ -25,6 +25,7 @@ public class Fleet implements Serializable {
         ships = new ArrayList<>(fleet.getShips());
     }
 
+
     public void addShip(Ship ship) {
         ships.add(ship);
     }
@@ -46,7 +47,7 @@ public class Fleet implements Serializable {
                 .filter(ship -> ship.containsCoordinate(coordinate))
                 .findFirst();
 
-        if(shipForCoordinate.isPresent()){
+        if (shipForCoordinate.isPresent()){
             Ship ship = shipForCoordinate.get();
             try {
                 return ship.getMastFieldState(coordinate);

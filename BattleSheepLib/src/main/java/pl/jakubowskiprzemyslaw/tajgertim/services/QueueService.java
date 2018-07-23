@@ -34,5 +34,4 @@ public class QueueService {
     public void sendObjectToQueue(Queues queueType, QueueObject queueObject) {
        sendObjectToQueue(queueType.toString(), queueObject);
     }
-
 }

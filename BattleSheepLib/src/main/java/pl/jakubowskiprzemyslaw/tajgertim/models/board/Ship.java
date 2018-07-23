@@ -19,6 +19,7 @@ public class Ship implements Serializable {
     }
 
     public Ship() {
+
         this(new ArrayList<>());
     }
 
@@ -38,7 +39,7 @@ public class Ship implements Serializable {
         MastState mastState = getMast(coordinate).getMastState();
         if (mastState.equals(MastState.HIT)) {
             return FieldState.HIT_MAST;
-        } else{
+        } else {
             return FieldState.NOT_HIT_MAST;
         }
     }
@@ -49,7 +50,7 @@ public class Ship implements Serializable {
                 .filter(mast -> mast.getCoordinate().equals(coordinate))
                 .findFirst();
 
-        if(mastAtCoordinate.isPresent()){
+        if(mastAtCoordinate.isPresent()) {
             return mastAtCoordinate.get();
         }
 

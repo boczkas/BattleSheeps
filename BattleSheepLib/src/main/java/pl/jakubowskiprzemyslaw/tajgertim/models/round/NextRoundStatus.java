@@ -9,9 +9,9 @@ import java.util.Objects;
  * to inform PlayingStateMachine which player should
  * play next or if game should end
  */
-
 public class NextRoundStatus implements QueueObject {
     private static final long serialVersionUID = -2030492077082436469L;
+  
     private RoundStatus roundStatus;
 
     public NextRoundStatus(RoundStatus roundStatus) {
@@ -24,7 +24,7 @@ public class NextRoundStatus implements QueueObject {
                 "roundStatus=" + roundStatus +
                 '}';
     }
-
+  
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

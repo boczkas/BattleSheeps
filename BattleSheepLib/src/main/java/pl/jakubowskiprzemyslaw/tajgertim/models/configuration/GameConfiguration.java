@@ -48,4 +48,5 @@ public final class GameConfiguration implements QueueObject {
     public int hashCode() {
         return Objects.hash(gameName, shipConfiguration);
     }
+
 }

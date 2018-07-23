@@ -59,4 +59,8 @@ public class Board implements Serializable {
                 "fleet=" + fleet +
                 '}';
     }
+
+    public List<Ship> getShipList() {
+        return fleet.getShips();
+    }
 }
