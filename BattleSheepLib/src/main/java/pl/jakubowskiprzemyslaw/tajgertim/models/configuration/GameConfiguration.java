@@ -21,10 +21,10 @@ public final class GameConfiguration implements QueueObject {
     public GameConfiguration(FrontGameConfiguration frontGameConfiguration) {
         this.shipConfiguration = new ShipConfiguration();
         this.gameName = frontGameConfiguration.getGameName();
-        this.shipConfiguration.put(ShipSize.mast1, new ShipAmount(frontGameConfiguration.getMast1()));
-        this.shipConfiguration.put(ShipSize.mast2, new ShipAmount(frontGameConfiguration.getMast2()));
-        this.shipConfiguration.put(ShipSize.mast3, new ShipAmount(frontGameConfiguration.getMast3()));
-        this.shipConfiguration.put(ShipSize.mast4, new ShipAmount(frontGameConfiguration.getMast4()));
+        this.shipConfiguration.put(ShipSize.MAST_1, new ShipAmount(frontGameConfiguration.getMast1()));
+        this.shipConfiguration.put(ShipSize.MAST_2, new ShipAmount(frontGameConfiguration.getMast2()));
+        this.shipConfiguration.put(ShipSize.MAST_3, new ShipAmount(frontGameConfiguration.getMast3()));
+        this.shipConfiguration.put(ShipSize.MAST_4, new ShipAmount(frontGameConfiguration.getMast4()));
     }
 
     @Override

@@ -16,10 +16,10 @@ public class ShipConfigurationTest {
     @BeforeMethod
     public void setUp() {
         shipConfiguration = new ShipConfiguration();
-        shipConfiguration.put(ShipSize.mast4, new ShipAmount("1"));
-        shipConfiguration.put(ShipSize.mast3, new ShipAmount("2"));
-        shipConfiguration.put(ShipSize.mast2, new ShipAmount("3"));
-        shipConfiguration.put(ShipSize.mast1, new ShipAmount("4"));
+        shipConfiguration.put(ShipSize.MAST_4, new ShipAmount("1"));
+        shipConfiguration.put(ShipSize.MAST_3, new ShipAmount("2"));
+        shipConfiguration.put(ShipSize.MAST_2, new ShipAmount("3"));
+        shipConfiguration.put(ShipSize.MAST_1, new ShipAmount("4"));
     }
 
     public void standardShipConfiguration_getFleetSize_return20() {
@@ -46,7 +46,7 @@ public class ShipConfigurationTest {
 
     public void oneMast1ShipConfiguration_getBoardSize_return3() {
         ShipConfiguration shipConfiguration = new ShipConfiguration();
-        shipConfiguration.put(ShipSize.mast1, new ShipAmount("1"));
+        shipConfiguration.put(ShipSize.MAST_1, new ShipAmount("1"));
 
         assertEquals(shipConfiguration.getBoardSize(), 3);
     }

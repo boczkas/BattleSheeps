@@ -2,7 +2,7 @@ package pl.jakubowskiprzemyslaw.tajgertim.models.board;
 
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 
-public class NoMastAtPositionException extends Throwable {
+public class NoMastAtPositionException extends Exception {
     private static final long serialVersionUID = -7873852855435342904L;
 
     NoMastAtPositionException(Coordinate coordinate) {

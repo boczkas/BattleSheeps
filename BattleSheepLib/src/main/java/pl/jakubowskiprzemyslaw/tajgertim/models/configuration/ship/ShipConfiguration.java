@@ -8,6 +8,7 @@ public class ShipConfiguration implements Serializable {
     private static final long serialVersionUID = 8403163905506002218L;
 
     private Map<ShipSize, ShipAmount> shipConfiguration = new HashMap<>();
+    private static final double BOARD_SIZE_RATIO = .2;
 
     public void put(ShipSize shipSize, ShipAmount shipAmount) {
         shipConfiguration.put(shipSize, shipAmount);
@@ -15,7 +16,7 @@ public class ShipConfiguration implements Serializable {
 
     public int getBoardSize() {
         int fleetSize = getFleetSize();
-        double minimalBoardSize = Math.sqrt(fleetSize / .2);
+        double minimalBoardSize = Math.sqrt(fleetSize / BOARD_SIZE_RATIO);
         return (int) Math.ceil(minimalBoardSize);
         //TODO: 31.07 max(boardSize, max(ShipSize))
     }

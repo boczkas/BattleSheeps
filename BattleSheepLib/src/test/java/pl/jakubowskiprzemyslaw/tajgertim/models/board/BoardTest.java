@@ -49,7 +49,7 @@ public class BoardTest {
 
     @Test(invocationCount = 20, expectedExceptions = NoMastAtPositionException.class)
     public void markHitOnNotExistingField() throws NoMastAtPositionException {
-        Coordinate nextCoordinate = coordinate.moveCoordinate(new Coordinate(1, 0));
+        Coordinate nextCoordinate = coordinate.translate(new Coordinate(1, 0));
         board.markHit(nextCoordinate);
     }
 

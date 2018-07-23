@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Ship implements Serializable {
     private static final long serialVersionUID = 3450985123295669350L;
@@ -19,11 +20,10 @@ public class Ship implements Serializable {
     }
 
     public Ship() {
-
         this(new ArrayList<>());
     }
 
-    public void addMastToShip(Mast mast){
+    public void addMastToShip(Mast mast) {
         mastList.add(mast);
     }
 
@@ -50,7 +50,7 @@ public class Ship implements Serializable {
                 .filter(mast -> mast.getCoordinate().equals(coordinate))
                 .findFirst();
 
-        if(mastAtCoordinate.isPresent()) {
+        if (mastAtCoordinate.isPresent()) {
             return mastAtCoordinate.get();
         }
 
@@ -58,12 +58,9 @@ public class Ship implements Serializable {
     }
 
     public List<Coordinate> getCoordinates() {
-        List<Coordinate> shipCoordinates = new ArrayList<>();
-
-        mastList.stream()
+        return mastList.stream()
                 .map(Mast::getCoordinate)
-                .forEach(shipCoordinates::add);
-        return shipCoordinates;
+                .collect(Collectors.toList());
     }
 
     void markMastAsHit(Coordinate coordinate) throws NoMastAtPositionException {

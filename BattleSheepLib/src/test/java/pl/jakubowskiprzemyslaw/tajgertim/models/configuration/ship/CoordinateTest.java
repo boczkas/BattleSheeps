@@ -9,17 +9,17 @@ public class CoordinateTest {
 
     public void coordinate10_10_isInRange10_returnFalse() {
         Coordinate coordinate = new Coordinate(10,10);
-        Assert.assertFalse(coordinate.isInRange(10));
+        Assert.assertFalse(coordinate.isLessThan(10));
     }
 
     public void coordinate2_2_isInRange10_returnTrue() {
         Coordinate coordinate = new Coordinate(2,2);
-        Assert.assertTrue(coordinate.isInRange(10));
+        Assert.assertTrue(coordinate.isLessThan(10));
     }
 
     public void coordinate2_4_isInRange3_returnFalse() {
         Coordinate coordinate = new Coordinate(2,4);
-        Assert.assertFalse(coordinate.isInRange(3));
+        Assert.assertFalse(coordinate.isLessThan(3));
     }
 
 }

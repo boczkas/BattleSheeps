@@ -51,10 +51,10 @@ public class FrontGameConfiguration { //I don't like it, I love it, love it, lov
     public String toString() {
         return "FrontGameConfiguration{" +
                 "gameName='" + gameName + '\'' +
-                ", mast1='" + mast1 + '\'' +
-                ", mast2='" + mast2 + '\'' +
-                ", mast3='" + mast3 + '\'' +
-                ", mast4='" + mast4 + '\'' +
+                ", MAST_1='" + mast1 + '\'' +
+                ", MAST_2='" + mast2 + '\'' +
+                ", MAST_3='" + mast3 + '\'' +
+                ", MAST_4='" + mast4 + '\'' +
                 '}';
     }
 }

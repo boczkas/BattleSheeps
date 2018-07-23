@@ -44,7 +44,7 @@ public class FleetTest {
 
     @Test(invocationCount = 20)
     public void getExistingShipAtNotExistingCoordinate() {
-        Coordinate nextCoordinate = coordinate.moveCoordinate(new Coordinate(0, 1));
+        Coordinate nextCoordinate = coordinate.translate(new Coordinate(0, 1));
 
         Ship shipAtCoordinate = fleet.getShipAtCoordinate(nextCoordinate);
 
@@ -61,7 +61,7 @@ public class FleetTest {
 
     @Test(invocationCount = 20)
     public void getCoordinateStatusForNotAddedCoordinate() {
-        Coordinate nextCoordinate = coordinate.moveCoordinate(new Coordinate(0, 1));
+        Coordinate nextCoordinate = coordinate.translate(new Coordinate(0, 1));
         FieldState coordinateStatus = fleet.getCoordinateStatus(nextCoordinate);
 
         assertEquals(coordinateStatus, FieldState.EMPTY);
