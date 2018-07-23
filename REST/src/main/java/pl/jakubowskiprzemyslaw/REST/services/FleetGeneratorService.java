@@ -78,7 +78,7 @@ public class FleetGeneratorService {
 
         Coordinate nextCoordinate = new Coordinate(coordinate.getX(), coordinate.getY());
         while (shipLength > 1) {
-            nextCoordinate = nextCoordinate.moveCoordinate(direction);
+            nextCoordinate = nextCoordinate.translate(direction);
             if (!emptyFields.isCoordinateAvailable(nextCoordinate)) {
                 throw new CannotAllocatePositionsOnBoardException("");
             }
@@ -131,7 +131,7 @@ public class FleetGeneratorService {
         Set<Coordinate> occupiedFields = new HashSet<>();
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                occupiedFields.add(coordinate.moveCoordinate(new Coordinate(i, j)));
+                occupiedFields.add(coordinate.translate(new Coordinate(i, j)));
             }
         }
         return occupiedFields;

@@ -56,7 +56,7 @@ public class ShipTest {
 
     @Test(invocationCount = 20, expectedExceptions = NoMastAtPositionException.class)
     public void checkIfShipThrowsNoMastAtPositionException_whenCheckingOtherCoordinate() throws NoMastAtPositionException{
-        Coordinate nextCoordinate = coordinate.moveCoordinate(new Coordinate(0, 1));
+        Coordinate nextCoordinate = coordinate.translate(new Coordinate(0, 1));
         FieldState fieldState = ship.getMastFieldState(nextCoordinate);
     }
 
@@ -67,7 +67,7 @@ public class ShipTest {
 
     @Test(invocationCount = 20)
     public void checkIfShipDoesNotContainOtherCoordinate() {
-        Coordinate nextCoordinate = coordinate.moveCoordinate(new Coordinate(0, 1));
+        Coordinate nextCoordinate = coordinate.translate(new Coordinate(0, 1));
 
         Assert.assertFalse(ship.containsCoordinate(nextCoordinate));
     }
