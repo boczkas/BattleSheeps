@@ -29,7 +29,6 @@ class PlayerConnectedEvent extends ApplicationEvent {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(playerConfiguration);
     }
 }

@@ -5,22 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import pl.jakubowskiprzemyslaw.tajgertim.models.configuration.GameConfiguration;
-import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 import pl.jakubowskiprzemyslaw.tajgertim.services.LoggerService;
-import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
-
-import java.util.Objects;
 
 @Service
 class GameConfigurationQueueListener {
 
-    private final QueueService queueService;
     private final LoggerService loggerService;
     private final ApplicationEventPublisher publisher;
 
     @Autowired
-    GameConfigurationQueueListener(QueueService queueService, LoggerService loggerService, ApplicationEventPublisher publisher) {
-        this.queueService = queueService;
+    GameConfigurationQueueListener(LoggerService loggerService, ApplicationEventPublisher publisher) {
         this.loggerService = loggerService;
         this.publisher = publisher;
     }
@@ -28,8 +22,7 @@ class GameConfigurationQueueListener {
     @RabbitListener(queues = "GameConfigurationRegistrationQueue")
     void getGameConfigurationFromGameConfigurationQueue(GameConfiguration gameConfiguration) {
         loggerService.logInfo(GameConfigurationQueueListener.class, gameConfiguration.toString());
-        GameConfiguredEvent event = new GameConfiguredEvent(this);
+        GameConfiguredEvent event = new GameConfiguredEvent(this, gameConfiguration);
         publisher.publishEvent(event);
-        queueService.sendObjectToQueue(Queues._3FleetPlacementSizeQueue, gameConfiguration);
     }
 }
