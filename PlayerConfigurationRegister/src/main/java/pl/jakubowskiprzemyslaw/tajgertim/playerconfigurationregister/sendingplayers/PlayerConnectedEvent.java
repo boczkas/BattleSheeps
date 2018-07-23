@@ -15,7 +15,7 @@ class PlayerConnectedEvent extends ApplicationEvent {
         this.playerConfiguration = playerConfiguration;
     }
 
-    public PlayerConfiguration getPlayerConfiguration() {
+    PlayerConfiguration getPlayerConfiguration() {
         return playerConfiguration;
     }
 
