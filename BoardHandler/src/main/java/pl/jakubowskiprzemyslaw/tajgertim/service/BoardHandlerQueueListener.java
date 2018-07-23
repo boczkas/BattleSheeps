@@ -14,10 +14,11 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.view.BoardsView;
 import pl.jakubowskiprzemyslaw.tajgertim.models.view.OpponentBoardView;
 import pl.jakubowskiprzemyslaw.tajgertim.models.view.PlayerBoardView;
 import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
+import pl.jakubowskiprzemyslaw.tajgertim.services.BattleShipQueueInteractionHandler;
 import pl.jakubowskiprzemyslaw.tajgertim.services.LoggerService;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
-@Service
+@BattleShipQueueInteractionHandler
 public class BoardHandlerQueueListener {
 
     private final QueueService queueService;

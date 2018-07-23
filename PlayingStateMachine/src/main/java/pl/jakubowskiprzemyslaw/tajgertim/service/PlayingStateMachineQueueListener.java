@@ -7,10 +7,11 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.action.Move;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.action.Shot;
 import pl.jakubowskiprzemyslaw.tajgertim.models.round.NextRoundStatus;
 import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
+import pl.jakubowskiprzemyslaw.tajgertim.services.BattleShipQueueInteractionHandler;
 import pl.jakubowskiprzemyslaw.tajgertim.services.LoggerService;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
-@Service
+@BattleShipQueueInteractionHandler
 public class PlayingStateMachineQueueListener {
 
     private final QueueService queueService;

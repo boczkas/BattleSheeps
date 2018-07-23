@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class PlayersBoards {
 
-    private Map<Player, PlayerBoards> playersBoards;
+    private final Map<Player, PlayerBoards> playersBoards;
 
     public PlayersBoards() {
         this.playersBoards = new HashMap<>();
@@ -23,7 +23,7 @@ public class PlayersBoards {
         playersBoards.put(player, playerBoards);
     }
 
-    public void markHitAtShip(Player player, Coordinate coordinate) throws NoShipAtCoordinateException, NoMastAtPositionException {
+    public void markHitAtShip(Player player, Coordinate coordinate) throws NoMastAtPositionException {
         PlayerBoards playerPlayerBoards = playersBoards.get(player);
         playerPlayerBoards.markHitOnShip(coordinate);
     }
@@ -35,10 +35,10 @@ public class PlayersBoards {
 
     public void markMissOnBoard(Player player, Coordinate coordinate) {
         PlayerBoards playerBoards = playersBoards.get(player);
-        playerBoards.markMissOnBoard(coordinate);
+        playerBoards.markMissOnShotsBoard(coordinate);
     }
 
-    public FieldState getFieldStatus(Player player, Coordinate coordinate) throws NoMastAtPositionException {
+    public FieldState getFieldStatus(Player player, Coordinate coordinate) {
         Board board = playersBoards.get(player).getBoard();
         return board.getCoordinateStatus(coordinate);
     }

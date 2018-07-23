@@ -9,19 +9,19 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.ShootResult;
 import java.util.Map;
 
 public class PlayerBoards {
-    private Board board;
-    private PlayerShots playerShots;
+    private final Board board;
+    private final PlayerShots playerShots;
 
     public PlayerBoards(Board board, PlayerShots playerShots) {
         this.board = board;
         this.playerShots = playerShots;
     }
 
-    void markHitOnShip(Coordinate coordinate) throws NoShipAtCoordinateException, NoMastAtPositionException {
+    void markHitOnShip(Coordinate coordinate) throws NoMastAtPositionException {
         board.markHit(coordinate);
     }
 
-    void markMissOnBoard(Coordinate coordinate) {
+    void markMissOnShotsBoard(Coordinate coordinate) {
         playerShots.add(coordinate, ShootResult.MISS);
     }
 
