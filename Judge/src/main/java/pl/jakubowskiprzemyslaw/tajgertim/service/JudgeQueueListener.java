@@ -23,7 +23,7 @@ public class JudgeQueueListener {
     }
 
     @RabbitListener(queues = "JudgePlayerShootResultQueue")
-    public void listenOnJudgePlayerShootResultQueue (PlayerShootResult playerShootResult) {
+    public void listenOnJudgePlayerShootResultQueue(PlayerShootResult playerShootResult) {
         logger.logInfo(JudgeQueueListener.class, "Received message" + playerShootResult);
 
         ShootResult shootResult = playerShootResult.getShootResult();
