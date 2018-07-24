@@ -15,7 +15,7 @@ public class FleetPlacementEvent extends ApplicationEvent {
         this.fleetPlacement = placement;
     }
 
-    public FleetPlacement getFleetPlacement() {
+    FleetPlacement getFleetPlacement() {
         return fleetPlacement;
     }
 
@@ -29,7 +29,6 @@ public class FleetPlacementEvent extends ApplicationEvent {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(fleetPlacement);
     }
 }

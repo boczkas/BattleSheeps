@@ -15,7 +15,7 @@ public class PlayerShootCoordinateEvent extends ApplicationEvent {
         this.coordinate = coordinate;
     }
 
-    public PlayerShootCoordinate getCoordinate() {
+    PlayerShootCoordinate getCoordinate() {
         return coordinate;
     }
 

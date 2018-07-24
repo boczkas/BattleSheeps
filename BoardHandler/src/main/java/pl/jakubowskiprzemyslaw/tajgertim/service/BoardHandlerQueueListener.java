@@ -18,13 +18,11 @@ import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 @BattleShipQueueInteractionHandler
 public class BoardHandlerQueueListener {
 
-    private final BoardHandler boardHandler;
     private final ApplicationEventPublisher publisher;
     private final LoggerService logger;
 
-    public BoardHandlerQueueListener(BoardHandler boardHandler, ApplicationEventPublisher publisher, LoggerService logger) {
+    public BoardHandlerQueueListener(ApplicationEventPublisher publisher, LoggerService logger) {
         this.publisher = publisher;
-        this.boardHandler = boardHandler;
         this.logger = logger;
     }
 

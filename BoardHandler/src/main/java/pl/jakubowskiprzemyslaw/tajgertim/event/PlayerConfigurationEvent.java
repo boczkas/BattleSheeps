@@ -15,7 +15,7 @@ public class PlayerConfigurationEvent extends ApplicationEvent {
         this.playerConfiguration = configuration;
     }
 
-    public PlayerConfiguration getPlayerConfiguration() {
+    PlayerConfiguration getPlayerConfiguration() {
         return playerConfiguration;
     }
 
@@ -29,7 +29,6 @@ public class PlayerConfigurationEvent extends ApplicationEvent {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(playerConfiguration);
     }
 }
