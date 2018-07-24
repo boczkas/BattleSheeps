@@ -40,7 +40,7 @@ public class JudgeQueueListener {
                 roundStatus = RoundStatus.GAME_END;
                 break;
         }
-
+      
         queueService.sendObjectToQueue(Queues._14PlayingStateMachineNextRoundStatusQueue, new NextRoundStatus(roundStatus));
     }
 }
