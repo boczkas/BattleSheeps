@@ -39,7 +39,7 @@ public class BoardTest {
     }
 
     @Test(invocationCount = 20)
-    public void markHit_checkIfIsHit() throws NoMastAtPositionException {
+    public void whenShotIsPerformedOnCoordinate_fieldStateAtCoordinateEquals_HIT_MAST() throws NoMastAtPositionException {
         board.markHit(coordinate);
 
         FieldState fieldState = board.getCoordinateStatus(coordinate);
@@ -47,27 +47,16 @@ public class BoardTest {
         Assert.assertEquals(fieldState, FieldState.HIT_MAST);
     }
 
-    @Test(invocationCount = 20, expectedExceptions = NoMastAtPositionException.class)
+    @Test(expectedExceptions = NoMastAtPositionException.class)
     public void markHitOnNotExistingField() throws NoMastAtPositionException {
         Coordinate nextCoordinate = coordinate.translate(new Coordinate(1, 0));
         board.markHit(nextCoordinate);
     }
 
-    @Test(invocationCount = 20)
-    public void getShipList() {
-        List<Ship> expectedShipList = Arrays.asList(ship);
-        List<Ship> shipList = board.getShipList();
-
-        assertEquals(shipList, expectedShipList);
-    }
-
     @Test
     public void checkConsoleView() {
         Coordinate coordinate = new Coordinate(1,2);
-        Ship ship = new Ship();
-        ship.addMastToShip(new Mast(coordinate));
-        Fleet fleet = new Fleet(Arrays.asList(ship));
-        Board board = new Board(fleet);
+        Board board = createBoardWithFleetOnCoordinate(coordinate);
 
         String expectedView =
                 "..........\n" +
@@ -81,10 +70,18 @@ public class BoardTest {
                 "..........\n" +
                 "..........\n";
 
-        String consoleView = board.getConsoleView(10);
+        int boardSize = 10;
+        String consoleView = board.getConsoleView(boardSize);
 
         assertEquals(consoleView, expectedView);
 
+    }
+
+    private Board createBoardWithFleetOnCoordinate(Coordinate coordinate) {
+        Ship ship = new Ship();
+        ship.addMastToShip(new Mast(coordinate));
+        Fleet fleet = new Fleet(Arrays.asList(ship));
+        return new Board(fleet);
     }
 
 }

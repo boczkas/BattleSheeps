@@ -7,17 +7,17 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 @Test
 public class CoordinateTest {
 
-    public void coordinate10_10_isInRange10_returnFalse() {
+    public void bothCoordinatesEqualsToRange_isInRange_returnFalse() {
         Coordinate coordinate = new Coordinate(10,10);
         Assert.assertFalse(coordinate.isLessThan(10));
     }
 
-    public void coordinate2_2_isInRange10_returnTrue() {
+    public void bothCoordinatesSmallerThanRange_isInRange_returnTrue() {
         Coordinate coordinate = new Coordinate(2,2);
         Assert.assertTrue(coordinate.isLessThan(10));
     }
 
-    public void coordinate2_4_isInRange3_returnFalse() {
+    public void X_coordinateSmallerThanRange_Y_coordinateBiggerThanRange_isInRange_returnFalse() {
         Coordinate coordinate = new Coordinate(2,4);
         Assert.assertFalse(coordinate.isLessThan(3));
     }
