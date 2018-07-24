@@ -47,7 +47,6 @@ public class PlayerShootCoordinate implements QueueObject {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(player, coordinate);
     }
 }

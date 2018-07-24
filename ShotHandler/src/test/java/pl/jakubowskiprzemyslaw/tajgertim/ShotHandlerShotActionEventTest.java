@@ -23,10 +23,6 @@ public class ShotHandlerShotActionEventTest {
         event = new ShotActionEvent(queueListener, action);
     }
 
-    public void equalsTheSame_ReturnsTrue() {
-        assertEquals(event, event);
-    }
-
     public void equalsNull_ReturnsFalse() {
         assertNotEquals(event, null);
     }

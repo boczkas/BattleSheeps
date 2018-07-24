@@ -23,10 +23,6 @@ public class ShotHandlerFieldStatusEventTest {
         event = new FieldStatusEvent(queueListener, status);
     }
 
-    public void equalsTheSame_ReturnsTrue() {
-        assertEquals(event, event);
-    }
-
     public void equalsNull_ReturnsFalse() {
         assertNotEquals(event, null);
     }

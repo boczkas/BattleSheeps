@@ -45,9 +45,10 @@ public class ShotHandlerShotActionEventListenerTest {
     }
 
     @Test(expectedExceptions = ClassCastException.class)
-    public void sendingObject_throwsClassCastException() {
-        Object event = new Object();
-        eventListener.onApplicationEvent((ShotActionEvent) event);
+    public void sendingIncorrectObjectTypeToEvent_throwsClassCastException() {
+        Object object = new Object();
+        ShotActionEvent event = new ShotActionEvent(this, (PlayerAction) object);
+        eventListener.onApplicationEvent(event);
     }
 
 

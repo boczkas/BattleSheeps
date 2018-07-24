@@ -56,10 +56,10 @@ public class ShotHandlerFieldStatusEventListenerTest {
         verify(queueService).sendObjectToQueue(Queues._15JudgePlayerShootResultQueue, result);
     }
 
-
     @Test(expectedExceptions = ClassCastException.class)
-    public void sendingObject_throwsClassCastException() {
-        Object event = new Object();
-        eventListener.onApplicationEvent((FieldStatusEvent) event);
+    public void sendingIncorrectObjectTypeToEvent_throwsClassCastException() {
+        Object object = new Object();
+        FieldStatusEvent event = new FieldStatusEvent(this, (FieldStatus) object);
+        eventListener.onApplicationEvent(event);
     }
 }
