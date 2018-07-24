@@ -1,16 +1,13 @@
 package pl.jakubowskiprzemyslaw.tajgertim.service;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pl.jakubowskiprzemyslaw.tajgertim.models.QueueObject;
+import pl.jakubowskiprzemyslaw.tajgertim.event.PlayerShootResultEvent;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
-import pl.jakubowskiprzemyslaw.tajgertim.models.round.NextRoundStatus;
-import pl.jakubowskiprzemyslaw.tajgertim.models.round.RoundStatus;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.PlayerShootResult;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.ShootResult;
-import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 import pl.jakubowskiprzemyslaw.tajgertim.services.LoggerService;
-import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -19,49 +16,32 @@ import static org.mockito.Mockito.verify;
 public class JudgeQueueListenerTest {
 
     private Player player;
-    private QueueService queueService;
+    private ApplicationEventPublisher publisher;
     private JudgeQueueListener judgeQueueListener;
+    private ShootResult shootResult;
 
     @BeforeMethod
     public void setUp() {
         player = new Player("", "");
-        queueService = mock(QueueService.class);
+        shootResult = ShootResult.UNKNOWN;
+        publisher = mock(ApplicationEventPublisher.class);
         LoggerService loggerService = mock(LoggerService.class);
 
-        judgeQueueListener = new JudgeQueueListener(queueService, loggerService);
+        judgeQueueListener = new JudgeQueueListener(loggerService, publisher);
     }
 
-    public void shootResult_HIT_sendToQueueRoundStatus_SAME_PLAYER() {
-        PlayerShootResult playerShootResult = new PlayerShootResult(player,ShootResult.HIT);
-
+    public void listenOnJudgePlayerShootResultQueue_getPlayerShootResult_triggerEvent() {
+        PlayerShootResult playerShootResult = new PlayerShootResult(player, shootResult);
         judgeQueueListener.listenOnJudgePlayerShootResultQueue(playerShootResult);
 
-        NextRoundStatus nextRoundStatus = new NextRoundStatus(RoundStatus.SAME_PLAYER);
-        verify(queueService).sendObjectToQueue(Queues._14PlayingStateMachineNextRoundStatusQueue, nextRoundStatus);
-    }
+        PlayerShootResultEvent event = new PlayerShootResultEvent(this, playerShootResult);
 
-    public void shootResult_MISS_sendToQueueRoundStatus_NEXT_PLAYER() {
-        PlayerShootResult playerShootResult = new PlayerShootResult(player,ShootResult.MISS);
-
-        judgeQueueListener.listenOnJudgePlayerShootResultQueue(playerShootResult);
-
-        NextRoundStatus nextRoundStatus = new NextRoundStatus(RoundStatus.NEXT_PLAYER);
-        verify(queueService).sendObjectToQueue(Queues._14PlayingStateMachineNextRoundStatusQueue, nextRoundStatus);
-    }
-
-    public void shootResult_UNKNOWN_sendToQueueRoundStatus_GAME_END() {
-        PlayerShootResult playerShootResult = new PlayerShootResult(player,ShootResult.UNKNOWN);
-
-        judgeQueueListener.listenOnJudgePlayerShootResultQueue(playerShootResult);
-
-        NextRoundStatus nextRoundStatus = new NextRoundStatus(RoundStatus.GAME_END);
-        verify(queueService).sendObjectToQueue(Queues._14PlayingStateMachineNextRoundStatusQueue, nextRoundStatus);
+        verify(publisher).publishEvent(event);
     }
 
     @Test(expectedExceptions = ClassCastException.class)
-    public void object_throwClassCastException() {
+    public void listenOnJudgePlayerShootResultQueue_getObject_throwClassCastException() {
         Object object = new Object();
         judgeQueueListener.listenOnJudgePlayerShootResultQueue((PlayerShootResult) object);
     }
-
 }
