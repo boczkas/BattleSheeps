@@ -25,17 +25,17 @@ public class BoardHandler {
         this.playersBoards = playersBoards;
     }
 
-    void markHit(Player player, Coordinate coordinate) throws NoSuchPlayerException, NoMastAtPositionException {
+    public void markHit(Player player, Coordinate coordinate) throws NoSuchPlayerException, NoMastAtPositionException {
         Player opponent = getOpponent(player);
         playersBoards.markHitAtShip(opponent, coordinate);
         playersBoards.markHitAtPlayerShotBoard(player, coordinate);
     }
 
-    void markMiss(Player player, Coordinate coordinate) {
+    public void markMiss(Player player, Coordinate coordinate) {
         playersBoards.markMissOnBoard(player, coordinate); //TODO: 24.07.2018 Mark opponent miss on player board
     }
 
-    FieldState getOpponentFieldStatus(Player player, Coordinate coordinate) throws NoSuchPlayerException {
+    public FieldState getOpponentFieldStatus(Player player, Coordinate coordinate) throws NoSuchPlayerException {
         Player opponent = getOpponent(player);
         return getPlayerFieldStatus(opponent, coordinate);
     }
@@ -48,11 +48,11 @@ public class BoardHandler {
         return playersBoards.getFieldStatus(player, coordinate);
     }
 
-    Board getPlayerBoard(Player player) {
+    public Board getPlayerBoard(Player player) {
         return playersBoards.getBoard(player);
     }
 
-    Map<Coordinate, ShootResult> getPlayerShotsMap(Player player) {
+    public Map<Coordinate, ShootResult> getPlayerShotsMap(Player player) {
         return playersBoards.getPlayerShotsMap(player);
     }
 

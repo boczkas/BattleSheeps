@@ -48,7 +48,7 @@ public class AllRoomsOpponents {
         }
     }
 
-    Map<Room, Opponents> getAllRoomsOpponents() {
+    public Map<Room, Opponents> getAllRoomsOpponents() {
         return allRoomsOpponents;
     }
 }
