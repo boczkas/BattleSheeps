@@ -19,11 +19,11 @@ public class Mast implements Serializable {
         return coordinate;
     }
 
-    public MastState getMastState() {
+    MastState getMastState() {
         return mastState;
     }
 
-    public void markAsHit() {
+    void markAsHit() {
         mastState = MastState.HIT;
     }
 
@@ -37,7 +37,6 @@ public class Mast implements Serializable {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(coordinate);
     }
 

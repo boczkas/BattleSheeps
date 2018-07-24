@@ -15,10 +15,6 @@ public class OpponentBoardView implements Serializable {
         this.shootingMap = shootingMap;
     }
 
-    public OpponentBoardView() {
-        this(new HashMap<>());
-    }
-
     public void put(Coordinate coordinate, ShootResult fieldStateView){
         shootingMap.put(coordinate, fieldStateView);
     }
@@ -27,7 +23,7 @@ public class OpponentBoardView implements Serializable {
         return shootingMap.getOrDefault(coordinate, ShootResult.UNKNOWN);
     }
 
-    public Map<Coordinate, ShootResult> getShootingMap() {
+    Map<Coordinate, ShootResult> getShootingMap() {
         return new HashMap<>(shootingMap);
     }
 
