@@ -20,9 +20,9 @@ public class BoardHandler {
     private final PlayersBoards playersBoards;
     private final AllRoomsOpponents allRoomsOpponents;
 
-    public BoardHandler() {
-        this.allRoomsOpponents = new AllRoomsOpponents();
-        this.playersBoards = new PlayersBoards();
+    public BoardHandler(AllRoomsOpponents roomOpponents, PlayersBoards playersBoards) {
+        this.allRoomsOpponents = roomOpponents;
+        this.playersBoards = playersBoards;
     }
 
     void markHit(Player player, Coordinate coordinate) throws NoSuchPlayerException, NoMastAtPositionException {

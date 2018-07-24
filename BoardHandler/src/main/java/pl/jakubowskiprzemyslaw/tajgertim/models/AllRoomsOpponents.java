@@ -47,4 +47,8 @@ public class AllRoomsOpponents {
             allRoomsOpponents.get(room).addOpponent(player);
         }
     }
+
+    Map<Room, Opponents> getAllRoomsOpponents() {
+        return allRoomsOpponents;
+    }
 }

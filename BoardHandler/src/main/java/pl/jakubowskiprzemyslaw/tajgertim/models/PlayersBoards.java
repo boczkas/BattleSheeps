@@ -65,6 +65,10 @@ public class PlayersBoards {
         playersBoards.put(player, playerBoards);
     }
 
+    int getMapSize() {
+        return playersBoards.size();
+    }
+
     private PlayerBoards createPlayerBoards(Fleet fleet) {
         Board board = new Board(fleet);
         PlayerShots playerShots = new PlayerShots();
