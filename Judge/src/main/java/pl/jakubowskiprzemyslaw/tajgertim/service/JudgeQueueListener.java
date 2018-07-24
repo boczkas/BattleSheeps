@@ -23,18 +23,22 @@ public class JudgeQueueListener {
     }
 
     @RabbitListener(queues = "JudgePlayerShootResultQueue")
-    public void listenOnJudgePlayerShootResultQueue (PlayerShootResult playerShootResult) {
+    public void listenOnJudgePlayerShootResultQueue(PlayerShootResult playerShootResult) {
         logger.logInfo(JudgeQueueListener.class, "Received message" + playerShootResult);
 
         ShootResult shootResult = playerShootResult.getShootResult();
 
-        RoundStatus roundStatus = RoundStatus.GAME_END;
-
-        if (shootResult.equals(ShootResult.HIT)) {
-            roundStatus = RoundStatus.SAME_PLAYER;
-        }
-        else if (shootResult.equals(ShootResult.MISS)) {
-            roundStatus = RoundStatus.NEXT_PLAYER;
+        RoundStatus roundStatus;
+        switch (shootResult) {
+            case HIT:
+                roundStatus = RoundStatus.SAME_PLAYER;
+                break;
+            case MISS:
+                roundStatus = RoundStatus.NEXT_PLAYER;
+                break;
+            default:
+                roundStatus = RoundStatus.GAME_END;
+                break;
         }
 
         queueService.sendObjectToQueue(Queues._14PlayingStateMachineNextRoundStatusQueue, new NextRoundStatus(roundStatus));
