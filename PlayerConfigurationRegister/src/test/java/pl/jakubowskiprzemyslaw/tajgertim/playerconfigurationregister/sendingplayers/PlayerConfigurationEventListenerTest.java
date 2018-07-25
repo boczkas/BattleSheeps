@@ -18,7 +18,6 @@ public class PlayerConfigurationEventListenerTest {
     private PlayerConnectedEventListener eventListener;
     private QueueService queueService;
 
-
     @BeforeMethod
     public void setUp() {
         playerConfiguration = mock(PlayerConfiguration.class);

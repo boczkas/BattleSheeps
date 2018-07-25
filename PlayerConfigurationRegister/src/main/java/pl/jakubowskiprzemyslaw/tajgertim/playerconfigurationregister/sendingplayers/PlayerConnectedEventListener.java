@@ -13,7 +13,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 class PlayerConnectedEventListener implements ApplicationListener<PlayerConnectedEvent> {
 
     private final QueueService queueService;
-    private int counter = 0;
+    private int playersCounter = 0;
 
     @Autowired
     PlayerConnectedEventListener(QueueService queueService) {
@@ -24,11 +24,12 @@ class PlayerConnectedEventListener implements ApplicationListener<PlayerConnecte
     public void onApplicationEvent(PlayerConnectedEvent event) {
         PlayerConfiguration playerConfiguration = event.getPlayerConfiguration();
         queueService.sendObjectToQueue(Queues._6BoardHandlerPlayerQueue, playerConfiguration);
-        counter++;
-        if (counter == 2) {
+        playersCounter++;
+        int necessaryPlayersAmount = 2;
+        if (playersCounter == necessaryPlayersAmount) {
             Confirmation playersRegistered = new PlayerConfigurationConfirmation();
             queueService.sendObjectToQueue(Queues._5GameReadyValidationQueue, playersRegistered);
-            counter = 0;
+            playersCounter = 0;
         }
     }
 }

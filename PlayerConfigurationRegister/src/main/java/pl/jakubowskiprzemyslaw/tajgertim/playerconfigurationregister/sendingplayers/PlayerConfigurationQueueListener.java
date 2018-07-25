@@ -12,8 +12,7 @@ class PlayerConfigurationQueueListener {
 
     private final LoggerService logger;
     private final ApplicationEventPublisher publisher;
-
-    @Autowired
+    
     PlayerConfigurationQueueListener(LoggerService logger, ApplicationEventPublisher publisher) {
         this.logger = logger;
         this.publisher = publisher;
