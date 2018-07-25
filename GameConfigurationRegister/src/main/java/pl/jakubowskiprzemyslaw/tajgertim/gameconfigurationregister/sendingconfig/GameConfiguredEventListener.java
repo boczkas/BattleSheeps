@@ -39,7 +39,6 @@ public class GameConfiguredEventListener implements ApplicationListener<GameConf
 
     @Override
     public int hashCode() {
-
         return Objects.hash(queueService);
     }
 }

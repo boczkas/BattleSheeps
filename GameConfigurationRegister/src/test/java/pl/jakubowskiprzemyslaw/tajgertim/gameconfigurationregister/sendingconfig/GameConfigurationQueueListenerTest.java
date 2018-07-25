@@ -25,9 +25,13 @@ public class GameConfigurationQueueListenerTest {
     }
 
     public void correctObjectInGameConfiguration_SendsToQueueGameConfiguration() {
+        // given
         gameConfigurationQueueListener.getGameConfigurationFromGameConfigurationQueue(gameConfiguration);
 
+        // when
         GameConfiguredEvent event = new GameConfiguredEvent(this, gameConfiguration);
+
+        // then
         verify(publisher).publishEvent(event);
     }
 }

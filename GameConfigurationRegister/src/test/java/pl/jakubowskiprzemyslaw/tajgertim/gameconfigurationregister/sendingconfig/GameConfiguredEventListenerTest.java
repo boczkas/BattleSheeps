@@ -14,13 +14,16 @@ public class GameConfiguredEventListenerTest {
 
 
     public void correctObjectInGameConfiguration_SendsToQueueGameConfiguration_AndCallsEventListener() {
+        // given
         QueueService queueService = mock(QueueService.class);
         GameConfiguredEventListener gameConfigurationEventListener = new GameConfiguredEventListener(queueService);
-
         GameConfiguredEvent event = mock(GameConfiguredEvent.class);
+        Confirmation gameConfigured = new GameConfigurationConfirmation();
+
+        // when
         gameConfigurationEventListener.onApplicationEvent(event);
 
-        Confirmation gameConfigured = new GameConfigurationConfirmation();
+        // then
         verify(queueService).sendObjectToQueue(Queues._5GameReadyValidationQueue, gameConfigured);
     }
 }

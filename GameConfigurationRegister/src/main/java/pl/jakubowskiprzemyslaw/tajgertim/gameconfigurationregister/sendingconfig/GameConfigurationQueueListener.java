@@ -13,7 +13,6 @@ class GameConfigurationQueueListener {
     private final LoggerService loggerService;
     private final ApplicationEventPublisher publisher;
 
-    @Autowired
     GameConfigurationQueueListener(LoggerService loggerService, ApplicationEventPublisher publisher) {
         this.loggerService = loggerService;
         this.publisher = publisher;
