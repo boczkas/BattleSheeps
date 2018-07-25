@@ -1,6 +1,7 @@
 package pl.jakubowskiprzemyslaw.REST.models;
 
 import org.springframework.stereotype.Component;
+import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 import pl.jakubowskiprzemyslaw.tajgertim.models.view.BoardsView;
 
 import java.util.Optional;
@@ -16,6 +17,10 @@ public class BoardsViewHandler {
 
   public Optional<BoardsView> getView() {
     return view == null ? Optional.empty() : Optional.of(view);
+  }
+
+  public Optional<Player> getPlayer() {
+    return view == null ? Optional.empty() : Optional.of(view.getPlayer());
   }
 
   public void clear() {
