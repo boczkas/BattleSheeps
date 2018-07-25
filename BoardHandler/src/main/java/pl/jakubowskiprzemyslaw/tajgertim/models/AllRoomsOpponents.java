@@ -1,21 +1,49 @@
 package pl.jakubowskiprzemyslaw.tajgertim.models;
 
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
+import pl.jakubowskiprzemyslaw.tajgertim.models.room.Room;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class AllRoomsOpponents {
-    private List<Opponents> allRoomsOpponents;
+    private Map<Room, Opponents> allRoomsOpponents;
 
     public AllRoomsOpponents() {
-        this.allRoomsOpponents = new ArrayList<>();
+        this.allRoomsOpponents = new HashMap<>();
     }
 
     public void addOpponents(Player player, Player opponent) {
         Opponents opponents = new Opponents(player, opponent);
-        allRoomsOpponents.add(opponents);
+        String roomName = "roomName";
+        allRoomsOpponents.put(new Room(roomName), opponents);
+    }
+
+    public Player getOpponent(Player player) throws NoSuchPlayerException {
+
+        Optional<Opponents> foundOpponents = allRoomsOpponents.values().stream()
+                .filter(opponents -> opponents.contains(player))
+                .findFirst();
+
+        if (foundOpponents.isPresent()) {
+            Opponents opponents = foundOpponents.get();
+            return opponents.getOpponent(player);
+        }
+
+        throw new NoSuchPlayerException(player);
+    }
+
+    public void addPlayerToRoom(Room room, Player player) {
+        if (!allRoomsOpponents.containsKey(room)) {
+            Opponents firstOpponent = new Opponents(player);
+            allRoomsOpponents.put(room, firstOpponent);
+        }
+        else {
+            allRoomsOpponents.get(room).addOpponent(player);
+        }
+    }
+
+    public Map<Room, Opponents> getAllRoomsOpponents() {
+        return allRoomsOpponents;
     }
 
     @Override
@@ -23,19 +51,5 @@ public class AllRoomsOpponents {
         return "AllRoomsOpponents{" +
                 "allRoomsOpponents=" + allRoomsOpponents +
                 '}';
-    }
-
-    public Player getOpponent(Player player) throws NoSuchPlayerException {
-
-        Optional<Opponents> foundOpponents = allRoomsOpponents.stream()
-                .filter(opponents -> opponents.contains(player))
-                .findFirst();
-
-        if(foundOpponents.isPresent()){
-            Opponents opponents = foundOpponents.get();
-            return opponents.getOpponent(player);
-        }
-
-        throw new NoSuchPlayerException(player);
     }
 }

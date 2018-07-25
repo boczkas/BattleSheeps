@@ -4,6 +4,8 @@ package pl.jakubowskiprzemyslaw.tajgertim.models.coordinates;
 import pl.jakubowskiprzemyslaw.tajgertim.models.QueueObject;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 
+import java.util.Objects;
+
 /**
  * Class used for communication between microservices BoardHandler
  * and ShotHandler to inform ShotHandler about Field status
@@ -37,5 +39,20 @@ public class FieldStatus implements QueueObject {
                 ", fieldState=" + fieldState +
                 ", player=" + player +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FieldStatus status = (FieldStatus) o;
+        return Objects.equals(coordinate, status.coordinate) &&
+                fieldState == status.fieldState &&
+                Objects.equals(player, status.player);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(coordinate, fieldState, player);
     }
 }
