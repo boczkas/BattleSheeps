@@ -89,6 +89,18 @@ public class FleetGeneratorService {
         return shipCoordinates;
     }
 
+    private List<Coordinate> createShipCoordinatesWithFirstCoordinateAdded(Coordinate coordinate) {
+        List<Coordinate> shipCoordinates = new ArrayList<>();
+        shipCoordinates.add(coordinate);
+        return shipCoordinates;
+    }
+
+    private Coordinate getDirection() {
+        Random random = new Random();
+        int coordinateX = random.nextInt(2);
+        return new Coordinate(coordinateX, 1 - coordinateX);
+    }
+
     private void removeShipAndBufferFromEmptyFields(Ship ship) {
         List<Coordinate> shipCoordinates = ship.getCoordinates();
 
@@ -103,18 +115,6 @@ public class FleetGeneratorService {
                 .map(Mast::new)
                 .forEach(ship::addMastToShip);
         return ship;
-    }
-
-    private Coordinate getDirection() {
-        Random random = new Random();
-        int coordinateX = random.nextInt(2);
-        return new Coordinate(coordinateX, 1 - coordinateX);
-    }
-
-    private List<Coordinate> createShipCoordinatesWithFirstCoordinateAdded(Coordinate coordinate) {
-        List<Coordinate> shipCoordinates = new ArrayList<>();
-        shipCoordinates.add(coordinate);
-        return shipCoordinates;
     }
 
     private Set<Coordinate> createBuffer(List<Coordinate> shipCoordinates) {
