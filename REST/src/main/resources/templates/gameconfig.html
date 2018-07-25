@@ -2,14 +2,26 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>BattleSheep - Game configuration</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 
 <body>
 <h1>Configure Game</h1>
-<form action="#" th:action="@{/gameconfig}" th:object="${configuration}" method="post">
-    <p>Name: <input type="text" th:field="*{gameName}" /></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+<form action="#" th:action="@{/gameconfig}" th:object="${frontGameConfiguration}" method="post">
+    <p>Name: <input type="text" th:field="*{gameName}"/></p>
+    <p>1 mast sheep: <select th:field="*{mast1}">
+        <option type="text" th:value="4">4</option>
+    </select></p>
+    <p>2 mast sheep: <select th:field="*{mast2}">
+        <option type="text" th:value="3">3</option>
+    </select></p>
+    <p>3 mast sheep: <select th:field="*{mast3}">
+        <option type="text" th:value="2">2</option>
+    </select></p>
+    <p>4 mast sheep: <select th:field="*{mast4}">
+        <option type="text" th:value="1">1</option>
+    </select></p>
+    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
 </form>
 </body>
 </html>

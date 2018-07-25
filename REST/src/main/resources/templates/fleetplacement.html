@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +8,9 @@
 <body>
 <h1>Fleet placement</h1>
 
-<a href="/playing">Play game</a>
+
+<form action="#" th:action="@{/fleetplacement}" th:object="${fleet}" method="post">
+    <input type="submit" value="Generate random fleet and play the game"/>
+</form>
 </body>
 </html>
