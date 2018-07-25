@@ -26,6 +26,7 @@
         <module>GameReadyValidator</module>
         <module>FleetPlacer</module>
         <module>PlayerConfigurationRegister</module>
+        <module>ShotHandler</module>
     </modules>
 
     <properties>
@@ -131,6 +132,7 @@
                 <module>GameReadyValidator</module>
                 <module>FleetPlacer</module>
                 <module>PlayerConfigurationRegister</module>
+                <module>ShotHandler</module>
             </modules>
         </profile>
     </profiles>
