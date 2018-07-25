@@ -38,14 +38,16 @@ public class PlayerShootCoordinateEventListener implements ApplicationListener<P
         Coordinate shotCoordinate = playerShootCoordinate.getCoordinate();
         FieldState opponentFieldState = null;
 
-        try { //creation of this ugly construction was caused by the fact that getOpponentFieldStatus and markHit methods can throw an exception
+        //TODO: creation of this ugly construction was caused by the fact that
+        //TODO: getOpponentFieldStatus and markHit methods can throw an exception
+        try {
             opponentFieldState = boardHandler.getOpponentFieldStatus(player, shotCoordinate);
 
             switch (opponentFieldState) {
                 case NOT_HIT_MAST:
                     boardHandler.markHit(player, shotCoordinate);
                     break;
-                case EMPTY:
+                default:
                     boardHandler.markMiss(player, shotCoordinate);
                     break;
             }
