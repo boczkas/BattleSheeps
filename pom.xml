@@ -23,6 +23,10 @@
         <module>PlayingStateMachine</module>
         <module>ShotHandler</module>
         <module>REST</module>
+        <module>PlayerConfigurationRegister</module>
+        <module>GameConfigurationRegister</module>
+        <module>GameReadyValidator</module>
+        <module>FleetPlacer</module>
     </modules>
 
     <properties>
@@ -60,6 +64,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
@@ -70,6 +75,7 @@
             <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
 
@@ -124,6 +130,10 @@
                 <module>PlayingStateMachine</module>
                 <module>ShotHandler</module>
                 <module>REST</module>
+                <module>PlayerConfigurationRegister</module>
+                <module>GameConfigurationRegister</module>
+                <module>GameReadyValidator</module>
+                <module>FleetPlacer</module>
             </modules>
         </profile>
     </profiles>
