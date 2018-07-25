@@ -22,6 +22,7 @@
         <module>Judge</module>
         <module>PlayingStateMachine</module>
         <module>REST</module>
+        <module>GameConfigurationRegister</module>
         <module>GameReadyValidator</module>
         <module>FleetPlacer</module>
         <module>PlayerConfigurationRegister</module>
@@ -125,6 +126,7 @@
                 <module>Judge</module>
                 <module>PlayingStateMachine</module>
                 <module>REST</module>
+                <module>GameConfigurationRegister</module>
                 <module>GameReadyValidator</module>
                 <module>FleetPlacer</module>
                 <module>PlayerConfigurationRegister</module>
