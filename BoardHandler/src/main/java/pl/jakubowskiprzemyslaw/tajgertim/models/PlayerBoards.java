@@ -2,7 +2,6 @@ package pl.jakubowskiprzemyslaw.tajgertim.models;
 
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.Board;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.NoMastAtPositionException;
-import pl.jakubowskiprzemyslaw.tajgertim.models.board.NoShipAtCoordinateException;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.ShootResult;
 
