@@ -11,10 +11,6 @@ class Confirmations {
     private Set<Class> confirmations;
 
     Confirmations() {
-        initConfirmations();
-    }
-
-    private void initConfirmations() {
         confirmations = new HashSet<>();
     }
 
