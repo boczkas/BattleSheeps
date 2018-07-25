@@ -22,6 +22,7 @@
         <module>Judge</module>
         <module>PlayingStateMachine</module>
         <module>REST</module>
+        <module>FleetPlacer</module>
         <module>PlayerConfigurationRegister</module>
     </modules>
 
@@ -118,12 +119,12 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>BattleSheepLib</module>
-                <module>BoardHandler</module>
-                <module>Judge</module>
-                <module>PlayingStateMachine</module>
-                <module>ShotHandler</module>
-                <module>REST</module>
+                  <module>BattleSheepLib</module>
+                  <module>BoardHandler</module>
+                  <module>Judge</module>
+                  <module>PlayingStateMachine</module>
+                  <module>REST</module>
+                  <module>FleetPlacer</module>
             </modules>
         </profile>
     </profiles>
