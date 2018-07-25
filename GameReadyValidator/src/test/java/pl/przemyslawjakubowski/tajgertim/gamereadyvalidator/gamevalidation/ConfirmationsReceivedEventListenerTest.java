@@ -1,5 +1,6 @@
 package pl.przemyslawjakubowski.tajgertim.gamereadyvalidator.gamevalidation;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pl.jakubowskiprzemyslaw.tajgertim.models.confirmation.*;
@@ -13,27 +14,22 @@ public class ConfirmationsReceivedEventListenerTest {
 
     private ConfirmationReceivedEventListener confirmationReceivedEventListener;
     private QueueService queueService;
-    private Confirmations confirmationsMock;
-    private ConfirmationReceivedEventListener confirmationReceivedEventListenerWithMock;
+    private Confirmations confirmations;
 
     @BeforeMethod
     public void setUp() {
         queueService = mock(QueueService.class);
-        Confirmations confirmations = new Confirmations();
+        confirmations = new Confirmations();
         confirmationReceivedEventListener = new ConfirmationReceivedEventListener(queueService, confirmations);
-
-        confirmationsMock = mock(Confirmations.class);
-        confirmationReceivedEventListenerWithMock = new ConfirmationReceivedEventListener(queueService, confirmationsMock);
     }
 
     public void getConfirmationReceivedEvent_saveConfirmation() {
         Confirmation confirmation = new PlayerConfigurationConfirmation();
-
         ConfirmationReceivedEvent event = new ConfirmationReceivedEvent(this, confirmation);
 
-        confirmationReceivedEventListenerWithMock.onApplicationEvent(event);
+        confirmationReceivedEventListener.onApplicationEvent(event);
 
-        verify(confirmationsMock).addConfirmation(confirmation);
+        Assert.assertFalse(confirmations.areConfirmationsComplete());
     }
 
     public void get1ConfirmationReceivedEvent_doNotSendFinalConfigurationConfirmationToQueue_8() {

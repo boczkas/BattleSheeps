@@ -21,7 +21,6 @@ class GameReadyValidatorQueueListener {
     void getConfirmationsFromGameReadyValidatorQueue(Confirmation confirmation) {
         logger.logInfo(GameReadyValidatorQueueListener.class, confirmation.toString());
 
-        ConfirmationReceivedEvent event = new ConfirmationReceivedEvent(this, confirmation);
-        publisher.publishEvent(event);
+        publisher.publishEvent(new ConfirmationReceivedEvent(this, confirmation));
     }
 }

@@ -22,8 +22,8 @@ class ConfirmationReceivedEventListener implements ApplicationListener<Confirmat
 
     @Override
     public void onApplicationEvent(ConfirmationReceivedEvent event) {
-        Confirmation confirmation = event.getConfirmation();
-        confirmations.addConfirmation(confirmation);
+
+        confirmations.addConfirmation(event.getConfirmation());
 
         if (confirmations.areConfirmationsComplete()) {
             Confirmation finalConfigurationConfirmation = new FinalConfigurationConfirmation();
