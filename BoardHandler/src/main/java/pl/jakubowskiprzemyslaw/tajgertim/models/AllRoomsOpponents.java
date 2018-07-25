@@ -14,14 +14,8 @@ public class AllRoomsOpponents {
 
     public void addOpponents(Player player, Player opponent) {
         Opponents opponents = new Opponents(player, opponent);
-        allRoomsOpponents.put(new Room("1"), opponents);
-    }
-
-    @Override
-    public String toString() {
-        return "AllRoomsOpponents{" +
-                "allRoomsOpponents=" + allRoomsOpponents +
-                '}';
+        String roomName = "roomName";
+        allRoomsOpponents.put(new Room(roomName), opponents);
     }
 
     public Player getOpponent(Player player) throws NoSuchPlayerException {
@@ -39,7 +33,7 @@ public class AllRoomsOpponents {
     }
 
     public void addPlayerToRoom(Room room, Player player) {
-        if(!allRoomsOpponents.containsKey(room)){
+        if (!allRoomsOpponents.containsKey(room)) {
             Opponents firstOpponent = new Opponents(player);
             allRoomsOpponents.put(room, firstOpponent);
         }
@@ -50,5 +44,12 @@ public class AllRoomsOpponents {
 
     public Map<Room, Opponents> getAllRoomsOpponents() {
         return allRoomsOpponents;
+    }
+
+    @Override
+    public String toString() {
+        return "AllRoomsOpponents{" +
+                "allRoomsOpponents=" + allRoomsOpponents +
+                '}';
     }
 }

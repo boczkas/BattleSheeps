@@ -65,7 +65,7 @@ public class PlayersBoards {
         playersBoards.put(player, playerBoards);
     }
 
-    int getMapSize() {
+    int getSize() {
         return playersBoards.size();
     }
 

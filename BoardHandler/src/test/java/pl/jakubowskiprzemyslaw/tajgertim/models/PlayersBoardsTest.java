@@ -41,13 +41,13 @@ public class PlayersBoardsTest {
         player = new Player("", "");
         playerBoards = mock(PlayerBoards.class);
         playersBoards.addBoardsForPlayer(player, playerBoards);
-        assertEquals(MAP_SIZE_WITH_TWO_PAIRS, playersBoards.getMapSize());
+        assertEquals(MAP_SIZE_WITH_TWO_PAIRS, playersBoards.getSize());
     }
 
     public void verifyIfAddBoardsForPlayer_AddsElementsToMap_WhenPlayerIsNull_Test() {
         Player player = null;
         playersBoards.addBoardsForPlayer(player, mock(PlayerBoards.class));
-        assertEquals(MAP_SIZE_WITH_TWO_PAIRS, playersBoards.getMapSize());
+        assertEquals(MAP_SIZE_WITH_TWO_PAIRS, playersBoards.getSize());
     }
 
     @Test(expectedExceptions = NullPointerException.class)
@@ -76,24 +76,24 @@ public class PlayersBoardsTest {
 
     public void verifyIfAddFleetForExistingPlayer_CallsPutOnMap_AndDoesNotIncrementMapSize_Test() {
         playersBoards.addFleetForPlayer(player, mock(Fleet.class));
-        assertEquals(1, playersBoards.getMapSize());
+        assertEquals(1, playersBoards.getSize());
     }
 
     public void verifyIfAddFleetForNonExistingPlayer_CallsPutOnMap_AndIncrementsMapSize_Test() {
         Player player1 = new Player("test", "test");
         playersBoards.addFleetForPlayer(player1, mock(Fleet.class));
-        assertEquals(2, playersBoards.getMapSize());
+        assertEquals(2, playersBoards.getSize());
     }
 
     public void verifyIfAddPlayerWithExistingPlayer_CallsPutOnMap_AndDoseNotIncrementMapSize_Test() {
         playersBoards.addPlayer(player);
-        assertEquals(1, playersBoards.getMapSize());
+        assertEquals(1, playersBoards.getSize());
     }
 
     public void verifyIfAddPlayerWithNonExistingPlayer_CallsPutOnMap_AndIncrementsMapSize_Test() {
         Player player1 = new Player("test", "test");
         playersBoards.addPlayer(player1);
-        assertEquals(2, playersBoards.getMapSize());
+        assertEquals(2, playersBoards.getSize());
     }
 
     public void verifyIfGetFieldStatus_ReturnsEmptyFieldState_Test() {

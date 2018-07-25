@@ -7,10 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 
 class Opponents {
-    private List<Player> opponents;
+    private List<Player> opponents = new ArrayList<>();
 
     Opponents(Player player) {
-        opponents = new ArrayList<>();
         opponents.add(player);
     }
 

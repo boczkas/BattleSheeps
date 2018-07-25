@@ -23,6 +23,7 @@ public class PlayerConfigurationEventListener implements ApplicationListener<Pla
         PlayerConfiguration playerConfiguration = event.getPlayerConfiguration();
         Player player = playerConfiguration.getPlayer();
         boardHandler.addPlayer(player);
-        boardHandler.addPlayerToRoom(new Room("1"), player);
+        String roomName = "roomName";
+        boardHandler.addPlayerToRoom(new Room(roomName), player);
     }
 }

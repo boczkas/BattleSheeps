@@ -29,7 +29,8 @@ public class PlayerConfigurationEventListenerTest {
         listener.onApplicationEvent(playerConfigurationEvent);
 
         verify(boardHandler).addPlayer(player);
-        verify(boardHandler).addPlayerToRoom(new Room("1"), player);
+        String roomName = "roomName";
+        verify(boardHandler).addPlayerToRoom(new Room(roomName), player);
     }
 
     @Test(expectedExceptions = ClassCastException.class)
