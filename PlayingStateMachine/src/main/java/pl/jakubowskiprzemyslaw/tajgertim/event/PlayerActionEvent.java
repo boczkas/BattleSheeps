@@ -8,7 +8,7 @@ import java.util.Objects;
 public class PlayerActionEvent extends ApplicationEvent {
 
     private static final long serialVersionUID = 6950694925484781931L;
-    private PlayerAction action;
+    private final PlayerAction action;
 
     public PlayerActionEvent(Object source, PlayerAction action) {
         super(source);

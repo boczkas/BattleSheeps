@@ -24,7 +24,7 @@ public class PSMEventListenerTest {
     private Player player;
 
     private static final int COORDINATE_X = 1;
-    private static final int COORDINATE_Y = 1;
+    private static final int COORDINATE_Y = 2;
 
     @BeforeMethod
     public void setUp() {

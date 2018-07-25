@@ -23,11 +23,11 @@ public class PlayerActionEventListener implements ApplicationListener<PlayerActi
     public void onApplicationEvent(PlayerActionEvent event) {
         PlayerAction playerAction = event.getPlayerAction();
 
-        if(playerAction.getAction() instanceof Shot) {
+        if (playerAction.getAction() instanceof Shot) {
             queueService.sendObjectToQueue(Queues._10ShotHandlerPlayerShotQueue, playerAction);
         }
 
-        if(playerAction.getAction() instanceof Move) {
+        if (playerAction.getAction() instanceof Move) {
             queueService.sendObjectToQueue(Queues._11MoveHandlerPlayerMoveQueue, playerAction);
         }
 
