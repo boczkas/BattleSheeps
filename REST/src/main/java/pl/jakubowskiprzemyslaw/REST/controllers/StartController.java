@@ -10,7 +10,7 @@ public class StartController {
 
     @GetMapping(value = "/start", produces = "text/html")
     public String getMainPage() {
-        //TODO: 4.07.2018 - This value should be taken from REST API form micro service GameConfigurationRegisterer
+        //TODO: 4.07.2018 - This value should be taken from REST API form micro listener GameConfigurationRegisterer
         amountOfConnectedPlayers++;
         if (amountOfConnectedPlayers == 1) {
             return "redirect:/gameconfig";

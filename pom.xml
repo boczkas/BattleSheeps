@@ -21,9 +21,11 @@
         <module>BoardHandler</module>
         <module>Judge</module>
         <module>PlayingStateMachine</module>
-        <module>ShotHandler</module>
         <module>REST</module>
         <module>GameConfigurationRegister</module>
+        <module>GameReadyValidator</module>
+        <module>FleetPlacer</module>
+        <module>PlayerConfigurationRegister</module>
     </modules>
 
     <properties>
@@ -74,7 +76,6 @@
         </dependency>
     </dependencies>
 
-
     <build>
         <plugins>
             <plugin>
@@ -124,9 +125,11 @@
                 <module>BoardHandler</module>
                 <module>Judge</module>
                 <module>PlayingStateMachine</module>
-                <module>ShotHandler</module>
                 <module>REST</module>
                 <module>GameConfigurationRegister</module>
+                <module>GameReadyValidator</module>
+                <module>FleetPlacer</module>
+                <module>PlayerConfigurationRegister</module>
             </modules>
         </profile>
     </profiles>
