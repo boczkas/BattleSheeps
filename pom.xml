@@ -22,6 +22,7 @@
         <module>Judge</module>
         <module>PlayingStateMachine</module>
         <module>REST</module>
+        <module>GameReadyValidator</module>
         <module>FleetPlacer</module>
         <module>PlayerConfigurationRegister</module>
     </modules>
@@ -72,9 +73,7 @@
             <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
-
 
     <build>
         <plugins>
@@ -121,12 +120,14 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                  <module>BattleSheepLib</module>
-                  <module>BoardHandler</module>
-                  <module>Judge</module>
-                  <module>PlayingStateMachine</module>
-                  <module>REST</module>
-                  <module>FleetPlacer</module>
+                <module>BattleSheepLib</module>
+                <module>BoardHandler</module>
+                <module>Judge</module>
+                <module>PlayingStateMachine</module>
+                <module>REST</module>
+                <module>GameReadyValidator</module>
+                <module>FleetPlacer</module>
+                <module>PlayerConfigurationRegister</module>
             </modules>
         </profile>
     </profiles>
