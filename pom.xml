@@ -21,8 +21,8 @@
         <module>BoardHandler</module>
         <module>Judge</module>
         <module>PlayingStateMachine</module>
-        <module>ShotHandler</module>
         <module>REST</module>
+        <module>PlayerConfigurationRegister</module>
     </modules>
 
     <properties>
