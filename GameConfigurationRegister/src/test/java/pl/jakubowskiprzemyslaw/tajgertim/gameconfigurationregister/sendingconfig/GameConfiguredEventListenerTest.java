@@ -13,11 +13,12 @@ import static org.mockito.Mockito.verify;
 public class GameConfiguredEventListenerTest {
 
 
-    public void correctObjectInGameConfiguration_SendsToQueueGameConfiguration_AndCallsEventListener() {
+    public void correctObjectInGameConfiguration_sendsToQueueGameConfiguration_AndCallsEventListener() {
         // given
         QueueService queueService = mock(QueueService.class);
-        GameConfiguredEventListener gameConfigurationEventListener = new GameConfiguredEventListener(queueService);
         GameConfiguredEvent event = mock(GameConfiguredEvent.class);
+
+        GameConfiguredEventListener gameConfigurationEventListener = new GameConfiguredEventListener(queueService);
         Confirmation gameConfigured = new GameConfigurationConfirmation();
 
         // when

@@ -16,7 +16,6 @@ public class GameConfiguredEventListener implements ApplicationListener<GameConf
 
     private final QueueService queueService;
 
-    @Autowired
     public GameConfiguredEventListener(QueueService queueService) {
         this.queueService = queueService;
     }
@@ -25,6 +24,7 @@ public class GameConfiguredEventListener implements ApplicationListener<GameConf
     public void onApplicationEvent(GameConfiguredEvent event) {
         GameConfiguration gameConfiguration = event.getGameConfiguration();
         queueService.sendObjectToQueue(Queues._3FleetPlacementSizeQueue, gameConfiguration);
+
         Confirmation gameConfigured = new GameConfigurationConfirmation();
         queueService.sendObjectToQueue(Queues._5GameReadyValidationQueue, gameConfigured);
     }

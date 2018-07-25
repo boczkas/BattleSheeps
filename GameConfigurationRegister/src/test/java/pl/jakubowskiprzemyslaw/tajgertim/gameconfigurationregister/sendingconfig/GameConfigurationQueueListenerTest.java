@@ -14,18 +14,18 @@ public class GameConfigurationQueueListenerTest {
 
     private GameConfigurationQueueListener gameConfigurationQueueListener;
     private ApplicationEventPublisher publisher;
-    private GameConfiguration gameConfiguration;
 
     @BeforeMethod
     public void setUp() {
-        gameConfiguration = new GameConfiguration();
-        publisher = mock(ApplicationEventPublisher.class);
         LoggerService loggerService = mock(LoggerService.class);
+        publisher = mock(ApplicationEventPublisher.class);
+
         gameConfigurationQueueListener = new GameConfigurationQueueListener(loggerService, publisher);
     }
 
-    public void correctObjectInGameConfiguration_SendsToQueueGameConfiguration() {
+    public void correctObjectInGameConfiguration_sendsToQueueGameConfiguration() {
         // given
+        GameConfiguration gameConfiguration = new GameConfiguration();
         gameConfigurationQueueListener.getGameConfigurationFromGameConfigurationQueue(gameConfiguration);
 
         // when
