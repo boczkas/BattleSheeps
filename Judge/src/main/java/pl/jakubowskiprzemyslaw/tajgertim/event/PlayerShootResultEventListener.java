@@ -22,9 +22,17 @@ public class PlayerShootResultEventListener implements ApplicationListener<Playe
 
     @Override
     public void onApplicationEvent(PlayerShootResultEvent event) {
+        RoundStatus roundStatus;
+
         PlayerShootResult playerShootResult = event.getPlayerShootResult();
         ShootResult shootResult = playerShootResult.getShootResult();
 
+        roundStatus = getNextRoundStatusAfterShot(shootResult);
+
+        queueService.sendObjectToQueue(Queues._14PlayingStateMachineNextRoundStatusQueue, new NextRoundStatus(roundStatus));
+    }
+
+    private RoundStatus getNextRoundStatusAfterShot(ShootResult shootResult) {
         RoundStatus roundStatus;
         switch (shootResult) {
             case HIT:
@@ -37,7 +45,6 @@ public class PlayerShootResultEventListener implements ApplicationListener<Playe
                 roundStatus = RoundStatus.GAME_END;
                 break;
         }
-
-        queueService.sendObjectToQueue(Queues._14PlayingStateMachineNextRoundStatusQueue, new NextRoundStatus(roundStatus));
+        return roundStatus;
     }
 }
