@@ -5,6 +5,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.QueueObject;
 public class PlayingPlayer implements QueueObject {
 
     private static final long serialVersionUID = 8288165593921322085L;
+
     private final Player player;
 
     public PlayingPlayer(Player player) {
@@ -13,5 +14,12 @@ public class PlayingPlayer implements QueueObject {
 
     public String getPlayerName() {
         return player.getName();
+    }
+
+    @Override
+    public String toString() {
+        return "PlayingPlayer{" +
+                "player=" + player +
+                '}';
     }
 }

@@ -42,8 +42,7 @@ public class PlayingController {
 
     @PostMapping(value = "/playing", produces = "text/plain")
     public void makeShot(String guiCoordinates, HttpServletRequest request) {
-//        Player player = playerService.getPlayerFromRequest(request);
-        Player player = new Player("Bartek", "0:0:0:0:0:0:0:1");
+        Player player = playerService.getPlayerFromRequest(request);
         Coordinate coordinate = guiService.translateGUICoordinatesToCoordinate(guiCoordinates);
         PlayerAction playerAction = new PlayerAction(player, new Shot(coordinate));
 
