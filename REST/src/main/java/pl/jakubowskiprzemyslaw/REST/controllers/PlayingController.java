@@ -6,13 +6,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.jakubowskiprzemyslaw.REST.services.GUIService;
+import pl.jakubowskiprzemyslaw.REST.services.JSONService;
 import pl.jakubowskiprzemyslaw.REST.services.PlayerService;
+import pl.jakubowskiprzemyslaw.REST.services.FrontendMessageSenderService;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.PlayerAction;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.action.Shot;
 import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
+import pl.jakubowskiprzemyslaw.tajgertim.services.SessionService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,20 +26,22 @@ public class PlayingController {
     private final PlayerService playerService;
     private final GUIService guiService;
     private String playerName;
-    private final PlayerNameHandler playerNameHandler;
+    private final SessionService sessionService;
 
     @Autowired
-    PlayingController(QueueService queueService, PlayerService playerService, GUIService guiService, PlayerNameHandler playerNameHandler) {
+    PlayingController(QueueService queueService, PlayerService playerService, GUIService guiService, SessionService sessionService) {
         this.queueService = queueService;
         this.playerService = playerService;
         this.guiService = guiService;
-        this.playerNameHandler = playerNameHandler;
+        this.sessionService = sessionService;
     }
 
     @GetMapping(value = "/playing", produces = "text/html")
     public String getPlaying(HttpServletRequest request) {
-        playerName = ((Player) request.getSession().getAttribute("Player")).getName();
-        playerNameHandler.setName(playerName);
+        if (!sessionService.isObjectInSession(request, "Player")) {
+            return "redirect:/playerconfig";
+        }
+        playerName = playerService.getPlayerFromRequest(request).getName();
         return "playing";
     }
 

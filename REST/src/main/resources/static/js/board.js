@@ -1,6 +1,5 @@
 var myBoard = document.getElementById("myBoard");
 var opponentBoard = document.getElementById("opponentBoard");
-var timerIntervalID;
 var myRound = false;
 var stompClient = null;
 
@@ -8,7 +7,7 @@ window.onload = function load() {
     setDivsForBoard(myBoard, false, true);
     setDivsForBoard(opponentBoard, true, false);
     getUserName();
-    connect();
+    createQueuesConnection();
 };
 
 window.onunload = function close() {
@@ -37,7 +36,7 @@ function setDivsForBoard(board, clickable, myBoard) {
             setCellValue(cell, j, i);
 
             if (clickable) {
-                cell.onclick = clickMe;
+                cell.onclick = playerOnClick;
             }
 
             cell.innerText = "_";
@@ -55,9 +54,7 @@ function setCellAttribute(cell, attribute, myBoard) {
     }
 }
 
-var timerDiv = document.getElementById("timer");
-
-function clickMe() {
+function playerOnClick() {
 
     if (myRound) {
         var coordinates = this.getAttribute("value");
@@ -72,42 +69,11 @@ function clickMe() {
 }
 
 function setShotResults(container) {
-    console.log(container);
     var json = JSON.parse(container);
     for (var key in json) {
-        console.log(key);
         var elementById = document.getElementById(key);
         elementById.innerText = json[key];
     }
-}
-
-function startTimer(duration, display) {
-    var timerVal = duration, minutes, seconds;
-    timerIntervalID = setInterval(function () {
-        minutes = parseInt(timerVal / 60, 10);
-        seconds = parseInt(timerVal % 60, 10);
-
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        display.textContent = minutes + ":" + seconds;
-
-
-
-        if (--timerVal < 0) {
-            switchBoolean();
-            switchRound();
-            timerVal = duration;
-        }
-    }, 1000);
-}
-
-function stopTimer() {
-    clearInterval(timerIntervalID);
-}
-
-function switchBoolean() {
-    myRound = myRound !== true;
 }
 
 function switchRound() {
@@ -120,24 +86,27 @@ function switchRound() {
     }
 }
 
+function createQueuesConnection() {
 
-var userName;
-
-function connect() {
     var socket = new SockJS('/timer-websocket');
     stompClient = Stomp.over(socket);
     stompClient.connect('guest', 'guest', function (frame) {
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/synchro/timer/' + userName, function (synchronize) {
-            console.log(synchronize);
-            myRound = true;
-        });
 
-        stompClient.subscribe('/synchro/boards/' + userName, function (board) {
-            setShotResults(board.body);
-        });
+        subscribeToQueues(stompClient);
     });
 }
+function subscribeToQueues(stompClient) {
+    stompClient.subscribe('/synchro/playerturn/' + userName, function (synchronize) {
+        console.log(synchronize);
+        myRound = true;
+    });
+    stompClient.subscribe('/synchro/boards/' + userName, function (board) {
+        setShotResults(board.body);
+    });
+}
+
+var userName;
 
 function getUserName() {
     $.ajax({
