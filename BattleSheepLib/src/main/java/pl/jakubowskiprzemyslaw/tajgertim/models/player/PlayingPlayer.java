@@ -10,4 +10,11 @@ public class PlayingPlayer implements QueueObject {
     public PlayingPlayer(Player player) {
         this.player = player;
     }
+
+    @Override
+    public String toString() {
+        return "PlayingPlayer{" +
+                "player=" + player +
+                '}';
+    }
 }
