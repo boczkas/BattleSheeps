@@ -6,6 +6,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.configuration.PlayerConfiguratio
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 import pl.jakubowskiprzemyslaw.tajgertim.models.room.Room;
 import pl.jakubowskiprzemyslaw.tajgertim.service.BoardHandler;
+import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -15,11 +16,13 @@ public class PlayerConfigurationEventListenerTest {
 
     private PlayerConfigurationEventListener listener;
     private BoardHandler boardHandler;
+    private QueueService queueService;
 
     @BeforeMethod
     public void setUp() {
         boardHandler = mock(BoardHandler.class);
-        listener = new PlayerConfigurationEventListener(boardHandler);
+        queueService = mock(QueueService.class);
+        listener = new PlayerConfigurationEventListener(boardHandler, queueService);
     }
 
     public void sendingPlayerConfiguration_AddsPlayer() {
