@@ -8,6 +8,8 @@
 <body>
 <h1>Best shooting frontend ever!</h1>
 
+<div id="timer">02:00</div>
+
 <div class="c">
     <div id="myBoard" class="board col-sm-6"></div>
     <div id="opponentBoard" class="board col-sm-6"></div>
@@ -18,6 +20,9 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"/>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <link type="text/css" rel="stylesheet" href="/css/fleetStyle.css">
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 <script type="text/javascript" src="/js/board.js"></script>
 
 <script>setInterval(refresh, 500)</script>
