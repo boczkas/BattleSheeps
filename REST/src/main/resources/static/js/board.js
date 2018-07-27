@@ -1,7 +1,7 @@
 var myBoard = document.getElementById("myBoard");
 var opponentBoard = document.getElementById("opponentBoard");
 var timerIntervalID;
-var myRound = true;
+var myRound = false;
 var stompClient = null;
 
 window.onload = function load() {
@@ -58,37 +58,26 @@ function setCellAttribute(cell, attribute, myBoard) {
 var timerDiv = document.getElementById("timer");
 
 function clickMe() {
-    var coordinates = this.getAttribute("value");
 
-    $.ajax({
-        type: "POST",
-        url: "playing",
-        data: {guiCoordinates: coordinates}
-    });
-    switchRound();
-}
+    if (myRound) {
+        var coordinates = this.getAttribute("value");
 
-function refresh() {
-    refreshBoard("getBoardView");
-    refreshBoard("getShotBoardView");
-}
-
-function refreshBoard(url) {
-    $.ajax({
-        type: 'POST',
-        url: url,
-        success: function (data) {
-            if (jQuery.isEmptyObject(data) !== true) {
-                setShotResults(data);
-            }
-        }
-    });
+        $.ajax({
+            type: "POST",
+            url: "playing",
+            data: {guiCoordinates: coordinates}
+        });
+        switchRound();
+    }
 }
 
 function setShotResults(container) {
-    for (var key in container) {
+    console.log(container);
+    var json = JSON.parse(container);
+    for (var key in json) {
+        console.log(key);
         var elementById = document.getElementById(key);
-        elementById.innerText = container[key];
+        elementById.innerText = json[key];
     }
 }
 
@@ -118,27 +107,16 @@ function stopTimer() {
 }
 
 function switchBoolean() {
-    if(myRound === true)
-        myRound = false;
-    else
-        myRound = true;
+    myRound = myRound !== true;
 }
 
 function switchRound() {
-
     if(myRound === true) {
         myRound = false;
         console.log("my round");
-        stopTimer();
-        //enable clicking
-        startTimer(120, timerDiv);
-    }
-    else {
+    } else {
         myRound = true;
         console.log("not my round");
-        stopTimer();
-        //disable clicking
-        startTimer(120, timerDiv);
     }
 }
 
@@ -152,8 +130,11 @@ function connect() {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/synchro/timer/' + userName, function (synchronize) {
             console.log(synchronize);
-            stopTimer();
-            startTimer(120, timerDiv);
+            myRound = true;
+        });
+
+        stompClient.subscribe('/synchro/boards/' + userName, function (board) {
+            setShotResults(board.body);
         });
     });
 }

@@ -23,26 +23,27 @@ public class PlayingController {
     private final PlayerService playerService;
     private final GUIService guiService;
     private String playerName;
-    private final PlayerNameHandler sessionIDHandler;
+    private final PlayerNameHandler playerNameHandler;
 
     @Autowired
-    PlayingController(QueueService queueService, PlayerService playerService, GUIService guiService, PlayerNameHandler sessionIDHandler) {
+    PlayingController(QueueService queueService, PlayerService playerService, GUIService guiService, PlayerNameHandler playerNameHandler) {
         this.queueService = queueService;
         this.playerService = playerService;
         this.guiService = guiService;
-        this.sessionIDHandler = sessionIDHandler;
+        this.playerNameHandler = playerNameHandler;
     }
 
     @GetMapping(value = "/playing", produces = "text/html")
     public String getPlaying(HttpServletRequest request) {
         playerName = ((Player) request.getSession().getAttribute("Player")).getName();
-        sessionIDHandler.setName(playerName);
+        playerNameHandler.setName(playerName);
         return "playing";
     }
 
     @PostMapping(value = "/playing", produces = "text/plain")
     public void makeShot(String guiCoordinates, HttpServletRequest request) {
-        Player player = playerService.getPlayerFromRequest(request);
+//        Player player = playerService.getPlayerFromRequest(request);
+        Player player = new Player("Bartek", "0:0:0:0:0:0:0:1");
         Coordinate coordinate = guiService.translateGUICoordinatesToCoordinate(guiCoordinates);
         PlayerAction playerAction = new PlayerAction(player, new Shot(coordinate));
 
