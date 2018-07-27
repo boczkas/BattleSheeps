@@ -87,7 +87,6 @@ function switchRound() {
 }
 
 function createQueuesConnection() {
-
     var socket = new SockJS('/timer-websocket');
     stompClient = Stomp.over(socket);
     stompClient.connect('guest', 'guest', function (frame) {
@@ -96,6 +95,7 @@ function createQueuesConnection() {
         subscribeToQueues(stompClient);
     });
 }
+
 function subscribeToQueues(stompClient) {
     stompClient.subscribe('/synchro/playerturn/' + userName, function (synchronize) {
         console.log(synchronize);

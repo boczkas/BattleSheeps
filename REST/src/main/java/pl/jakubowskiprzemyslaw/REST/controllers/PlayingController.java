@@ -6,9 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.jakubowskiprzemyslaw.REST.services.GUIService;
-import pl.jakubowskiprzemyslaw.REST.services.JSONService;
 import pl.jakubowskiprzemyslaw.REST.services.PlayerService;
-import pl.jakubowskiprzemyslaw.REST.services.FrontendMessageSenderService;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 import pl.jakubowskiprzemyslaw.tajgertim.models.playeraction.PlayerAction;
@@ -59,5 +57,4 @@ public class PlayingController {
     String getUserName() {
         return playerName;
     }
-
 }
