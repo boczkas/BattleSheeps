@@ -102,6 +102,7 @@ function startTimer(duration, display) {
         seconds = seconds < 10 ? "0" + seconds : seconds;
 
         display.textContent = minutes + ":" + seconds;
+
         if (--timerVal < 0) {
             switchRound();
             timerVal = duration;
