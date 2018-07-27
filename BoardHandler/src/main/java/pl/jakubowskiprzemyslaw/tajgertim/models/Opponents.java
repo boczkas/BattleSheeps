@@ -4,6 +4,7 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.player.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 class Opponents {
@@ -31,5 +32,13 @@ class Opponents {
 
     boolean isEmpty(){
         return opponents.isEmpty();
+    }
+
+    public List<Player> getOpponents() {
+        return Collections.unmodifiableList(opponents);
+    }
+
+    public boolean areOpponentsPresent() {
+        return opponents.size() == 2;
     }
 }
