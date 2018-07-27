@@ -75,4 +75,12 @@ public class BoardHandler {
     public void addPlayerToRoom(Room room, Player player) {
         allRoomsOpponents.addPlayerToRoom(room, player);
     }
+
+    public boolean areOpponentsPresent(String roomName) {
+        return allRoomsOpponents.areOpponentsPresent(roomName);
+    }
+
+    public List<Player> getOpponents(String roomName) {
+        return allRoomsOpponents.getOpponents(roomName);
+    }
 }

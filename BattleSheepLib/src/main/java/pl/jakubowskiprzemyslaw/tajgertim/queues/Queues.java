@@ -18,7 +18,9 @@ public enum Queues {
     _15JudgePlayerShootResultQueue("JudgePlayerShootResultQueue"),
     _16JudgePlayerMoveResult("JudgePlayerMoveResultQueue"),
     _17ShotHandlerFieldStatusQueue("ShotHandlerFieldStatusQueue"),
-    _18PlayingBoardsViewQueue("PlayingBoardsViewQueue");
+    _18PlayingBoardsViewQueue("PlayingBoardsViewQueue"),
+    _19PlayingPlayerQueue("PlayingPlayerQueue"),
+    _20PlayingStateMachineOpponentsQueue("PlayingStateMachineOpponentsQueue");
 
     private final String name;
 
