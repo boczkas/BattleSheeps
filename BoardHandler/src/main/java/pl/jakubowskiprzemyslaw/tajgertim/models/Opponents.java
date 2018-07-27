@@ -39,6 +39,7 @@ class Opponents {
     }
 
     public boolean areOpponentsPresent() {
-        return opponents.size() == 2;
+        int NUMBER_OF_NEEDED_PLAYERS = 2;
+        return opponents.size() == NUMBER_OF_NEEDED_PLAYERS;
     }
 }

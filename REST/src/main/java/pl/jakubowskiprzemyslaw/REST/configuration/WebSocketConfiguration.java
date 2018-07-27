@@ -23,10 +23,4 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/timer-websocket").withSockJS();
     }
-
-    @Override
-    public boolean configureMessageConverters(List<MessageConverter> messageConverters) {
-        return true;
-    }
-
 }

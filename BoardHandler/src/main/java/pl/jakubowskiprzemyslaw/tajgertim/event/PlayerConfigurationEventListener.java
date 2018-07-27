@@ -31,7 +31,7 @@ public class PlayerConfigurationEventListener implements ApplicationListener<Pla
         String roomName = "roomName";
         boardHandler.addPlayerToRoom(new Room(roomName), player);
 
-        if(boardHandler.areOpponentsPresent(roomName)){
+        if (boardHandler.areOpponentsPresent(roomName)){
             queueService.sendObjectToQueue(Queues._20PlayingStateMachineOpponentsQueue, new QueueOpponents(boardHandler.getOpponents(roomName)));
         }
     }
