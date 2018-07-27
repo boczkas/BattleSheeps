@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import pl.jakubowskiprzemyslaw.REST.services.GUIService;
 import pl.jakubowskiprzemyslaw.REST.services.PlayerService;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
@@ -21,16 +22,21 @@ public class PlayingController {
     private final QueueService queueService;
     private final PlayerService playerService;
     private final GUIService guiService;
+    private String playerName;
+    private final PlayerNameHandler sessionIDHandler;
 
     @Autowired
-    PlayingController(QueueService queueService, PlayerService playerService, GUIService guiService) {
+    PlayingController(QueueService queueService, PlayerService playerService, GUIService guiService, PlayerNameHandler sessionIDHandler) {
         this.queueService = queueService;
         this.playerService = playerService;
         this.guiService = guiService;
+        this.sessionIDHandler = sessionIDHandler;
     }
 
     @GetMapping(value = "/playing", produces = "text/html")
-    public String getPlaying() {
+    public String getPlaying(HttpServletRequest request) {
+        playerName = ((Player) request.getSession().getAttribute("Player")).getName();
+        sessionIDHandler.setName(playerName);
         return "playing";
     }
 
@@ -41,6 +47,12 @@ public class PlayingController {
         PlayerAction playerAction = new PlayerAction(player, new Shot(coordinate));
 
         queueService.sendObjectToQueue(Queues._9PlayingStateMachinePlayerActionQueue, playerAction);
+    }
+
+    @GetMapping(value = "/getname")
+    public @ResponseBody
+    String getUserName() {
+        return playerName;
     }
 
 }

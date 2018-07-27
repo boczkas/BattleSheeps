@@ -18,6 +18,10 @@ public class NextRoundStatus implements QueueObject {
         this.roundStatus = roundStatus;
     }
 
+    public RoundStatus getRoundStatus() {
+        return roundStatus;
+    }
+
     @Override
     public String toString() {
         return "NextRoundStatus{" +
