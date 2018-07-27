@@ -23,20 +23,20 @@ public class PlayingController {
     private final PlayerService playerService;
     private final GUIService guiService;
     private String playerName;
-    private final PlayerNameHandler sessionIDHandler;
+    private final PlayerNameHandler playerNameHandler;
 
     @Autowired
-    PlayingController(QueueService queueService, PlayerService playerService, GUIService guiService, PlayerNameHandler sessionIDHandler) {
+    PlayingController(QueueService queueService, PlayerService playerService, GUIService guiService, PlayerNameHandler playerNameHandler) {
         this.queueService = queueService;
         this.playerService = playerService;
         this.guiService = guiService;
-        this.sessionIDHandler = sessionIDHandler;
+        this.playerNameHandler = playerNameHandler;
     }
 
     @GetMapping(value = "/playing", produces = "text/html")
     public String getPlaying(HttpServletRequest request) {
         playerName = ((Player) request.getSession().getAttribute("Player")).getName();
-        sessionIDHandler.setName(playerName);
+        playerNameHandler.setName(playerName);
         return "playing";
     }
 

@@ -102,11 +102,7 @@ function startTimer(duration, display) {
         seconds = seconds < 10 ? "0" + seconds : seconds;
 
         display.textContent = minutes + ":" + seconds;
-
-
-
         if (--timerVal < 0) {
-            switchBoolean();
             switchRound();
             timerVal = duration;
         }
@@ -115,13 +111,6 @@ function startTimer(duration, display) {
 
 function stopTimer() {
     clearInterval(timerIntervalID);
-}
-
-function switchBoolean() {
-    if(myRound === true)
-        myRound = false;
-    else
-        myRound = true;
 }
 
 function switchRound() {
@@ -133,7 +122,7 @@ function switchRound() {
         //enable clicking
         startTimer(120, timerDiv);
     }
-    else {
+    else
         myRound = true;
         console.log("not my round");
         stopTimer();
@@ -141,7 +130,6 @@ function switchRound() {
         startTimer(120, timerDiv);
     }
 }
-
 
 var userName;
 

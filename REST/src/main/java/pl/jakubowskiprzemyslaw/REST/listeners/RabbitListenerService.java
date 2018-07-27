@@ -31,8 +31,8 @@ public class RabbitListenerService {
     handler.setBoardsView(boardsView);
   }
 
-  @RabbitListener(queues = "TestQueue") //19
-  public void getTest(String message) { //add if
+  @RabbitListener(queues = "PlayingPlayerQueue") //19
+  public void getTest(String message) {
     String id = playerNameHandler.getName();
     sendMessage.sendMessage(id, message);
   }
