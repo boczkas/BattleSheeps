@@ -43,7 +43,6 @@ public class FleetPlacementController{
         fleet = fleetGeneratorService.generateRandomFleet();
 
         queueService.sendObjectToQueue("FleetPlacementQueue", new FleetPlacement(player, fleet));
-
         return "redirect:/playing";
     }
 }

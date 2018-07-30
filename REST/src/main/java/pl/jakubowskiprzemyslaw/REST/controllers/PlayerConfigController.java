@@ -21,8 +21,6 @@ public class PlayerConfigController {
     private final SessionService sessionService;
     private final QueueService queueService;
 
-    private String playerConfigQueueName = Queues._1PlayerRegistrationQueue.toString();
-
     @Autowired
     public PlayerConfigController(QueueService queueService, SessionService sessionService) {
         this.queueService = queueService;
@@ -42,7 +40,7 @@ public class PlayerConfigController {
         sessionService.addObjectToSessionRequest(request, player);
 
         PlayerConfiguration playerConfiguration = new PlayerConfiguration(player);
-        queueService.sendObjectToQueue(playerConfigQueueName, playerConfiguration);
+        queueService.sendObjectToQueue(Queues._1PlayerRegistrationQueue, playerConfiguration);
         return "redirect:/fleetplacement";
     }
 

@@ -1,10 +1,11 @@
 package pl.jakubowskiprzemyslaw.REST.listeners;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.jakubowskiprzemyslaw.REST.controllers.PlayerNameHandler;
-import pl.jakubowskiprzemyslaw.REST.models.BoardsViewHandler;
-import pl.jakubowskiprzemyslaw.REST.utils.SendMessage;
+import pl.jakubowskiprzemyslaw.REST.services.JSONService;
+import pl.jakubowskiprzemyslaw.REST.services.FrontendMessageSenderService;
+import pl.jakubowskiprzemyslaw.tajgertim.models.player.PlayingPlayer;
 import pl.jakubowskiprzemyslaw.tajgertim.models.view.BoardsView;
 import pl.jakubowskiprzemyslaw.tajgertim.services.BattleShipQueueInteractionHandler;
 import pl.jakubowskiprzemyslaw.tajgertim.services.LoggerService;
@@ -12,28 +13,32 @@ import pl.jakubowskiprzemyslaw.tajgertim.services.LoggerService;
 @BattleShipQueueInteractionHandler
 public class RabbitListenerService {
 
-  private final BoardsViewHandler handler;
-  private final LoggerService logger;
-  private final SendMessage sendMessage;
-  private final PlayerNameHandler playerNameHandler;
+    private final LoggerService logger;
+    private final FrontendMessageSenderService frontendMessageSenderService;
+    private final JSONService jsonService;
 
-  @Autowired
-  public RabbitListenerService(BoardsViewHandler handler, LoggerService logger, SendMessage sendMessage, PlayerNameHandler playerNameHandler) {
-    this.handler = handler;
-    this.logger = logger;
-    this.sendMessage = sendMessage;
-    this.playerNameHandler = playerNameHandler;
-  }
+    @Autowired
+    public RabbitListenerService(LoggerService logger, FrontendMessageSenderService frontendMessageSenderService, JSONService jsonService) {
+        this.logger = logger;
+        this.frontendMessageSenderService = frontendMessageSenderService;
+        this.jsonService = jsonService;
+    }
 
-  @RabbitListener(queues = "PlayingBoardsViewQueue")
-  public void getBoardsView(BoardsView boardsView) {
-    logger.logInfo(RabbitListenerService.class, boardsView.toString());
-    handler.setBoardsView(boardsView);
-  }
+    @RabbitListener(queues = "PlayingBoardsViewQueue")
+    public void listenOnPlayingBoardsViewQueue(BoardsView boardsView) {
+        logger.logInfo(RabbitListenerService.class, boardsView.toString());
 
-  @RabbitListener(queues = "PlayingPlayerQueue") //19
-  public void getTest(String message) {
-    String id = playerNameHandler.getName();
-    sendMessage.sendMessage(id, message);
-  }
+        ObjectNode shotsNode = jsonService.createJSONNodeForPlayerShots(boardsView);
+        ObjectNode shipsNode = jsonService.createJSONNodeWithShips(boardsView);
+
+        frontendMessageSenderService.sendBoards(boardsView.getPlayer().getName(), shotsNode);
+        frontendMessageSenderService.sendBoards(boardsView.getPlayer().getName(), shipsNode);
+    }
+
+    @RabbitListener(queues = "PlayingPlayerQueue") //19
+    public void listenOnPlayingPlayerQueue(PlayingPlayer playingPlayer) {
+        logger.logInfo(this.getClass(), playingPlayer.toString());
+        String playerID = playingPlayer.getPlayerName();
+        frontendMessageSenderService.sendPlayingPlayer(playerID);
+    }
 }

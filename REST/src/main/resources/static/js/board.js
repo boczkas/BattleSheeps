@@ -1,14 +1,13 @@
 var myBoard = document.getElementById("myBoard");
 var opponentBoard = document.getElementById("opponentBoard");
-var timerIntervalID;
-var myRound = true;
+var myRound = false;
 var stompClient = null;
 
 window.onload = function load() {
     setDivsForBoard(myBoard, false, true);
     setDivsForBoard(opponentBoard, true, false);
     getUserName();
-    connect();
+    createQueuesConnection();
 };
 
 window.onunload = function close() {
@@ -37,7 +36,7 @@ function setDivsForBoard(board, clickable, myBoard) {
             setCellValue(cell, j, i);
 
             if (clickable) {
-                cell.onclick = clickMe;
+                cell.onclick = playerOnClick;
             }
 
             cell.innerText = "_";
@@ -55,97 +54,59 @@ function setCellAttribute(cell, attribute, myBoard) {
     }
 }
 
-var timerDiv = document.getElementById("timer");
+function playerOnClick() {
 
-function clickMe() {
-    var coordinates = this.getAttribute("value");
+    if (myRound) {
+        var coordinates = this.getAttribute("value");
 
-    $.ajax({
-        type: "POST",
-        url: "playing",
-        data: {guiCoordinates: coordinates}
-    });
-    switchRound();
-}
-
-function refresh() {
-    refreshBoard("getBoardView");
-    refreshBoard("getShotBoardView");
-}
-
-function refreshBoard(url) {
-    $.ajax({
-        type: 'POST',
-        url: url,
-        success: function (data) {
-            if (jQuery.isEmptyObject(data) !== true) {
-                setShotResults(data);
-            }
-        }
-    });
+        $.ajax({
+            type: "POST",
+            url: "playing",
+            data: {guiCoordinates: coordinates}
+        });
+        switchRound();
+    }
 }
 
 function setShotResults(container) {
-    for (var key in container) {
+    var json = JSON.parse(container);
+    for (var key in json) {
         var elementById = document.getElementById(key);
-        elementById.innerText = container[key];
+        elementById.innerText = json[key];
     }
-}
-
-function startTimer(duration, display) {
-    var timerVal = duration, minutes, seconds;
-    timerIntervalID = setInterval(function () {
-        minutes = parseInt(timerVal / 60, 10);
-        seconds = parseInt(timerVal % 60, 10);
-
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        display.textContent = minutes + ":" + seconds;
-
-        if (--timerVal < 0) {
-            switchRound();
-            timerVal = duration;
-        }
-    }, 1000);
-}
-
-function stopTimer() {
-    clearInterval(timerIntervalID);
 }
 
 function switchRound() {
-
     if(myRound === true) {
         myRound = false;
         console.log("my round");
-        stopTimer();
-        //enable clicking
-        startTimer(120, timerDiv);
-    }
-    else
+    } else {
         myRound = true;
         console.log("not my round");
-        stopTimer();
-        //disable clicking
-        startTimer(120, timerDiv);
     }
 }
 
-var userName;
-
-function connect() {
+function createQueuesConnection() {
     var socket = new SockJS('/timer-websocket');
     stompClient = Stomp.over(socket);
     stompClient.connect('guest', 'guest', function (frame) {
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/synchro/timer/' + userName, function (synchronize) {
-            console.log(synchronize);
-            stopTimer();
-            startTimer(120, timerDiv);
-        });
+
+        subscribeToQueues(stompClient);
     });
 }
+
+function subscribeToQueues(stompClient) {
+    stompClient.subscribe('/synchro/playerturn/' + userName, function (synchronize) {
+        console.log(synchronize);
+        myRound = true;
+    });
+    stompClient.subscribe('/synchro/boards/' + userName, function (board) {
+        setShotResults(board.body);
+    });
+}
+
+var userName;
 
 function getUserName() {
     $.ajax({
