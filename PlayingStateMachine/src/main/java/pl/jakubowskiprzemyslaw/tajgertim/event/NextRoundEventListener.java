@@ -27,8 +27,18 @@ public class NextRoundEventListener implements ApplicationListener<NextRoundStat
         Player nextPlayer = currentPlayer;
         QueueOpponents queueOpponents = event.getQueueOpponents();
 
-        if (roundStatus.equals(RoundStatus.NEXT_PLAYER)) {
-            nextPlayer = queueOpponents.getOpponent(currentPlayer);
+        switch (roundStatus) {
+
+            case FIRST_ROUND:
+                nextPlayer = queueOpponents.getFirstPlayer();
+                break;
+
+            case NEXT_PLAYER:
+                nextPlayer = queueOpponents.getOpponent(currentPlayer);
+                break;
+
+            case GAME_END:
+                break;
         }
 
         queueService.sendObjectToQueue(Queues._19PlayingPlayerQueue, new PlayingPlayer(nextPlayer));

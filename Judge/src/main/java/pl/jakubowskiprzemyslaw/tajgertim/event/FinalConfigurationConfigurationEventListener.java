@@ -22,6 +22,6 @@ public class FinalConfigurationConfigurationEventListener implements Application
 
     @Override
     public void onApplicationEvent(FinalConfigurationConfirmationEvent event) {
-        queueService.sendObjectToQueue(Queues._14PlayingStateMachineNextRoundStatusQueue, new NextRoundStatus(RoundStatus.NEXT_PLAYER));
+        queueService.sendObjectToQueue(Queues._14PlayingStateMachineNextRoundStatusQueue, new NextRoundStatus(RoundStatus.FIRST_ROUND));
     }
 }

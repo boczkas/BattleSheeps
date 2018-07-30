@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class QueueOpponents implements QueueObject {
     private static final long serialVersionUID = -1441279308004351636L;
-    private List<Player> opponents = new ArrayList<>();
+    private List<Player> opponents;
 
     public QueueOpponents(List<Player> opponents) {
         this.opponents = opponents;
@@ -36,5 +36,9 @@ public class QueueOpponents implements QueueObject {
         return "QueueOpponents{" +
                 "opponents=" + opponents +
                 '}';
+    }
+
+    public Player getFirstPlayer() {
+        return opponents.get(0);
     }
 }
