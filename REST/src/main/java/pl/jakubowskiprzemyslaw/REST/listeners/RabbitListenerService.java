@@ -25,7 +25,7 @@ public class RabbitListenerService {
     }
 
     @RabbitListener(queues = "PlayingBoardsViewQueue")
-    public void getBoardsView(BoardsView boardsView) {
+    public void listenOnPlayingBoardsViewQueue(BoardsView boardsView) {
         logger.logInfo(RabbitListenerService.class, boardsView.toString());
 
         ObjectNode shotsNode = jsonService.createJSONNodeForPlayerShots(boardsView);
@@ -36,8 +36,9 @@ public class RabbitListenerService {
     }
 
     @RabbitListener(queues = "PlayingPlayerQueue") //19
-    public void getPlayingPlayer(PlayingPlayer playingPlayer) {
-        String id = playingPlayer.getPlayerName();
-        frontendMessageSenderService.sendMessage(id, playingPlayer.getPlayerName());
+    public void listenOnPlayingPlayerQueue(PlayingPlayer playingPlayer) {
+        logger.logInfo(this.getClass(), playingPlayer.toString());
+        String playerID = playingPlayer.getPlayerName();
+        frontendMessageSenderService.sendPlayingPlayer(playerID);
     }
 }

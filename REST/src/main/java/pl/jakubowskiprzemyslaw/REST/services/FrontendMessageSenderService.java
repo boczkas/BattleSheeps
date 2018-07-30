@@ -14,8 +14,8 @@ public class FrontendMessageSenderService {
         this.template = template;
     }
 
-    public void sendMessage(String playerName, String message) {
-        template.convertAndSend("/synchro/playerturn/" + playerName, message);
+    public void sendPlayingPlayer(String playerID) {
+        template.convertAndSend("/synchro/playerturn/" + playerID, playerID);
     }
 
     public void sendBoards(String playerName, ObjectNode message) {
