@@ -26,8 +26,8 @@ public class QueueService {
     @RabbitHandler
     public void sendObjectToQueue(String queueName, QueueObject queueObject) {
         logger.logInfo(QueueService.class, "Sending message: " + queueObject + " to queue: " + queueName);
-        rabbitAdmin.declareQueue(new Queue(queueName, false, false, false, null));
-        template.convertAndSend(queueName, queueObject);
+//        rabbitAdmin.declareQueue(new Queue(queueName, false, false, false, null));        ///////////////UNCOMMENT ME PLS
+//        template.convertAndSend(queueName, queueObject);                                  ///////////////UNCOMMENT ME PLS
     }
 
     @RabbitHandler

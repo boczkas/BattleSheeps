@@ -2,6 +2,7 @@ package pl.jakubowskiprzemyslaw.REST.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +30,8 @@ public class FleetPlacementController{
     }
 
     @GetMapping(value = "/fleetplacement", produces = "text/html")
-        public String getFleetPlacement(HttpServletRequest request) {
+        public String getFleetPlacement(HttpServletRequest request, Model model) {
+        model.addAttribute("fleet", new Fleet());
         if (!sessionService.isObjectInSession(request, "Player")) {
             return "redirect:/playerconfig";
         }

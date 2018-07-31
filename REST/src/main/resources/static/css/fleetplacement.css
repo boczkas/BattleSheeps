@@ -1,0 +1,12 @@
+#board > div > div {
+    border: 1px solid black;
+}
+.start-button {
+    padding:40px 20px !important;
+}
+
+.button {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 5px;
+}
