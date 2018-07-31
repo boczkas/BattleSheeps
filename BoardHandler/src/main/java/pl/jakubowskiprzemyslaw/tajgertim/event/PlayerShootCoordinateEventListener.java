@@ -81,8 +81,6 @@ public class PlayerShootCoordinateEventListener implements ApplicationListener<P
             e.printStackTrace();
         }
 
-        System.out.println(numberOfOtherMasts);
-
         queueService.sendObjectToQueue(Queues._17ShotHandlerFieldStatusQueue,
                 new FieldStatus(
                         shotCoordinate,
