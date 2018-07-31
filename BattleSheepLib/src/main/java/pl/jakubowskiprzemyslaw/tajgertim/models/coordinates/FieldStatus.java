@@ -17,11 +17,13 @@ public class FieldStatus implements QueueObject {
     private Coordinate coordinate;
     private FieldState fieldState;
     private Player player;
+    private int numberOfOtherMasts;
 
-    public FieldStatus(Coordinate coordinate, FieldState fieldState, Player player) {
+    public FieldStatus(Coordinate coordinate, FieldState fieldState, Player player, int masts) {
         this.coordinate = coordinate;
         this.fieldState = fieldState;
         this.player = player;
+        this.numberOfOtherMasts = masts;
     }
 
     public Player getPlayer() {
@@ -30,6 +32,10 @@ public class FieldStatus implements QueueObject {
 
     public FieldState getFieldState() {
         return fieldState;
+    }
+
+    public int getNumberOfOtherMasts() {
+        return numberOfOtherMasts;
     }
 
     @Override

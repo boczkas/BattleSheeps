@@ -19,7 +19,7 @@ public class Mast implements Serializable {
         return coordinate;
     }
 
-    MastState getMastState() {
+    public MastState getMastState() {
         return mastState;
     }
 

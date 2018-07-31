@@ -28,7 +28,7 @@ public class PlayerShootResultEventListenerTest {
     }
 
     public void triggerEventWitsShootResult_HIT_send_SAME_PLAYER_ToQueue_14() {
-        PlayerShootResult playerShootResult = new PlayerShootResult(player, ShootResult.HIT);
+        PlayerShootResult playerShootResult = new PlayerShootResult(player, ShootResult.HIT, 10);
         PlayerShootResultEvent event = new PlayerShootResultEvent(this, playerShootResult);
 
         playerShootResultEventListener.onApplicationEvent(event);
@@ -39,7 +39,7 @@ public class PlayerShootResultEventListenerTest {
 
 
     public void triggerEventWitsShootResult_MISS_send_NEXT_PLAYER_ToQueue_14() {
-        PlayerShootResult playerShootResult = new PlayerShootResult(player, ShootResult.MISS);
+        PlayerShootResult playerShootResult = new PlayerShootResult(player, ShootResult.MISS, 10);
         PlayerShootResultEvent event = new PlayerShootResultEvent(this, playerShootResult);
 
         playerShootResultEventListener.onApplicationEvent(event);
@@ -50,7 +50,7 @@ public class PlayerShootResultEventListenerTest {
 
 
     public void triggerEventWitsShootResult_UNKNOWN_send_GAME_END_ToQueue_14() {
-        PlayerShootResult playerShootResult = new PlayerShootResult(player, ShootResult.UNKNOWN);
+        PlayerShootResult playerShootResult = new PlayerShootResult(player, ShootResult.UNKNOWN, 10);
         PlayerShootResultEvent event = new PlayerShootResultEvent(this, playerShootResult);
 
         playerShootResultEventListener.onApplicationEvent(event);

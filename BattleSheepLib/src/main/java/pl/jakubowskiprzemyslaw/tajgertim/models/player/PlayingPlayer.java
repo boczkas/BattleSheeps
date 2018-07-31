@@ -9,13 +9,28 @@ public class PlayingPlayer implements QueueObject {
     private static final long serialVersionUID = 8288165593921322085L;
 
     private final Player player;
+    private boolean winnerStatus = false;
+    private String opponentName;
 
-    public PlayingPlayer(Player player) {
+    public PlayingPlayer(Player player, String opponent) {
         this.player = player;
+        this.opponentName = opponent;
     }
 
     public String getPlayerName() {
         return player.getName();
+    }
+
+    public void setWinner() {
+        winnerStatus = true;
+    }
+
+    public boolean isWinner() {
+        return winnerStatus;
+    }
+
+    public String getOpponentName() {
+        return opponentName;
     }
 
     @Override

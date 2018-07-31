@@ -35,7 +35,7 @@ public class Ship implements Serializable {
         return new ArrayList<>(mastList);
     }
 
-    FieldState getMastFieldState(Coordinate coordinate) throws NoMastAtPositionException {
+    public FieldState getMastFieldState(Coordinate coordinate) throws NoMastAtPositionException {
         MastState mastState = getMast(coordinate).getMastState();
         if (mastState.equals(MastState.HIT)) {
             return FieldState.HIT_MAST;

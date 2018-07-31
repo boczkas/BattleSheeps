@@ -37,9 +37,9 @@ public class ShotHandlerFieldStatusEventListenerTest {
     }
 
     public void sendingFieldStatusNotHitMast_SendsShotResultHit_ToQueue15() {
-        fieldStatus = new FieldStatus(coordinate, FieldState.NOT_HIT_MAST, player);
+        fieldStatus = new FieldStatus(coordinate, FieldState.NOT_HIT_MAST, player, 10);
         FieldStatusEvent event = new FieldStatusEvent(this, fieldStatus);
-        PlayerShootResult result = new PlayerShootResult(player, ShootResult.HIT);
+        PlayerShootResult result = new PlayerShootResult(player, ShootResult.HIT, 9);
 
         eventListener.onApplicationEvent(event);
 
@@ -47,9 +47,9 @@ public class ShotHandlerFieldStatusEventListenerTest {
     }
 
     public void sendingFieldStatusHitMast_SendsShotResultMiss_ToQueue15() {
-        fieldStatus = new FieldStatus(coordinate, FieldState.HIT_MAST, player);
+        fieldStatus = new FieldStatus(coordinate, FieldState.HIT_MAST, player, 10);
         FieldStatusEvent event = new FieldStatusEvent(this, fieldStatus);
-        PlayerShootResult result = new PlayerShootResult(player, ShootResult.MISS);
+        PlayerShootResult result = new PlayerShootResult(player, ShootResult.MISS, 9);
 
         eventListener.onApplicationEvent(event);
 

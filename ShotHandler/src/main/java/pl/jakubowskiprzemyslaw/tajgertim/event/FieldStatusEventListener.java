@@ -30,12 +30,14 @@ public class FieldStatusEventListener implements ApplicationListener<FieldStatus
         Player player = fieldStatus.getPlayer();
         QueueObject playerShootResult;
 
+
+
         switch (fieldState) {
             case NOT_HIT_MAST:
-                playerShootResult = new PlayerShootResult(player, ShootResult.HIT);
+                playerShootResult = new PlayerShootResult(player, ShootResult.HIT, fieldStatus.getNumberOfOtherMasts());
                 break;
             default: //in if has been else, so I think default is good enough.
-                playerShootResult = new PlayerShootResult(player, ShootResult.MISS);
+                playerShootResult = new PlayerShootResult(player, ShootResult.MISS, fieldStatus.getNumberOfOtherMasts());
                 break;
         }
 

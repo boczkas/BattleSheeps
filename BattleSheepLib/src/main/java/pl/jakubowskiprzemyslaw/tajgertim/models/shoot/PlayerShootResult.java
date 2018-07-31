@@ -8,10 +8,12 @@ public class PlayerShootResult implements QueueObject {
     private static final long serialVersionUID = -1338260362408236054L;
     private Player player;
     private ShootResult shootResult;
+    private int numberOfOtherMasts;
 
-    public PlayerShootResult(Player player, ShootResult shootResult) {
+    public PlayerShootResult(Player player, ShootResult shootResult, int masts) {
         this.player = player;
         this.shootResult = shootResult;
+        this.numberOfOtherMasts = masts;
     }
 
     public Player getPlayer() {
@@ -20,6 +22,10 @@ public class PlayerShootResult implements QueueObject {
 
     public ShootResult getShootResult() {
         return shootResult;
+    }
+
+    public int getNumberOfOtherMasts() {
+        return numberOfOtherMasts;
     }
 
     @Override

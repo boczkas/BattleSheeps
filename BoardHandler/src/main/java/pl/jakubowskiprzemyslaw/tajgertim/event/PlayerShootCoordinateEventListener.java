@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import pl.jakubowskiprzemyslaw.tajgertim.models.NoSuchPlayerException;
+import pl.jakubowskiprzemyslaw.tajgertim.models.board.Mast;
+import pl.jakubowskiprzemyslaw.tajgertim.models.board.MastState;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.NoMastAtPositionException;
+import pl.jakubowskiprzemyslaw.tajgertim.models.board.Ship;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldStatus;
@@ -16,6 +19,9 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.view.PlayerBoardView;
 import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 import pl.jakubowskiprzemyslaw.tajgertim.service.BoardHandler;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
+
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 public class PlayerShootCoordinateEventListener implements ApplicationListener<PlayerShootCoordinateEvent> {
@@ -56,11 +62,33 @@ public class PlayerShootCoordinateEventListener implements ApplicationListener<P
             //TODO: do sth with this, logger or something
         }
 
+        int numberOfOtherMasts = 0;
+
+        try {
+
+            Player opponent = boardHandler.getOpponent(player);
+            List<Ship> shipList = boardHandler.getPlayerBoard(opponent).getShipList();
+
+            for (Ship ship : shipList) {
+                List<Mast> mastList = ship.getMastList();
+
+                for (Mast mast : mastList) {
+                    if (mast.getMastState().equals(MastState.NOT_HIT))
+                        numberOfOtherMasts++;
+                }
+            }
+        } catch (NoSuchPlayerException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(numberOfOtherMasts);
+
         queueService.sendObjectToQueue(Queues._17ShotHandlerFieldStatusQueue,
                 new FieldStatus(
                         shotCoordinate,
                         opponentFieldState,
-                        player
+                        player,
+                        numberOfOtherMasts
                 )
         );
 

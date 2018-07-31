@@ -77,7 +77,7 @@ function setShotResults(container) {
 }
 
 function switchRound() {
-    if(myRound === true) {
+    if (myRound === true) {
         myRound = false;
         console.log("my round");
     } else {
@@ -104,6 +104,11 @@ function subscribeToQueues(stompClient) {
     stompClient.subscribe('/synchro/boards/' + userName, function (board) {
         setShotResults(board.body);
     });
+
+    stompClient.subscribe('/synchro/winner/' + userName, function (isWinner) {
+        console.log(isWinner);
+        redirectToEnd(isWinner);
+    });
 }
 
 var userName;
@@ -113,7 +118,7 @@ function getUserName() {
         type: 'GET',
         url: 'getname',
         success: function (data) {
-           userName = data;
+            userName = data;
         }
     });
 }
@@ -123,4 +128,11 @@ function disconnect() {
         stompClient.disconnect();
     }
     console.log("Disconnected");
+}
+
+function redirectToEnd(isWinner) {
+    var ask = window.confirm(userName + " you're a " + isWinner.body);
+    if (ask) {
+        window.location.href = "gameend";
+    }
 }

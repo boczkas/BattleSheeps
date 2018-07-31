@@ -40,5 +40,9 @@ public class RabbitListenerService {
         logger.logInfo(this.getClass(), playingPlayer.toString());
         String playerID = playingPlayer.getPlayerName();
         frontendMessageSenderService.sendPlayingPlayer(playerID);
+
+        if(playingPlayer.isWinner()) {
+            frontendMessageSenderService.endGame(playerID, playingPlayer.getOpponentName());
+        }
     }
 }

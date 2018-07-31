@@ -31,7 +31,7 @@ public class JudgeQueueListenerTest {
     }
 
     public void listenOnJudgePlayerShootResultQueue_getPlayerShootResult_triggerEvent() {
-        PlayerShootResult playerShootResult = new PlayerShootResult(player, shootResult);
+        PlayerShootResult playerShootResult = new PlayerShootResult(player, shootResult, 10);
         judgeQueueListener.listenOnJudgePlayerShootResultQueue(playerShootResult);
 
         PlayerShootResultEvent event = new PlayerShootResultEvent(this, playerShootResult);

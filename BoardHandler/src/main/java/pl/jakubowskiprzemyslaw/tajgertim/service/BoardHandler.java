@@ -40,7 +40,7 @@ public class BoardHandler {
         return getPlayerFieldStatus(opponent, coordinate);
     }
 
-    private Player getOpponent(Player player) throws NoSuchPlayerException {
+    public Player getOpponent(Player player) throws NoSuchPlayerException {
         return allRoomsOpponents.getOpponent(player);
     }
 

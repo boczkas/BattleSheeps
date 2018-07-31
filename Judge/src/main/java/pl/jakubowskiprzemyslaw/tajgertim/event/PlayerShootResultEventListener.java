@@ -29,6 +29,9 @@ public class PlayerShootResultEventListener implements ApplicationListener<Playe
 
         roundStatus = getNextRoundStatusAfterShot(shootResult);
 
+        if(playerShootResult.getNumberOfOtherMasts() == 0)
+            roundStatus = RoundStatus.GAME_END;
+
         queueService.sendObjectToQueue(Queues._14PlayingStateMachineNextRoundStatusQueue, new NextRoundStatus(roundStatus));
     }
 
@@ -45,6 +48,7 @@ public class PlayerShootResultEventListener implements ApplicationListener<Playe
                 roundStatus = RoundStatus.GAME_END;
                 break;
         }
+
         return roundStatus;
     }
 }

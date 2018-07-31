@@ -3,6 +3,9 @@ package pl.jakubowskiprzemyslaw.tajgertim.event;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pl.jakubowskiprzemyslaw.tajgertim.models.NoSuchPlayerException;
+import pl.jakubowskiprzemyslaw.tajgertim.models.board.Board;
+import pl.jakubowskiprzemyslaw.tajgertim.models.board.Fleet;
+import pl.jakubowskiprzemyslaw.tajgertim.models.board.Mast;
 import pl.jakubowskiprzemyslaw.tajgertim.models.board.NoMastAtPositionException;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.Coordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.models.coordinates.FieldState;
@@ -12,6 +15,8 @@ import pl.jakubowskiprzemyslaw.tajgertim.models.shoot.PlayerShootCoordinate;
 import pl.jakubowskiprzemyslaw.tajgertim.queues.Queues;
 import pl.jakubowskiprzemyslaw.tajgertim.service.BoardHandler;
 import pl.jakubowskiprzemyslaw.tajgertim.services.QueueService;
+
+import java.util.ArrayList;
 
 import static org.mockito.Mockito.*;
 
@@ -36,9 +41,10 @@ public class PlayerShootCoordinateEventListenerTest {
 
     public void sendingPlayerShootCoordinateWithNotHitMast_SendsOpponentFieldState_ToQueue17() throws NoSuchPlayerException, NoMastAtPositionException {
         PlayerShootCoordinateEvent event = createEventForTest();
-        FieldStatus fieldStatus = new FieldStatus(coordinate, FieldState.NOT_HIT_MAST, player);
+        FieldStatus fieldStatus = new FieldStatus(coordinate, FieldState.NOT_HIT_MAST, player, 10);
+        when(boardHandler.getOpponent(player)).thenReturn(new Player("", ""));
         when(boardHandler.getOpponentFieldStatus(player, coordinate)).thenReturn(FieldState.NOT_HIT_MAST);
-
+        when(boardHandler.getPlayerBoard(player)).thenReturn(new Board(new Fleet()));
         listener.onApplicationEvent(event);
 
         verify(queueService).sendObjectToQueue(Queues._17ShotHandlerFieldStatusQueue, fieldStatus);
@@ -47,9 +53,10 @@ public class PlayerShootCoordinateEventListenerTest {
 
     public void sendingPlayerShootCoordinateWithHitMast_SendsOpponentFieldState_ToQueue17() throws NoSuchPlayerException {
         PlayerShootCoordinateEvent event = createEventForTest();
-        FieldStatus fieldStatus = new FieldStatus(coordinate, FieldState.HIT_MAST, player);
+        FieldStatus fieldStatus = new FieldStatus(coordinate, FieldState.HIT_MAST, player, 10);
         when(boardHandler.getOpponentFieldStatus(player, coordinate)).thenReturn(FieldState.HIT_MAST);
-
+        when(boardHandler.getOpponent(player)).thenReturn(new Player("", ""));
+        when(boardHandler.getPlayerBoard(player)).thenReturn(new Board(new Fleet()));
         listener.onApplicationEvent(event);
 
         verify(queueService).sendObjectToQueue(Queues._17ShotHandlerFieldStatusQueue, fieldStatus);
